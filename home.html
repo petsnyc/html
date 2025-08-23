@@ -48,7 +48,7 @@
     /* SECTION 1 — HERO */
     .hero{
       display:grid;
-      grid-template-columns: 20% 1fr; /* logo at 20% width, motto takes remaining */
+      grid-template-columns: 20% 1fr;
       gap: var(--gutter);
       align-items:center;
       max-width: var(--container-max);
@@ -79,11 +79,9 @@
     .panels{
       max-width: var(--container-max);
       margin: 0 auto;
-      /* tighter padding so panels look bigger in the 53% area */
       padding: clamp(12px, 2vw, 20px);
       display:grid;
-      grid-template-columns: 1fr 40px 1fr; /* middle col for gradient divider */
-      /* increased gap for stronger separation */
+      grid-template-columns: 1fr 40px 1fr;
       gap: clamp(16px, 3vw, 32px);
       align-items:stretch;
       width:100%;
@@ -109,7 +107,6 @@
     .panel{
       position:relative;
       border-radius: var(--radius);
-      /* modest inner padding to maximize visible area */
       padding: clamp(16px, 2.2vw, 24px);
       box-shadow: var(--shadow);
       color:white;
@@ -118,6 +115,8 @@
       justify-content:space-between;
       transition: transform .25s ease, box-shadow .25s ease;
       overflow:hidden;
+      background-size: cover;
+      background-position: center;
     }
     .panel:hover{
       transform: translateY(-6px);
@@ -136,34 +135,31 @@
       max-width: 62ch;
     }
 
-    /* Fields palette blend */
+    /* Fields with gradient + image */
     .panel.fields{
       background:
-        linear-gradient(135deg, rgba(0,0,0,.06), rgba(0,0,0,0)) ,
-        linear-gradient(165deg, var(--fields-deepgreen) 0%, var(--fields-terracotta) 100%);
+        linear-gradient(165deg, rgba(47,94,61,0.85), rgba(200,100,61,0.85)),
+        url("fields.jpeg") center/cover no-repeat;
     }
 
-    /* Quarries palette blend */
+    /* Quarries with gradient + image */
     .panel.quarries{
       background:
-        linear-gradient(135deg, rgba(0,0,0,.06), rgba(0,0,0,0)) ,
-        linear-gradient(165deg, var(--quarries-slateblue) 0%, var(--quarries-steelgray) 100%);
+        linear-gradient(165deg, rgba(73,105,124,0.85), rgba(106,111,109,0.85)),
+        url("quarries.png") center/cover no-repeat;
     }
 
     /* Buttons */
     .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; }
     .btn{
-      appearance:none;
       border:2px solid rgba(255,255,255,.92);
       background:transparent;
       color:white;
       padding:.65rem 1rem;
       border-radius: 999px;
       font-weight:600;
-      cursor:pointer;
       text-decoration:none;
-      transition: transform .06s ease, background .2s ease, color .2s ease, border-color .2s ease;
-      display:inline-flex; align-items:center; justify-content:center;
+      transition: transform .06s ease, background .2s ease, color .2s ease;
     }
     .btn:hover{ background:white; color:#111; transform:translateY(-1px); }
 
@@ -172,13 +168,13 @@
       background: var(--charcoal);
       color: var(--offwhite);
       display:grid;
-      grid-template-columns: 1fr 1fr; /* nav left / company info right */
+      grid-template-columns: 1fr 1fr;
       align-items:center;
       gap: var(--gutter);
       padding: 0 var(--gutter);
       max-width:100%;
       margin:0;
-      height:100%; /* occupy the 15vh row fully */
+      height:100%;
     }
     .nav{ display:flex; gap: clamp(14px, 2vw, 28px); flex-wrap:wrap; }
     .nav a{
@@ -216,7 +212,6 @@
       .logoWrap{ margin: 0 auto; }
       .motto{ margin-top:.25rem; }
 
-      /* Stack panels; hide decorative divider on small screens */
       .panels{
         grid-template-columns: 1fr;
         gap: clamp(12px, 3vw, 20px);
@@ -232,8 +227,8 @@
 <body>
   <main class="page">
 
-    <!-- SECTION 1: Hero (Logo + Motto) -->
-    <section class="hero" id="home" aria-label="Hero: logo and motto">
+    <!-- SECTION 1: Hero -->
+    <section class="hero" id="home">
       <div class="logoWrap">
         <img src="logo.png" alt="Planet Earth Treasures LLC logo" class="logo"/>
       </div>
@@ -242,10 +237,9 @@
       </div>
     </section>
 
-    <!-- SECTION 2: Fields / Quarries with gradient divider -->
-    <section class="panels" id="divisions" aria-label="Divisions">
-      <!-- Fields -->
-      <article class="panel fields" id="fields" aria-label="Fields Division">
+    <!-- SECTION 2: Fields / Quarries -->
+    <section class="panels" id="divisions">
+      <article class="panel fields" id="fields">
         <header>
           <h2>Fields</h2>
           <p>
@@ -254,16 +248,15 @@
           </p>
         </header>
         <div class="ctaRow">
-          <a class="btn" href="#contact" aria-label="Contact about Fields">Inquire</a>
-          <a class="btn" href="#fields" aria-label="Learn more about Fields">Learn More</a>
+          <a class="btn" href="#contact">Inquire</a>
+          <a class="btn" href="#fields">Learn More</a>
         </div>
       </article>
 
       <!-- Gradient divider vein -->
       <div class="divider" aria-hidden="true"></div>
 
-      <!-- Quarries -->
-      <article class="panel quarries" id="quarries" aria-label="Quarries Division">
+      <article class="panel quarries" id="quarries">
         <header>
           <h2>Quarries</h2>
           <p>
@@ -272,21 +265,20 @@
           </p>
         </header>
         <div class="ctaRow">
-          <a class="btn" href="#contact" aria-label="Contact about Quarries">Inquire</a>
-          <a class="btn" href="#quarries" aria-label="Learn more about Quarries">Learn More</a>
+          <a class="btn" href="#contact">Inquire</a>
+          <a class="btn" href="#quarries">Learn More</a>
         </div>
       </article>
     </section>
 
-    <!-- SECTION 3: Footer (Nav left / Company info right) -->
-    <footer id="contact" aria-label="Footer">
-      <nav class="nav" aria-label="Primary">
+    <!-- SECTION 3: Footer -->
+    <footer id="contact">
+      <nav class="nav">
         <a href="#home">Home</a>
         <a href="#fields">Fields</a>
         <a href="#quarries">Quarries</a>
         <a href="#contact">Contact Us</a>
       </nav>
-
       <address class="companyInfo">
         <strong>Planet Earth Treasures LLC</strong><br/>
         1123 Bay Ridge Pkwy, Brooklyn, NY 11228<br/>
