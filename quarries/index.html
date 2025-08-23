@@ -82,25 +82,19 @@
         linear-gradient(180deg, var(--tint-slate), transparent 60%),
         linear-gradient(0deg, var(--tint-steel), transparent 50%);
     }
-    .storyWrap{
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: clamp(16px, 3vw, 36px) var(--gutter);
-    }
-    .story h2{
-      margin: 0 0 10px 0;
-      color: var(--slateblue);
-      font-size: clamp(22px, 2.4vw, 30px);
-    }
-    .story p{
-      margin: 0 0 12px 0;
-      max-width: 72ch;
-    }
-    .accent{
-      border-left: 4px solid var(--steelgray);
-      padding-left: 14px;
-      margin: 14px 0;
-    }
+    /* /quarries/index.html — update these rules in your <style> */
+.storyWrap{
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: clamp(12px, 2.2vw, 24px) var(--gutter);
+  text-align: center;                 /* center all story text */
+}
+.story p{
+  margin: 0 auto 10px;                /* tighter spacing */
+  max-width: 90ch;                    /* longer line length -> less height */
+}
+.story .accent{ border: 0; padding: 0; }  /* remove left bar if still present */
+
 
     /* ---------- Products Grid (2 x 3) ---------- */
     .products{
@@ -275,20 +269,18 @@
   </div>
 
   <!-- STORY SECTION -->
-  <section class="story" aria-label="Our Quarries">
-    <div class="storyWrap">
-      <h2>Stone, Craft, and Continuity</h2>
-      <p class="accent">
-        From bedrock to bespoke projects, our quarry partners bring disciplined extraction and patient finishing to every block.
-      </p>
-      <p>
-        We focus on reliable veins, consistent coloration, and cuts that respect the material. Each slab reflects a practical understanding of tooling, curing, and logistics—developed over decades of production and project work.
-      </p>
-      <p>
-        Our team supports architects, fabricators, and builders with traceable sourcing, dimensional accuracy, and project-ready packing. The result is durability you can specify with confidence—and beauty that endures.
-      </p>
-    </div>
-  </section>
+  <!-- /quarries/index.html — replace the entire STORY SECTION with this -->
+<section class="story" aria-label="Our Quarries">
+  <div class="storyWrap">
+    <p>
+      From bedrock to bespoke projects, our quarry partners bring disciplined extraction and patient finishing to every block. We focus on reliable veins, consistent coloration, and cuts that respect the material—practices refined over decades of production and project work.
+    </p>
+    <p>
+      We support architects, fabricators, and builders with traceable sourcing, dimensional accuracy, and project-ready packing, so each installation delivers durability you can specify with confidence and beauty that endures.
+    </p>
+  </div>
+</section>
+
 
   <!-- PRODUCTS SECTION (2x3) -->
   <section class="products" id="products" aria-label="Stone Products">
