@@ -13,16 +13,14 @@
       /* Brand Palette */
       --charcoal:#3F4341;
       --offwhite:#FCFAF4;
-
-      /* Fields Division core */
       --terracotta:#C8643D;
       --deepgreen:#2F5E3D;
 
-      /* Light tints for page backgrounds */
+      /* Light tints for sections */
       --tint-terra: rgba(200,100,61, .08);
       --tint-green: rgba(47,94,61, .08);
 
-      /* UI */
+      /* UI tokens */
       --container-max:1200px;
       --gutter: clamp(12px, 2vw, 28px);
       --radius: 16px;
@@ -42,9 +40,9 @@
       line-height:1.5;
     }
 
-    /* ---------- Header (same style as home) ---------- */
+    /* ---------- Header (same feel as home) ---------- */
     .hero{
-      min-height: 28vh; /* inner page: slightly shorter */
+      min-height: 28vh;
       display:grid;
       grid-template-columns: 20% 1fr;
       gap: var(--gutter);
@@ -65,7 +63,6 @@
     }
     .motto .line2{ display:block; white-space:nowrap; }
 
-    /* ---------- Local Subnav (breadcrumb) ---------- */
     .localNav{
       max-width:1400px;
       margin: 0 auto;
@@ -76,7 +73,7 @@
     .localNav a{ color: inherit; text-decoration:none; border-bottom:1px dotted transparent; }
     .localNav a:hover{ border-bottom-color: currentColor; }
 
-    /* ---------- Story (light brand tints) ---------- */
+    /* ---------- Story section ---------- */
     .story{
       background:
         linear-gradient(180deg, var(--tint-green), transparent 60%),
@@ -92,17 +89,14 @@
       color: var(--deepgreen);
       font-size: clamp(22px, 2.4vw, 30px);
     }
-    .story p{
-      margin: 0 0 12px 0;
-      max-width: 72ch;
-    }
+    .story p{ margin: 0 0 12px 0; max-width: 72ch; }
     .accent{
       border-left: 4px solid var(--terracotta);
       padding-left: 14px;
       margin: 14px 0;
     }
 
-    /* ---------- Products Grid ---------- */
+    /* ---------- Products (3x3 grid) ---------- */
     .products{
       max-width: var(--container-max);
       margin: 0 auto;
@@ -119,11 +113,11 @@
 
     .grid{
       display:grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr); /* 3 x 3 */
       gap: clamp(12px, 2vw, 22px);
     }
 
-    /* --- New flat 3-band card style --- */
+    /* --- Three-band card --- */
     .card{
       position:relative;
       border-radius: var(--radius);
@@ -131,43 +125,67 @@
       box-shadow: var(--shadow);
       overflow:hidden;
       display:grid;
-      grid-template-rows: auto 1fr auto; /* Name | Desc | CTA */
-      min-height: 180px;
+      grid-template-rows: auto 1fr auto; /* Media(Name/Photo) | Desc | CTA */
+      min-height: 240px;
       transition: transform .2s ease, box-shadow .2s ease;
     }
     .card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-strong); }
 
-    /* Top-right badge that’s easy to toggle via data attribute */
+    /* Offer badge (toggle via data-offer attr) */
     .badge{
-      position:absolute;
-      top:8px; right:8px;
+      position:absolute; top:8px; right:8px;
       background: linear-gradient(135deg, var(--terracotta), var(--deepgreen));
-      color:#fff;
-      font-size:12px;
-      font-weight:800;
-      padding:6px 10px;
-      border-radius: 999px;
-      box-shadow: 0 6px 14px rgba(0,0,0,.18);
+      color:#fff; font-size:12px; font-weight:800;
+      padding:6px 10px; border-radius: 999px; box-shadow: 0 6px 14px rgba(0,0,0,.18);
     }
-    /* Toggle visibility: data-offer="hidden" | "visible" */
     .badge[data-offer="hidden"]{ display:none !important; }
     .badge[data-offer="visible"]{ display:inline-flex; }
 
-    /* Band 1: Name */
-    .band.name{
-      padding:12px 14px;
+    /* Band 1: MEDIA (name ↔ photo flip) */
+    .band.media{
+      padding:0;
       background: linear-gradient(180deg, rgba(47,94,61,.07), rgba(200,100,61,.07));
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      overflow:hidden;
+    }
+    .flip{
+      position: relative;
+      height: clamp(120px, 18vw, 160px); /* fixed band height */
+      transform-style: preserve-3d;
+      transition: transform .6s ease;
+    }
+    /* flip only when hovering/tapping the MEDIA band */
+    .band.media:hover .flip,
+    .band.media.flipped .flip{ transform: rotateY(180deg); }
+
+    .face{
+      position:absolute; inset:0;
+      backface-visibility: hidden;
+      display:flex; align-items:center; justify-content:center;
+    }
+    /* Front: centered name text */
+    .frontName{
+      padding: 10px 14px;
       color: var(--deepgreen);
-      font-weight:800;
+      font-weight: 800;
+      font-size: clamp(16px, 1.6vw, 20px);
+      text-align:center;
       letter-spacing:.2px;
     }
+    /* Back: product image */
+    .backPhoto{
+      transform: rotateY(180deg);
+      overflow:hidden;
+    }
+    .backPhoto img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
 
-    /* Band 2: Description (3 lines clamp) */
+    /* Band 2: Description (3 lines) */
     .band.desc{
       padding:12px 14px;
       font-size: 14px;
-      color: var(--ink);
-      opacity:.9;
+      color: var(--ink); opacity:.9;
       display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden;
     }
 
@@ -179,10 +197,10 @@
       background: linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.025));
     }
     .inquireLink{
-      appearance:none; border:none;
+      appearance:none; border:none; cursor:pointer;
       background: linear-gradient(135deg, var(--deepgreen), var(--terracotta));
       color:#fff; text-decoration:none;
-      padding:8px 12px; border-radius: 12px; font-weight:700; cursor:pointer;
+      padding:8px 12px; border-radius: 12px; font-weight:700;
       transition: transform .06s ease, filter .2s ease;
     }
     .inquireLink:hover{ filter: brightness(1.06); transform: translateY(-1px); }
@@ -206,60 +224,28 @@
     }
     .nav a::after{
       content:"";
-      position:absolute;
-      left:0; bottom:-6px;
-      width:0; height:2px;
-      background: var(--offwhite);
+      position:absolute; left:0; bottom:-6px;
+      width:0; height:2px; background: var(--offwhite);
       transition:width .3s ease;
     }
     .nav a:hover::after{ width:100%; }
     .companyInfo{ margin-left:auto; text-align:right; font-size: 13px; opacity:.9; }
     .companyInfo a{ color: var(--offwhite); }
 
-    /* ---------- Modal ---------- */
-    .modal{
-      position: fixed; inset:0; z-index: 50;
-      display:none;
-    }
-    .modal.open{ display:grid; place-items:center; }
-    .overlay{ position:absolute; inset:0; background: rgba(0,0,0,.5); }
-    .dialog{
-      position:relative; z-index:1; width:min(560px, 92vw);
-      background:#fff; border-radius: 16px; box-shadow: var(--shadow-strong);
-      padding: 18px;
-    }
-    .dialog h4{ margin: 0 0 8px 0; color: var(--deepgreen); }
-    .dialog form{ display:grid; gap:10px; }
-    .row{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-    input, textarea{
-      width:100%; padding:10px 12px; border-radius: 10px; border:1px solid rgba(0,0,0,.12);
-      font: inherit;
-    }
-    textarea{ min-height: 120px; resize: vertical; }
-    .dialogActions{ display:flex; gap:10px; justify-content:flex-end; margin-top: 6px; }
-    .btn{
-      appearance:none; border:none; border-radius: 10px; padding:10px 14px; font-weight:700; cursor:pointer;
-    }
-    .btn.primary{ background: linear-gradient(135deg, var(--deepgreen), var(--terracotta)); color:#fff; }
-    .btn.ghost{ background: transparent; color: var(--deepgreen); }
-
     /* ---------- Responsive ---------- */
     @media (max-width: 1024px){
       .hero{ grid-template-columns: 24% 1fr; }
-      .grid{ grid-template-columns: repeat(3, 1fr); }
     }
-    @media (max-width: 780px){
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px){
       .hero{ grid-template-columns: 1fr; text-align:center; }
       .logo{ width: 140px; margin: 0 auto 6px; }
       .motto{ font-size: clamp(22px, 6vw, 30px); }
-      .grid{ grid-template-columns: repeat(2, 1fr); }
-      .row{ grid-template-columns: 1fr; }
-      footer{ grid-template-columns: 1fr; text-align:center; }
       .companyInfo{ margin-left:0; text-align:center; }
-    }
-    @media (max-width: 420px){
+      footer{ grid-template-columns: 1fr; text-align:center; }
       .grid{ grid-template-columns: 1fr; }
-      .motto{ font-size: clamp(20px, 5.2vw, 26px); }
     }
   </style>
 </head>
@@ -268,7 +254,6 @@
   <!-- HEADER -->
   <header class="hero" id="home" aria-label="Header: logo and motto">
     <div class="logoWrap">
-      <!-- path is relative (we're inside /fields). Logo is in the parent folder. -->
       <img src="../logo.png" alt="Planet Earth Treasures LLC logo" class="logo"/>
     </div>
     <div>
@@ -301,140 +286,186 @@
   <section class="products" id="products" aria-label="Products">
     <div class="productsHeader">
       <h3>Botanicals & Herbs</h3>
-      <span class="hint">Three-band cards • Toggle offers with <code>data-offer</code></span>
+      <span class="hint">Hover/tap the top band to flip to a photo. Edit the image <code>src</code> directly in the HTML.</span>
     </div>
 
     <div class="grid">
-      <!-- Card template:
-           Badge visibility: data-offer="visible" | "hidden"
-           Change product name in data-product & text.
-      -->
       <!-- 1 -->
       <article class="card" data-product="Cumin Seeds">
         <span class="badge" data-offer="visible">Season Discount!</span>
-        <div class="band name">Cumin Seeds</div>
-        <div class="band desc">Warm, earthy aroma with a clean finish. Sourced from trusted farms with careful drying to preserve essential oils.</div>
+
+        <div class="band media">
+          <div class="flip">
+            <div class="face frontName">Cumin Seeds</div>
+            <div class="face backPhoto">
+              <img src="../images/fields/Cumin Seeds.jpg" alt="Cumin Seeds">
+            </div>
+          </div>
+        </div>
+
+        <div class="band desc">Warm, earthy aroma with a clean finish. Trusted farms and careful drying preserve essential oils.</div>
         <div class="band cta">
-          <button class="inquireLink" data-product="Cumin Seeds" aria-label="Inquire about Cumin Seeds">Inquire about Cumin Seeds</button>
+          <button class="inquireLink" data-product="Cumin Seeds">Inquire about Cumin Seeds</button>
         </div>
       </article>
 
       <!-- 2 -->
       <article class="card" data-product="Hibiscus">
         <span class="badge" data-offer="hidden">Season Discount!</span>
-        <div class="band name">Hibiscus</div>
-        <div class="band desc">Deep ruby calyces ideal for beverages. Tart floral notes with consistent color, low moisture, and careful screening.</div>
+
+        <div class="band media">
+          <div class="flip">
+            <div class="face frontName">Hibiscus</div>
+            <div class="face backPhoto">
+              <img src="../images/fields/Hibiscus.jpg" alt="Hibiscus">
+            </div>
+          </div>
+        </div>
+
+        <div class="band desc">Deep ruby calyces for beverages. Tart floral notes, consistent color, low moisture, and careful screening.</div>
         <div class="band cta">
-          <button class="inquireLink" data-product="Hibiscus" aria-label="Inquire about Hibiscus">Inquire about Hibiscus</button>
+          <button class="inquireLink" data-product="Hibiscus">Inquire about Hibiscus</button>
         </div>
       </article>
 
       <!-- 3 -->
       <article class="card" data-product="Moringa Seeds">
         <span class="badge" data-offer="visible">Season Discount!</span>
-        <div class="band name">Moringa Seeds</div>
-        <div class="band desc">Hand-sorted lots with clean appearance. Reliable oil content and stable storage characteristics for consistent production.</div>
+
+        <div class="band media">
+          <div class="flip">
+            <div class="face frontName">Moringa Seeds</div>
+            <div class="face backPhoto">
+              <img src="../images/fields/Moringa Seeds.jpg" alt="Moringa Seeds">
+            </div>
+          </div>
+        </div>
+
+        <div class="band desc">Hand-sorted lots with clean appearance. Reliable oil content and stable storage characteristics.</div>
         <div class="band cta">
-          <button class="inquireLink" data-product="Moringa Seeds" aria-label="Inquire about Moringa Seeds">Inquire about Moringa Seeds</button>
+          <button class="inquireLink" data-product="Moringa Seeds">Inquire about Moringa Seeds</button>
         </div>
       </article>
 
       <!-- 4 -->
       <article class="card" data-product="Chamomile">
         <span class="badge" data-offer="hidden">Season Discount!</span>
-        <div class="band name">Chamomile</div>
-        <div class="band desc">Sweet, apple-like fragrance with bright color. Low foreign matter and reliable sieve sizes for uniform infusions.</div>
+
+        <div class="band media">
+          <div class="flip">
+            <div class="face frontName">Chamomile</div>
+            <div class="face backPhoto">
+              <img src="../images/fields/Chamomile.jpg" alt="Chamomile">
+            </div>
+          </div>
+        </div>
+
+        <div class="band desc">Sweet, apple-like fragrance with bright color. Low foreign matter and reliable sieve sizes.</div>
         <div class="band cta">
-          <button class="inquireLink" data-product="Chamomile" aria-label="Inquire about Chamomile">Inquire about Chamomile</button>
+          <button class="inquireLink" data-product="Chamomile">Inquire about Chamomile</button>
         </div>
       </article>
 
       <!-- 5 -->
       <article class="card" data-product="Zaatar">
         <span class="badge" data-offer="hidden">Season Discount!</span>
-        <div class="band name">Zaatar</div>
-        <div class="band desc">Traditional blends and single-origin leaves. Clean, aromatic character suitable for spice mixes and retail packs.</div>
+
+        <div class="band media">
+          <div class="flip">
+            <div class="face frontName">Zaatar</div>
+            <div class="face backPhoto">
+              <img src="../images/fields/Zaatar.jpg" alt="Zaatar">
+            </div>
+          </div>
+        </div>
+
+        <div class="band desc">Traditional blends and single-origin leaves. Clean, aromatic, and suitable for spice mixes.</div>
         <div class="band cta">
-          <button class="inquireLink" data-product="Zaatar" aria-label="Inquire about Zaatar">Inquire about Zaatar</button>
+          <button class="inquireLink" data-product="Zaatar">Inquire about Zaatar</button>
         </div>
       </article>
 
       <!-- 6 -->
       <article class="card" data-product="Oregano">
         <span class="badge" data-offer="visible">Season Discount!</span>
-        <div class="band name">Oregano</div>
-        <div class="band desc">Robust herbal profile with dependable volatile oil levels. Ideal for sauces, seasoning lines, and food service.</div>
+
+        <div class="band media">
+          <div class="flip">
+            <div class="face frontName">Oregano</div>
+            <div class="face backPhoto">
+              <img src="../images/fields/Oregano.jpg" alt="Oregano">
+            </div>
+          </div>
+        </div>
+
+        <div class="band desc">Robust herbal profile with dependable volatile oil levels. Ideal for sauces and seasoning lines.</div>
         <div class="band cta">
-          <button class="inquireLink" data-product="Oregano" aria-label="Inquire about Oregano">Inquire about Oregano</button>
+          <button class="inquireLink" data-product="Oregano">Inquire about Oregano</button>
         </div>
       </article>
 
       <!-- 7 -->
       <article class="card" data-product="Anise Seeds">
         <span class="badge" data-offer="hidden">Season Discount!</span>
-        <div class="band name">Anise Seeds</div>
-        <div class="band desc">Clean, sweet aroma with uniform size. Carefully screened for bakery and confectionery specifications.</div>
+
+        <div class="band media">
+          <div class="flip">
+            <div class="face frontName">Anise Seeds</div>
+            <div class="face backPhoto">
+              <img src="../images/fields/Anise Seeds.jpg" alt="Anise Seeds">
+            </div>
+          </div>
+        </div>
+
+        <div class="band desc">Clean, sweet aroma with uniform size. Carefully screened for bakery and confectionery specs.</div>
         <div class="band cta">
-          <button class="inquireLink" data-product="Anise Seeds" aria-label="Inquire about Anise Seeds">Inquire about Anise Seeds</button>
+          <button class="inquireLink" data-product="Anise Seeds">Inquire about Anise Seeds</button>
         </div>
       </article>
 
       <!-- 8 -->
       <article class="card" data-product="Fenugreek">
         <span class="badge" data-offer="hidden">Season Discount!</span>
-        <div class="band name">Fenugreek</div>
-        <div class="band desc">Amber seeds with balanced bitterness. Screened to spec and ready for grinding or specialty blends.</div>
+
+        <div class="band media">
+          <div class="flip">
+            <div class="face frontName">Fenugreek</div>
+            <div class="face backPhoto">
+              <img src="../images/fields/Fenugreek.jpg" alt="Fenugreek">
+            </div>
+          </div>
+        </div>
+
+        <div class="band desc">Amber seeds with balanced bitterness. Screened to spec and ready for grinding.</div>
         <div class="band cta">
-          <button class="inquireLink" data-product="Fenugreek" aria-label="Inquire about Fenugreek">Inquire about Fenugreek</button>
+          <button class="inquireLink" data-product="Fenugreek">Inquire about Fenugreek</button>
         </div>
       </article>
 
       <!-- 9 -->
       <article class="card" data-product="Coriander Seeds">
         <span class="badge" data-offer="visible">Season Discount!</span>
-        <div class="band name">Coriander Seeds</div>
-        <div class="band desc">Citrusy and warm profile with consistent size and low splits. Packed to preserve volatile flavor compounds.</div>
-        <div class="band cta">
-          <button class="inquireLink" data-product="Coriander Seeds" aria-label="Inquire about Coriander Seeds">Inquire about Coriander Seeds</button>
-        </div>
-      </article>
 
-      <!-- 10 -->
-      <article class="card" data-product="Dill Seeds">
-        <span class="badge" data-offer="hidden">Season Discount!</span>
-        <div class="band name">Dill Seeds</div>
-        <div class="band desc">Clean, bright character suitable for pickling blends and spice packs with reliable sieve sizing.</div>
-        <div class="band cta">
-          <button class="inquireLink" data-product="Dill Seeds" aria-label="Inquire about Dill Seeds">Inquire about Dill Seeds</button>
+        <div class="band media">
+          <div class="flip">
+            <div class="face frontName">Coriander Seeds</div>
+            <div class="face backPhoto">
+              <img src="../images/fields/Coriander Seeds.jpg" alt="Coriander Seeds">
+            </div>
+          </div>
         </div>
-      </article>
 
-      <!-- 11 -->
-      <article class="card" data-product="Fennel Seeds">
-        <span class="badge" data-offer="hidden">Season Discount!</span>
-        <div class="band name">Fennel Seeds</div>
-        <div class="band desc">Sweet and aromatic with a clean cut. Consistent color and low extraneous matter for smooth processing.</div>
+        <div class="band desc">Citrusy and warm, with consistent size and low splits. Packed to preserve flavor.</div>
         <div class="band cta">
-          <button class="inquireLink" data-product="Fennel Seeds" aria-label="Inquire about Fennel Seeds">Inquire about Fennel Seeds</button>
+          <button class="inquireLink" data-product="Coriander Seeds">Inquire about Coriander Seeds</button>
         </div>
       </article>
-
-      <!-- 12 -->
-      <article class="card" data-product="Sesame Seeds">
-        <span class="badge" data-offer="visible">Season Discount!</span>
-        <div class="band name">Sesame Seeds</div>
-        <div class="band desc">Even size and color, suitable for bakery and tahini applications with dependable shelf stability.</div>
-        <div class="band cta">
-          <button class="inquireLink" data-product="Sesame Seeds" aria-label="Inquire about Sesame Seeds">Inquire about Sesame Seeds</button>
-        </div>
-      </article>
-    </div> <!-- /grid -->
+    </div>
   </section>
 
   <!-- FOOTER -->
   <footer id="contact" aria-label="Footer">
     <nav class="nav" aria-label="Primary">
-      <!-- links adjusted for subfolder -->
       <a href="../index.html#home">Home</a>
       <a href="./index.html">Fields</a>
       <a href="../index.html#quarries">Quarries</a>
@@ -468,8 +499,17 @@
   </div>
 
   <script>
-    // Modal open/close + mailto submit (reuses earlier behavior)
+    // Flip-on-tap for touch screens: only the MEDIA band toggles
     (function(){
+      const mediaBands = document.querySelectorAll('.band.media');
+      const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+      if (isCoarse) {
+        mediaBands.forEach(band => {
+          band.addEventListener('click', () => band.classList.toggle('flipped'));
+        });
+      }
+
+      // Modal logic
       const modal = document.getElementById('inquireModal');
       const productSpan = document.getElementById('inqProduct');
       const productInput = document.getElementById('productInput');
