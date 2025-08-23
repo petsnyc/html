@@ -39,7 +39,7 @@
       line-height:1.35;
     }
 
-    /* Desktop/Tablet Page ratio: 32% / 53% / 15% of viewport height */
+    /* Page ratio: 32% / 53% / 15% of viewport height */
     .page{
       min-height:100vh;
       display:grid;
@@ -77,11 +77,11 @@
     }
     /* Force the second line for the motto */
     .motto .line2{
-      display:block;              /* puts it on a new line */
-      white-space:nowrap;         /* keeps the phrase together */
+      display:block;
+      white-space:nowrap;
     }
 
-    /* SECTION 2 — FIELDS & QUARRIES (Desktop/Tablet) */
+    /* SECTION 2 — FIELDS & QUARRIES */
     .panels{
       max-width: var(--container-max);
       margin: 0 auto;
@@ -124,7 +124,10 @@
       background-size: cover;
       background-position: center;
     }
-    .panel:hover{ transform: translateY(-6px); box-shadow: var(--shadow-strong); }
+    .panel:hover{
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-strong);
+    }
 
     .panel h2{
       margin:0 0 .5rem 0;
@@ -152,7 +155,7 @@
         url("quarries.png") center/cover no-repeat;
     }
 
-    /* Buttons inside panels (desktop) */
+    /* Buttons */
     .ctaRow{ display:flex; gap:10px; flex-wrap:wrap; }
     .btn{
       border:2px solid rgba(255,255,255,.92);
@@ -166,7 +169,7 @@
     }
     .btn:hover{ background:white; color:#111; transform:translateY(-1px); }
 
-    /* Mobile-only “panelLink” (show on mobile) */
+    /* Mobile-only “panelLink” (used on mobile as simple CTA) */
     .panelLink{
       display:none;
     }
@@ -218,21 +221,19 @@
 
     /* ======= MOBILE MODE ======= */
     @media (max-width: 640px){
-      /* Let content flow naturally (no forced vh rows) */
       .page{
         display:block;
-        min-height:100dvh; /* safe viewport on mobile */
+        min-height:100dvh;
       }
 
-      /* HERO stacks: logo first, motto below */
       .hero{
         display:block;
         text-align:center;
-        padding: 12px 12px 8px; /* a bit tighter */
-        margin: 0;             /* avoid extra margins */
+        padding: 12px 12px 8px;
+        margin: 0;
       }
       .logo{
-        width: 120px;          /* reduced to prevent overlap */
+        width: 120px;
         margin: 0 auto 6px;
       }
       .motto{
@@ -240,39 +241,34 @@
         line-height: 1.15;
         margin: 0 0 6px 0;
       }
-      /* Keep the second line intact but avoid overflow on very narrow phones */
       @media (max-width: 360px){
         .motto{ font-size: clamp(18px, 5.2vw, 24px); }
       }
 
-      /* PANELS become taller “cards” with title + subtext (no overlap with hero) */
       .panels{
         display:flex;
         flex-direction:column;
         gap: 14px;
         padding: 0 12px 8px;
         max-width: 560px;
-        margin: 6px auto 0;     /* small top margin below hero */
-        transform: none;        /* no float-up */
+        margin: 6px auto 0;
+        transform: none;
       }
 
       .panel{
         padding: 14px 16px;
         border-radius: 16px;
         box-shadow: var(--shadow);
-        background: transparent; /* base; specific gradients below */
+        background: transparent;
         color: #fff;
-        min-height: 120px;       /* room for title + sub text */
+        min-height: 120px;
         display:flex;
         flex-direction:column;
         justify-content:center;
       }
-      .panel h2{
-        margin: 0 0 4px 0;
-        font-size: 18px;
-      }
+      .panel h2{ font-size: 18px; margin:0 0 4px; }
       .panel p{
-        display: -webkit-box;        /* line clamp for two lines */
+        display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
@@ -280,10 +276,9 @@
         font-size: 14px;
         opacity: .95;
       }
-      /* hide desktop CTA row on mobile to keep it clean */
       .panel .ctaRow{ display:none; }
 
-      /* Mobile CTA under sub text */
+      /* Mobile CTA buttons go to subpages */
       .panelLink{
         display:inline-flex;
         align-items:center;
@@ -299,27 +294,19 @@
         box-shadow: var(--shadow);
         align-self:flex-start;
       }
-      .panelLink:active{ transform: scale(.985); }
 
-      /* Gradient-only backgrounds on mobile (no heavy images) */
-      .panel.fields{
-        background: linear-gradient(135deg, var(--fields-deepgreen), var(--fields-terracotta));
-      }
-      .panel.quarries{
-        background: linear-gradient(135deg, var(--quarries-slateblue), var(--quarries-steelgray));
-      }
+      .panel.fields{ background: linear-gradient(135deg, var(--fields-deepgreen), var(--fields-terracotta)); }
+      .panel.quarries{ background: linear-gradient(135deg, var(--quarries-slateblue), var(--quarries-steelgray)); }
 
-      /* Hide the decorative divider on mobile */
       .divider{ display:none; }
 
-      /* Footer: minimum height possible */
       footer{
         display:flex;
         flex-wrap:wrap;
         gap: 8px 12px;
         align-items:center;
         justify-content:center;
-        padding: 8px 12px;     /* small padding */
+        padding: 8px 12px;
       }
       .nav{
         gap: 14px;
@@ -344,7 +331,7 @@
         <img src="logo.png" alt="Planet Earth Treasures LLC logo" class="logo"/>
       </div>
       <div>
-        <!-- Force the phrase to be on line 2 -->
+        <!-- Force phrase to line 2 -->
         <h1 class="motto">“Nature’s Finest Treasures,<span class="line2">Shared with the World”</span></h1>
       </div>
     </section>
@@ -360,18 +347,15 @@
             From farm to market, we emphasize freshness, traceability, and quality.
           </p>
         </header>
-
-        <!-- Desktop CTAs -->
         <div class="ctaRow">
           <a class="btn" href="#contact" aria-label="Contact about Fields">Inquire</a>
-          <a class="btn" href="#fields" aria-label="Learn more about Fields">Learn More</a>
+          <a class="btn" href="./fields/index.html" aria-label="Learn more about Fields">Learn More</a>
         </div>
-
-        <!-- Mobile CTA -->
-        <a class="panelLink" href="#fields" aria-label="Explore Fields">Explore Fields</a>
+        <!-- Mobile CTA to subpage -->
+        <a class="panelLink" href="./fields/index.html" aria-label="Explore Fields">Explore Fields</a>
       </article>
 
-      <!-- Gradient divider vein (desktop only) -->
+      <!-- Gradient divider vein -->
       <div class="divider" aria-hidden="true"></div>
 
       <!-- Quarries -->
@@ -383,15 +367,12 @@
             Consistent grading, global logistics, and bespoke project support.
           </p>
         </header>
-
-        <!-- Desktop CTAs -->
         <div class="ctaRow">
           <a class="btn" href="#contact" aria-label="Contact about Quarries">Inquire</a>
-          <a class="btn" href="#quarries" aria-label="Learn more about Quarries">Learn More</a>
+          <a class="btn" href="./quarries/index.html" aria-label="Learn more about Quarries">Learn More</a>
         </div>
-
-        <!-- Mobile CTA -->
-        <a class="panelLink" href="#quarries" aria-label="Explore Quarries">Explore Quarries</a>
+        <!-- Mobile CTA to subpage -->
+        <a class="panelLink" href="./quarries/index.html" aria-label="Explore Quarries">Explore Quarries</a>
       </article>
     </section>
 
@@ -399,8 +380,8 @@
     <footer id="contact" aria-label="Footer">
       <nav class="nav" aria-label="Primary">
         <a href="#home">Home</a>
-        <a href="#fields">Fields</a>
-        <a href="#quarries">Quarries</a>
+        <a href="./fields/index.html">Fields</a>
+        <a href="./quarries/index.html">Quarries</a>
         <a href="#contact">Contact Us</a>
       </nav>
 
@@ -413,4 +394,3 @@
   </main>
 </body>
 </html>
-
