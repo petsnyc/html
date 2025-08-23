@@ -79,22 +79,20 @@
         linear-gradient(180deg, var(--tint-green), transparent 60%),
         linear-gradient(0deg, var(--tint-terra), transparent 50%);
     }
-    .storyWrap{
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: clamp(16px, 3vw, 36px) var(--gutter);
-    }
-    .story h2{
-      margin: 0 0 10px 0;
-      color: var(--deepgreen);
-      font-size: clamp(22px, 2.4vw, 30px);
-    }
-    .story p{ margin: 0 0 12px 0; max-width: 72ch; }
-    .accent{
-      border-left: 4px solid var(--terracotta);
-      padding-left: 14px;
-      margin: 14px 0;
-    }
+
+
+/* /fields/index.html — update these rules in your <style> */
+.storyWrap{
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: clamp(12px, 2.2vw, 24px) var(--gutter);
+  text-align: center;                 /* center all story text */
+}
+.story p{
+  margin: 0 auto 10px;                /* tighter spacing */
+  max-width: 90ch;                    /* longer line length -> less height */
+}
+.story .accent{ border: 0; padding: 0; }  /* remove left bar if still present */
 
     /* ---------- Products (3x3 grid) ---------- */
     .products{
@@ -309,20 +307,18 @@ textarea{ min-height: 120px; resize: vertical; }
   </header>
 
   <!-- STORY SECTION -->
-  <section class="story" aria-label="Our Story">
-    <div class="storyWrap">
-      <h2>Our Fields Story</h2>
-      <p class="accent">
-        We are a <strong>family business</strong> shaped by seasons, soil, and the steady rhythm of careful cultivation.
-      </p>
-      <p>
-        For generations, our growers have passed down practical wisdom and patient methods—harvesting at the right hour, drying at the right pace, and protecting aroma at every step. This living <strong>heritage</strong> guides how we select, sort, and prepare our botanicals today.
-      </p>
-      <p>
-        We serve chefs, importers, and manufacturers who value traceability and consistency. But the heart of our work is simpler: honoring the <strong>culture</strong> around each herb—its origin, its people, and the recipes that keep communities connected.
-      </p>
-    </div>
-  </section>
+<!-- /fields/index.html — replace the entire STORY SECTION with this -->
+<section class="story" aria-label="Our Story">
+  <div class="storyWrap">
+    <p>
+      We are a <strong>family business</strong> shaped by seasons, soil, and the steady rhythm of careful cultivation. For generations, our growers have passed down practical wisdom and patient methods—harvesting at the right hour, drying at the right pace, and protecting aroma at every step. This living <strong>heritage</strong> guides how we select, sort, and prepare our botanicals today.
+    </p>
+    <p>
+      We serve chefs, importers, and manufacturers who value traceability and consistency. At the heart of our work is honoring the <strong>culture</strong> around each herb—its origin, its people, and the recipes that keep communities connected.
+    </p>
+  </div>
+</section>
+
 
   <!-- PRODUCTS SECTION -->
   <section class="products" id="products" aria-label="Products">
