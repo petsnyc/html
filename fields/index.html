@@ -480,7 +480,7 @@
   </footer>
 
   <!-- INQUIRY MODAL -->
-  <div class="modal" id="inquireModal" aria-hidden="true" role="dialog" aria-labelledby="inqTitle">
+<div class="modal" id="inquireModal" aria-hidden="true" role="dialog" aria-labelledby="inqTitle" hidden>
     <div class="overlay" data-close></div>
     <div class="dialog">
       <h4 id="inqTitle">Inquire about <span id="inqProduct">Product</span></h4>
@@ -517,17 +517,21 @@
       const productInput = document.getElementById('productInput');
       const form = document.getElementById('inqForm');
 
-      function openModal(product){
-        productSpan.textContent = product;
-        productInput.value = product;
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden','false');
-        setTimeout(()=>document.getElementById('nameInput').focus(), 50);
-      }
-      function closeModal(){
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden','true');
-      }
+function openModal(product){
+  productSpan.textContent = product;
+  productInput.value = product;
+  modal.classList.add('open');
+  modal.removeAttribute('hidden');            // <— show
+  modal.setAttribute('aria-hidden','false');
+  setTimeout(()=>document.getElementById('nameInput').focus(), 50);
+}
+
+function closeModal(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  modal.setAttribute('hidden','');            // <— hide
+}
+
 
       document.querySelectorAll('.inquireLink').forEach(btn=>{
         btn.addEventListener('click', (e)=>{
