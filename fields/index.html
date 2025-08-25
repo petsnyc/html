@@ -855,6 +855,7 @@
         //
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
+
           const payload = {
             product: document.getElementById("productInput").value,
             name: document.getElementById("nameInput").value,
@@ -865,13 +866,21 @@
             userAgent: navigator.userAgent,
           };
 
-          await fetch(INQUIRY_ENDPOINT, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
+          try {
+            await fetch(INQUIRY_ENDPOINT, {
+              method: "POST",
+              mode: "no-cors", // <-- avoid CORS checks
+              headers: { "Content-Type": "text/plain;charset=utf-8" }, // <-- no JSON header
+              body: JSON.stringify(payload), // Apps Script reads e.postData.contents
+            });
+            // You cannot read the response in no-cors mode (it's opaque).
+            alert("Thanks! Your inquiry was sent.");
+          } catch (err) {
+            alert(
+              "We couldn’t send your inquiry. Please email info@planetearthtreasures.com"
+            );
+          }
 
-          alert("Thanks! Your inquiry was sent.");
           closeModal();
           form.reset();
         });
