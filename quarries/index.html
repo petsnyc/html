@@ -776,49 +776,49 @@
         }
 
         // Submit to Google Sheet
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
+        //         form.addEventListener("submit", async (e) => {
+        //           e.preventDefault();
 
-          const payload = {
-            product: document.getElementById("productInput").value,
-            name: document.getElementById("nameInput").value,
-            email: document.getElementById("emailInput").value,
-            qty: document.getElementById("qtyInput").value,
-            message: document.getElementById("msgInput").value,
-            sourcePage: location.pathname,
-            userAgent: navigator.userAgent,
-          };
+        //           const payload = {
+        //             product: document.getElementById("productInput").value,
+        //             name: document.getElementById("nameInput").value,
+        //             email: document.getElementById("emailInput").value,
+        //             qty: document.getElementById("qtyInput").value,
+        //             message: document.getElementById("msgInput").value,
+        //             sourcePage: location.pathname,
+        //             userAgent: navigator.userAgent,
+        //           };
 
-          try {
-            const res = await fetch(INQUIRY_ENDPOINT, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(payload),
-            });
+        //           try {
+        //             const res = await fetch(INQUIRY_ENDPOINT, {
+        //               method: "POST",
+        //               headers: { "Content-Type": "application/json" },
+        //               body: JSON.stringify(payload),
+        //             });
 
-            // Optional: check response
-            // const data = await res.json();
+        //             // Optional: check response
+        //             // const data = await res.json();
 
-            alert("Thanks! Your inquiry was sent.");
-            closeModal();
-            form.reset();
-          } catch (err) {
-            // Fallback to mailto if the POST fails (optional)
-            const subject = encodeURIComponent(
-              `Inquiry about ${payload.product}`
-            );
-            const body = encodeURIComponent(
-              `Product: ${payload.product}
-Name: ${payload.name}
-Email: ${payload.email}
-Quantity: ${payload.qty}
-Message:
-${payload.message}`
-            );
-            window.location.href = `mailto:info@planetearthtreasures.com?subject=${subject}&body=${body}`;
-            closeModal();
-          }
-        });
+        //             alert("Thanks! Your inquiry was sent.");
+        //             closeModal();
+        //             form.reset();
+        //           } catch (err) {
+        //             // Fallback to mailto if the POST fails (optional)
+        //             const subject = encodeURIComponent(
+        //               `Inquiry about ${payload.product}`
+        //             );
+        //             const body = encodeURIComponent(
+        //               `Product: ${payload.product}
+        // Name: ${payload.name}
+        // Email: ${payload.email}
+        // Quantity: ${payload.qty}
+        // Message:
+        // ${payload.message}`
+        //             );
+        //             window.location.href = `mailto:info@planetearthtreasures.com?subject=${subject}&body=${body}`;
+        //             closeModal();
+        //           }
+        //         });
 
         document.querySelectorAll(".inquireLink").forEach((btn) => {
           btn.addEventListener("click", (e) => {
@@ -838,7 +838,7 @@ ${payload.message}`
           if (e.key === "Escape") closeModal();
         });
 
-        // Mailto submit
+        // google  submit
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
 
