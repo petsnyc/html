@@ -817,21 +817,6 @@
         const productInput = document.getElementById("productInput");
         const form = document.getElementById("inqForm");
 
-        // function openModal(product) {
-        //   productSpan.textContent = product;
-        //   productInput.value = product;
-        //   modal.classList.add("open");
-        //   modal.removeAttribute("hidden"); // <— show
-        //   modal.setAttribute("aria-hidden", "false");
-        //   setTimeout(() => document.getElementById("nameInput").focus(), 50);
-        // }
-
-        // function closeModal() {
-        //   modal.classList.remove("open");
-        //   modal.setAttribute("aria-hidden", "true");
-        //   modal.setAttribute("hidden", ""); // <— hide
-        // }
-
         function openModal(product) {
           productSpan.textContent = product;
           productInput.value = product;
@@ -867,26 +852,28 @@
           if (e.key === "Escape") closeModal();
         });
 
-        // Mailto submit
-        form.addEventListener("submit", (e) => {
+        //
+        form.addEventListener("submit", async (e) => {
           e.preventDefault();
-          const product = productInput.value;
-          const name = document.getElementById("nameInput").value;
-          const email = document.getElementById("emailInput").value;
-          const qty = document.getElementById("qtyInput").value;
-          const msg = document.getElementById("msgInput").value;
+          const payload = {
+            product: document.getElementById("productInput").value,
+            name: document.getElementById("nameInput").value,
+            email: document.getElementById("emailInput").value,
+            qty: document.getElementById("qtyInput").value,
+            message: document.getElementById("msgInput").value,
+            sourcePage: location.pathname,
+            userAgent: navigator.userAgent,
+          };
 
-          const subject = encodeURIComponent(`Inquiry about ${product}`);
-          const body = encodeURIComponent(
-            `Product: ${product}
-Name: ${name}
-Email: ${email}
-Quantity: ${qty}
-Message:
-${msg}`
-          );
-          window.location.href = `mailto:info@planetearthtreasures.com?subject=${subject}&body=${body}`;
+          await fetch(INQUIRY_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          alert("Thanks! Your inquiry was sent.");
           closeModal();
+          form.reset();
         });
       })();
     </script>
