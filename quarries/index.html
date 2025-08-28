@@ -53,7 +53,7 @@
         line-height: 1.5;
       }
 
-      /* ---------- Header (same as home) ---------- */
+      /* ---------- Header (same feel as other pages) ---------- */
       .hero {
         min-height: 28vh;
         display: grid;
@@ -104,28 +104,23 @@
         border-bottom-color: currentColor;
       }
 
-      /* ---------- Story (light brand tints) ---------- */
+      /* ---------- Story (centered, compact height) ---------- */
       .story {
         background: linear-gradient(180deg, var(--tint-slate), transparent 60%),
           linear-gradient(0deg, var(--tint-steel), transparent 50%);
       }
-      /* /quarries/index.html — update these rules in your <style> */
       .storyWrap {
         max-width: var(--container-max);
         margin: 0 auto;
         padding: clamp(12px, 2.2vw, 24px) var(--gutter);
-        text-align: center; /* center all story text */
+        text-align: center;
       }
       .story p {
-        margin: 0 auto 10px; /* tighter spacing */
-        max-width: 90ch; /* longer line length -> less height */
+        margin: 0 auto 10px;
+        max-width: 90ch; /* longer line => less vertical space */
       }
-      .story .accent {
-        border: 0;
-        padding: 0;
-      } /* remove left bar if still present */
 
-      /* ---------- Products Grid (2 x 3) ---------- */
+      /* ---------- Products Grid (2 columns) ---------- */
       .products {
         max-width: var(--container-max);
         margin: 0 auto;
@@ -149,7 +144,10 @@
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 x 3 */
+        grid-template-columns: repeat(
+          2,
+          1fr
+        ); /* 2-wide; add more cards freely */
         gap: clamp(12px, 2vw, 22px);
       }
 
@@ -181,11 +179,10 @@
         font-weight: 800;
         padding: 6px 10px;
         border-radius: 999px;
-        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
-
-        border: 2px solid #e53935; /* red border */
+        /* highlight with red border as requested */
+        border: 2px solid #e53935;
         box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.15),
-          /* subtle glow ring */ 0 6px 14px rgba(0, 0, 0, 0.18); /* existing shadow */
+          0 6px 14px rgba(0, 0, 0, 0.18);
       }
       .badge[data-offer="hidden"] {
         display: none !important;
@@ -286,17 +283,6 @@
         transform: translateY(-1px);
       }
 
-      .modal {
-        position: fixed;
-        inset: 0;
-        z-index: 50;
-        display: grid;
-        place-items: center;
-      }
-      .modal[hidden] {
-        display: none !important;
-      } /* this is what makes the attribute work */
-
       /* ---------- Footer (same as home) ---------- */
       footer {
         background: var(--charcoal);
@@ -341,16 +327,87 @@
         color: var(--offwhite);
       }
 
-      /* ---------- Responsive ---------- */
-      @media (max-width: 1024px) {
-        .hero {
-          grid-template-columns: 24% 1fr;
-        }
+      /* ---------- Modal (class-based, hidden by default) ---------- */
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: grid;
+        place-items: center;
       }
+      .modal[hidden] {
+        display: none !important;
+      }
+      .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+      }
+      .dialog {
+        position: relative;
+        z-index: 1;
+        width: min(560px, 92vw);
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: var(--shadow-strong);
+        padding: 18px;
+      }
+      .dialog h4 {
+        margin: 0 0 8px;
+        color: var(--slateblue);
+      }
+      .dialog form {
+        display: grid;
+        gap: 10px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        font: inherit;
+      }
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+      .dialogActions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 6px;
+      }
+      .btn {
+        appearance: none;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn.primary {
+        background: linear-gradient(135deg, var(--slateblue), var(--steelgray));
+        color: #fff;
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--slateblue);
+      }
+
+      /* ---------- Responsive ---------- */
       @media (max-width: 900px) {
         .grid {
           grid-template-columns: 1fr;
         } /* stack on narrow screens */
+        .row {
+          grid-template-columns: 1fr;
+        }
       }
       @media (max-width: 780px) {
         .hero {
@@ -394,8 +451,12 @@
       </div>
     </header>
 
-    <!-- STORY SECTION -->
-    <!-- /quarries/index.html — replace the entire STORY SECTION with this -->
+    <!-- Breadcrumb -->
+    <div class="localNav">
+      <a href="../index.html#home">Home</a> · <strong>Quarries</strong>
+    </div>
+
+    <!-- STORY SECTION (no title, centered text) -->
     <section class="story" aria-label="Our Quarries">
       <div class="storyWrap">
         <p>
@@ -406,19 +467,21 @@
           work.
         </p>
         <p>
-          We support architects, fabricators, and builders with traceable
-          sourcing, dimensional accuracy, and project-ready packing, so each
-          installation delivers durability you can specify with confidence and
-          beauty that endures.
+          Our team supports architects, fabricators, and builders with traceable
+          sourcing, dimensional accuracy, and project-ready packing—so every
+          installation delivers durable performance and lasting beauty.
         </p>
       </div>
     </section>
 
-    <!-- PRODUCTS SECTION (2x3) -->
-    <!-- /quarries/index.html — replace the entire PRODUCTS SECTION with this -->
+    <!-- PRODUCTS SECTION -->
     <section class="products" id="products" aria-label="Stone Products">
       <div class="productsHeader">
         <h3>Selected Stone</h3>
+        <span class="hint"
+          >Hover/tap the top band to flip to a photo. Edit each image
+          <code>src</code> directly in the HTML.</span
+        >
       </div>
 
       <div class="grid">
@@ -430,13 +493,16 @@
             <div class="flip">
               <div class="face frontName">Galala Marble</div>
               <div class="face backPhoto">
-                <img src="../images/quarries/galala.jpg" alt="Galala Marble" />
+                <img
+                  src="../images/quarries/Galala_Marble.jpg"
+                  alt="Galala Marble"
+                />
               </div>
             </div>
           </div>
 
           <div class="band desc">
-            Warm beige tone with consistent background, suitable for interior
+            Warm beige tone with consistent background; excellent for interior
             flooring and wall cladding.
           </div>
           <div class="band cta">
@@ -455,7 +521,7 @@
               <div class="face frontName">Sunny Marble</div>
               <div class="face backPhoto">
                 <img
-                  src="../images/quarries/sunny_marble.png"
+                  src="../images/quarries/Sunny_Marble.jpg"
                   alt="Sunny Marble"
                 />
               </div>
@@ -463,8 +529,8 @@
           </div>
 
           <div class="band desc">
-            Golden-beige body with subtle veining; versatile for countertops,
-            tiles, and façades.
+            Golden-beige body with subtle veining; versatile for tiles,
+            countertops, and façades.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Sunny Marble">
@@ -482,7 +548,7 @@
               <div class="face frontName">Sinai Pearl Marble (Triesta)</div>
               <div class="face backPhoto">
                 <img
-                  src="../images/quarries/sinai_marble.png"
+                  src="../images/quarries/Sinai_Pearl_Marble_Triesta.jpg"
                   alt="Sinai Pearl Marble (Triesta)"
                 />
               </div>
@@ -511,7 +577,7 @@
             <div class="flip">
               <div class="face frontName">Other stone</div>
               <div class="face backPhoto">
-                <img src="../images/quarries/other.jpg" alt="Other stones" />
+                <img src="../images/quarries/Other.jpg" alt="Other stone" />
               </div>
             </div>
           </div>
@@ -522,7 +588,7 @@
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Other">
-              Inquire about other Stones
+              Inquire about Other
             </button>
           </div>
         </article>
@@ -532,7 +598,6 @@
     <!-- FOOTER -->
     <footer id="contact" aria-label="Footer">
       <nav class="nav" aria-label="Primary">
-        <!-- links adjusted for subfolder -->
         <a href="../index.html#home">Home</a>
         <a href="../fields/index.html">Fields</a>
         <a href="./index.html">Quarries</a>
@@ -546,17 +611,7 @@
       </address>
     </footer>
 
-    <!-- INQUIRY MODAL (same behavior as Fields) -->
-    <!-- <div
-      class="modal"
-      id="inquireModal"
-      aria-hidden="true"
-      role="dialog"
-      aria-labelledby="inqTitle"
-      style="position: fixed; inset: 0; display: none"
-      hidden
-    > -->
-
+    <!-- INQUIRY MODAL (hidden by default) -->
     <div
       class="modal"
       id="inquireModal"
@@ -565,44 +620,20 @@
       aria-labelledby="inqTitle"
       hidden
     >
-      <div
-        class="overlay"
-        data-close
-        style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5)"
-      ></div>
-      <div
-        class="dialog"
-        style="
-          position: relative;
-          z-index: 1;
-          width: min(560px, 92vw);
-          margin: auto;
-          background: #fff;
-          border-radius: 16px;
-          box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
-          padding: 18px;
-        "
-      >
-        <h4 id="inqTitle" style="margin: 0 0 8px; color: var(--slateblue)">
+      <div class="overlay" data-close></div>
+      <div class="dialog">
+        <h4 id="inqTitle">
           Inquire about <span id="inqProduct">Product</span>
         </h4>
-        <form id="inqForm" style="display: grid; gap: 10px">
+        <form id="inqForm">
           <input type="hidden" id="productInput" name="product" value="" />
-          <div
-            class="row"
-            style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px"
-          >
+          <div class="row">
             <input
               type="text"
               id="nameInput"
               name="name"
               placeholder="Your name"
               required
-              style="
-                padding: 10px 12px;
-                border-radius: 10px;
-                border: 1px solid rgba(0, 0, 0, 0.12);
-              "
             />
             <input
               type="email"
@@ -610,11 +641,6 @@
               name="email"
               placeholder="Your email"
               required
-              style="
-                padding: 10px 12px;
-                border-radius: 10px;
-                border: 1px solid rgba(0, 0, 0, 0.12);
-              "
             />
           </div>
           <input
@@ -622,78 +648,27 @@
             id="qtyInput"
             name="qty"
             placeholder="Quantity (e.g., 200 m²)"
-            style="
-              padding: 10px 12px;
-              border-radius: 10px;
-              border: 1px solid rgba(0, 0, 0, 0.12);
-            "
           />
           <textarea
             id="msgInput"
             name="message"
             placeholder="Tell us about your project"
-            style="
-              min-height: 120px;
-              padding: 10px 12px;
-              border-radius: 10px;
-              border: 1px solid rgba(0, 0, 0, 0.12);
-            "
           ></textarea>
-          <div
-            class="dialogActions"
-            style="
-              display: flex;
-              gap: 10px;
-              justify-content: flex-end;
-              margin-top: 6px;
-            "
-          >
-            <button
-              type="button"
-              class="btn ghost"
-              data-close
-              style="
-                appearance: none;
-                border: none;
-                background: transparent;
-                color: var(--slateblue);
-                padding: 10px 14px;
-                font-weight: 700;
-                border-radius: 10px;
-              "
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="btn primary"
-              style="
-                appearance: none;
-                border: none;
-                background: linear-gradient(
-                  135deg,
-                  var(--slateblue),
-                  var(--steelgray)
-                );
-                color: #fff;
-                padding: 10px 14px;
-                font-weight: 700;
-                border-radius: 10px;
-              "
-            >
-              Send Inquiry
-            </button>
+          <div class="dialogActions">
+            <button type="button" class="btn ghost" data-close>Cancel</button>
+            <button type="submit" class="btn primary">Send Inquiry</button>
           </div>
         </form>
       </div>
     </div>
 
     <script>
+      // Use the same Apps Script endpoint you're using on Fields/Contact:
       const INQUIRY_ENDPOINT =
-        "https://script.google.com/macros/s/AKfycbxdSib9G0ZnX3ipEuOdT1VVOZzMOc0OJsjxOlXNLhlU3ZAAdo7qqjSubozHPoDnAnLD/exec"; // <-- replace
+        "https://script.google.com/macros/s/AKfycbxdSib9G0ZnX3ipEuOdT1VVOZzMOc0OJsjxOlXNLhlU3ZAAdo7qqjSubozHPoDnAnLD/exec"; // replace if needed
 
-      // Flip-on-tap for touch screens: only the MEDIA band toggles
       (function () {
+        // Flip-on-tap for touch screens: only the MEDIA band toggles
         const mediaBands = document.querySelectorAll(".band.media");
         const isCoarse = window.matchMedia("(pointer: coarse)").matches;
         if (isCoarse) {
@@ -704,7 +679,7 @@
           });
         }
 
-        // Simple modal logic (same as Fields page)
+        // Modal logic (attribute-driven visibility)
         const modal = document.getElementById("inquireModal");
         const productSpan = document.getElementById("inqProduct");
         const productInput = document.getElementById("productInput");
@@ -713,64 +688,16 @@
         function openModal(product) {
           productSpan.textContent = product;
           productInput.value = product;
-
-          modal.classList.add("open"); // optional: hook for animations/transitions
-          modal.removeAttribute("hidden"); // show (CSS handles display)
+          modal.classList.add("open");
+          modal.removeAttribute("hidden"); // show
           modal.setAttribute("aria-hidden", "false");
-
           setTimeout(() => document.getElementById("nameInput")?.focus(), 50);
         }
-
         function closeModal() {
-          modal.classList.remove("open"); // optional: end animations
+          modal.classList.remove("open");
           modal.setAttribute("aria-hidden", "true");
-          modal.setAttribute("hidden", ""); // hide (CSS handles display)
+          modal.setAttribute("hidden", ""); // hide
         }
-
-        // Submit to Google Sheet
-        //         form.addEventListener("submit", async (e) => {
-        //           e.preventDefault();
-
-        //           const payload = {
-        //             product: document.getElementById("productInput").value,
-        //             name: document.getElementById("nameInput").value,
-        //             email: document.getElementById("emailInput").value,
-        //             qty: document.getElementById("qtyInput").value,
-        //             message: document.getElementById("msgInput").value,
-        //             sourcePage: location.pathname,
-        //             userAgent: navigator.userAgent,
-        //           };
-
-        //           try {
-        //             const res = await fetch(INQUIRY_ENDPOINT, {
-        //               method: "POST",
-        //               headers: { "Content-Type": "application/json" },
-        //               body: JSON.stringify(payload),
-        //             });
-
-        //             // Optional: check response
-        //             // const data = await res.json();
-
-        //             alert("Thanks! Your inquiry was sent.");
-        //             closeModal();
-        //             form.reset();
-        //           } catch (err) {
-        //             // Fallback to mailto if the POST fails (optional)
-        //             const subject = encodeURIComponent(
-        //               `Inquiry about ${payload.product}`
-        //             );
-        //             const body = encodeURIComponent(
-        //               `Product: ${payload.product}
-        // Name: ${payload.name}
-        // Email: ${payload.email}
-        // Quantity: ${payload.qty}
-        // Message:
-        // ${payload.message}`
-        //             );
-        //             window.location.href = `mailto:info@planetearthtreasures.com?subject=${subject}&body=${body}`;
-        //             closeModal();
-        //           }
-        //         });
 
         document.querySelectorAll(".inquireLink").forEach((btn) => {
           btn.addEventListener("click", (e) => {
@@ -790,7 +717,7 @@
           if (e.key === "Escape") closeModal();
         });
 
-        // google  submit
+        // Submit to Google Sheet (CORS-safe simple POST)
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
 
@@ -807,20 +734,18 @@
           try {
             await fetch(INQUIRY_ENDPOINT, {
               method: "POST",
-              mode: "no-cors", // <-- avoid CORS checks
-              headers: { "Content-Type": "text/plain;charset=utf-8" }, // <-- no JSON header
-              body: JSON.stringify(payload), // Apps Script reads e.postData.contents
+              mode: "no-cors", // avoids CORS preflight
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: JSON.stringify(payload),
             });
-            // You cannot read the response in no-cors mode (it's opaque).
             alert("Thanks! Your inquiry was sent.");
+            form.reset();
           } catch (err) {
             alert(
-              "We couldn’t send your inquiry. Please email info@planetearthtreasures.com"
+              "We could not send your message. Please email info@planetearthtreasures.com"
             );
           }
-
           closeModal();
-          form.reset();
         });
       })();
     </script>
