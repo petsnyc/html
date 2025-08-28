@@ -85,44 +85,21 @@
         white-space: nowrap;
       }
 
-      .localNav {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 var(--gutter) 8px;
-        font-size: 14px;
-        opacity: 0.8;
-      }
-      .localNav a {
-        color: inherit;
-        text-decoration: none;
-        border-bottom: 1px dotted transparent;
-      }
-      /* FIXED: correct class + :hover */
-      .localNav a:hover {
-        border-bottom-color: currentColor;
-      }
-
-      /* ---------- Story section ---------- */
+      /* ---------- Story section (centered, compact height) ---------- */
       .story {
         background: linear-gradient(180deg, var(--tint-green), transparent 60%),
           linear-gradient(0deg, var(--tint-terra), transparent 50%);
       }
-
-      /* centered, longer lines for smaller vertical height */
       .storyWrap {
         max-width: var(--container-max);
         margin: 0 auto;
         padding: clamp(12px, 2.2vw, 24px) var(--gutter);
-        text-align: center; /* center all story text */
+        text-align: center;
       }
       .story p {
-        margin: 0 auto 10px; /* tighter spacing */
-        max-width: 90ch; /* longer line length -> less height */
+        margin: 0 auto 10px;
+        max-width: 90ch; /* longer line => less vertical space */
       }
-      .story .accent {
-        border: 0;
-        padding: 0;
-      } /* remove left bar if still present */
 
       /* ---------- Products (3x3 grid) ---------- */
       .products {
@@ -149,10 +126,10 @@
       .grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr); /* 3 x 3 */
-        gap: clamp(12px, 2vw, 22px);
+        gap: clamp(8px, 1.4vw, 18px); /* slightly tighter gaps */
       }
 
-      /* --- Three-band card --- */
+      /* --- Card --- */
       .card {
         position: relative;
         border-radius: var(--radius);
@@ -160,11 +137,10 @@
         box-shadow: var(--shadow);
         overflow: hidden;
         display: grid;
-        grid-template-rows: auto 1fr auto; /* Media(Name/Photo) | Desc | CTA */
-        min-height: 240px;
+        grid-template-rows: auto 1fr auto; /* Media | Desc | CTA */
+        min-height: 260px;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
-      /* FIXED: apply hover elevation */
       .card:hover {
         transform: translateY(-4px);
         box-shadow: var(--shadow-strong);
@@ -185,10 +161,11 @@
         font-weight: 800;
         padding: 6px 10px;
         border-radius: 999px;
-        /* Highlight with red border (your requested tweak) */
+        /* highlight with red border */
         border: 2px solid #e53935;
         box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.15),
           0 6px 14px rgba(0, 0, 0, 0.18);
+        z-index: 2;
       }
       .badge[data-offer="hidden"] {
         display: none !important;
@@ -197,61 +174,56 @@
         display: inline-flex;
       }
 
-      /* Band 1: MEDIA (name ↔ photo flip) */
+      /* MEDIA band — cover image with title overlay */
       .band.media {
+        position: relative;
         padding: 0;
-        background: linear-gradient(
-          180deg,
-          rgba(47, 94, 61, 0.07),
-          rgba(200, 100, 61, 0.07)
-        );
+        height: clamp(160px, 22vw, 220px);
         border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         overflow: hidden;
+        background: #000; /* fallback while image loads */
       }
-      .flip {
-        position: relative;
-        height: clamp(120px, 18vw, 160px); /* fixed band height */
-        transform-style: preserve-3d;
-        transition: transform 0.6s ease;
-      }
-      /* flip only when hovering/tapping the MEDIA band */
-      .band.media:hover .flip,
-      .band.media.flipped .flip {
-        transform: rotateY(180deg);
-      }
-
-      .face {
+      .band.media .cover {
         position: absolute;
         inset: 0;
-        backface-visibility: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      /* Front: centered name text */
-      .frontName {
-        padding: 10px 14px;
-        color: var(--deepgreen);
-        font-weight: 800;
-        font-size: clamp(16px, 1.6vw, 20px);
-        text-align: center;
-        letter-spacing: 0.2px;
-      }
-      /* Back: product image */
-      .backPhoto {
-        transform: rotateY(180deg);
-        overflow: hidden;
-      }
-      .backPhoto img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
+        transform: scale(1.01); /* tiny zoom for edge bleed */
+      }
+      .band.media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0) 55%
+        );
+        pointer-events: none;
+      }
+      .mediaTitle {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        margin: 0;
+        padding: 6px 10px;
+        color: #fff;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+        font-size: clamp(16px, 1.6vw, 20px);
+        /* translucent label for readability yet image-first */
+        background: rgba(0, 0, 0, 0.28);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 10px;
+        backdrop-filter: saturate(160%) blur(2px);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+        z-index: 1;
       }
 
-      /* Band 2: Description (3 lines) */
+      /* Description (kept concise) */
       .band.desc {
-        padding: 12px 14px;
+        padding: 10px 12px;
         font-size: 14px;
         color: var(--ink);
         opacity: 0.9;
@@ -261,24 +233,17 @@
         overflow: hidden;
       }
 
-      /* Band 3: CTA */
+      /* Full-width CTA */
       .band.cta {
-        padding: 12px 14px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 10px;
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
-        background: linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0),
-          rgba(0, 0, 0, 0.025)
-        );
+        padding: 10px 12px 12px;
       }
       .inquireLink {
         appearance: none;
         border: none;
         cursor: pointer;
+        display: block;
+        width: 100%;
+        text-align: center;
         background: linear-gradient(
           135deg,
           var(--deepgreen),
@@ -286,7 +251,7 @@
         );
         color: #fff;
         text-decoration: none;
-        padding: 8px 12px;
+        padding: 10px 12px;
         border-radius: 12px;
         font-weight: 700;
         transition: transform 0.06s ease, filter 0.2s ease;
@@ -296,9 +261,7 @@
         transform: translateY(-1px);
       }
 
-      /* (Removed the earlier minimal .modal block to avoid duplication) */
-
-      /* ---------- Footer (same as home) ---------- */
+      /* ---------- Footer ---------- */
       footer {
         background: var(--charcoal);
         color: var(--offwhite);
@@ -347,11 +310,10 @@
         position: fixed;
         inset: 0;
         z-index: 50;
-        display: grid; /* centered dialog */
+        display: grid;
         place-items: center;
       }
       .modal[hidden] {
-        /* keep hidden modals invisible */
         display: none !important;
       }
       .overlay {
@@ -369,7 +331,7 @@
         padding: 18px;
       }
       .dialog h4 {
-        margin: 0 0 8px 0;
+        margin: 0 0 8px;
         color: var(--deepgreen);
       }
       .dialog form {
@@ -430,6 +392,9 @@
         .grid {
           grid-template-columns: repeat(2, 1fr);
         }
+        .row {
+          grid-template-columns: 1fr;
+        }
       }
       @media (max-width: 640px) {
         .hero {
@@ -443,12 +408,12 @@
         .motto {
           font-size: clamp(22px, 6vw, 30px);
         }
-        .companyInfo {
-          margin-left: 0;
-          text-align: center;
-        }
         footer {
           grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .companyInfo {
+          margin-left: 0;
           text-align: center;
         }
         .grid {
@@ -490,7 +455,6 @@
       </div>
     </section>
 
-    <!-- PRODUCTS SECTION -->
     <section class="products" id="products" aria-label="Products">
       <div class="productsHeader">
         <h3>Spices & Herbs</h3>
@@ -501,17 +465,16 @@
         <article class="card" data-product="Cumin Seeds">
           <span class="badge" data-offer="visible">Season Discount!</span>
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Cumin Seeds</div>
-              <div class="face backPhoto">
-                <img src="../images/fields/Cumin_Seeds.jpg" alt="Cumin Seeds" />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/fields/Cumin_Seeds.jpg"
+              alt="Cumin Seeds"
+            />
+            <h4 class="mediaTitle">Cumin Seeds</h4>
           </div>
-
           <div class="band desc">
-            Warm, earthy aroma with a clean finish. Trusted farms and careful
-            drying preserve essential oils.
+            Warm, nutty spice with high volatile oil content. Machine-cleaned
+            and consistently sized for blends and roasting.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Cumin Seeds">
@@ -523,19 +486,13 @@
         <!-- 2 -->
         <article class="card" data-product="Thyme">
           <span class="badge" data-offer="hidden">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Thyme</div>
-              <div class="face backPhoto">
-                <img src="../images/fields/Thyme.jpg" alt="Thyme" />
-              </div>
-            </div>
+            <img class="cover" src="../images/fields/Thyme.jpg" alt="Thyme" />
+            <h4 class="mediaTitle">Thyme</h4>
           </div>
-
           <div class="band desc">
-            Traditional blends and single-origin leaves. Clean, aromatic, and
-            suitable for spice mixes.
+            Savory, aromatic leaves with subtle floral notes. Low stems and
+            sifted cut for seasonings and tea blends.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Thyme">
@@ -547,22 +504,17 @@
         <!-- 3 -->
         <article class="card" data-product="Moringa Seeds">
           <span class="badge" data-offer="visible">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Moringa Seeds</div>
-              <div class="face backPhoto">
-                <img
-                  src="../images/fields/Moringa_Seeds.jpg"
-                  alt="Moringa Seeds"
-                />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/fields/Moringa_Seeds.jpg"
+              alt="Moringa Seeds"
+            />
+            <h4 class="mediaTitle">Moringa Seeds</h4>
           </div>
-
           <div class="band desc">
-            Hand-sorted lots with clean appearance. Reliable oil content and
-            stable storage characteristics.
+            Uniform, clean seeds with reliable oil yield. Carefully dried for
+            stable storage and efficient pressing.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Moringa Seeds">
@@ -574,19 +526,17 @@
         <!-- 4 -->
         <article class="card" data-product="Peppermint">
           <span class="badge" data-offer="hidden">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Peppermint</div>
-              <div class="face backPhoto">
-                <img src="../images/fields/Peppermint.jpg" alt="Peppermint" />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/fields/Peppermint.jpg"
+              alt="Peppermint"
+            />
+            <h4 class="mediaTitle">Peppermint</h4>
           </div>
-
           <div class="band desc">
-            Clean, sweet aroma with uniform size. Carefully screened for bakery
-            and confectionery specs.
+            Bright, cooling aroma with clean leaf character. Screened for a
+            uniform cut suited to confectionery and tea.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Peppermint">
@@ -598,19 +548,17 @@
         <!-- 5 -->
         <article class="card" data-product="Hibiscus">
           <span class="badge" data-offer="hidden">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Hibiscus</div>
-              <div class="face backPhoto">
-                <img src="../images/fields/Hibiscus.jpg" alt="Hibiscus" />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/fields/Hibiscus.jpg"
+              alt="Hibiscus"
+            />
+            <h4 class="mediaTitle">Hibiscus</h4>
           </div>
-
           <div class="band desc">
-            Deep ruby calyces for beverages. Tart floral notes, consistent
-            color, low moisture, and careful screening.
+            Deep ruby calyces with tart, fruity profile. Low moisture and
+            consistent color for beverage applications.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Hibiscus">
@@ -622,19 +570,13 @@
         <!-- 6 -->
         <article class="card" data-product="Basil">
           <span class="badge" data-offer="hidden">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Basil</div>
-              <div class="face backPhoto">
-                <img src="../images/fields/Basil.jpg" alt="Basil" />
-              </div>
-            </div>
+            <img class="cover" src="../images/fields/Basil.jpg" alt="Basil" />
+            <h4 class="mediaTitle">Basil</h4>
           </div>
-
           <div class="band desc">
-            Sweet, apple-like fragrance with bright color. Low foreign matter
-            and reliable sieve sizes.
+            Sweet, herbaceous fragrance with vibrant green color. Low foreign
+            matter; ideal for sauces and dry blends.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Basil">
@@ -646,22 +588,17 @@
         <!-- 7 -->
         <article class="card" data-product="Fennel Seeds">
           <span class="badge" data-offer="visible">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Fennel Seeds</div>
-              <div class="face backPhoto">
-                <img
-                  src="../images/fields/Fennel_Seeds.jpg"
-                  alt="Fennel Seeds"
-                />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/fields/Fennel_Seeds.jpg"
+              alt="Fennel Seeds"
+            />
+            <h4 class="mediaTitle">Fennel Seeds</h4>
           </div>
-
           <div class="band desc">
-            Robust herbal profile with dependable volatile oil levels. Ideal for
-            sauces and seasoning lines.
+            Sweet aniseed flavor with dependable oil levels. Uniform grading for
+            bakery use and spice blends.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Fennel Seeds">
@@ -673,22 +610,17 @@
         <!-- 8 -->
         <article class="card" data-product="Marjoram Leaves">
           <span class="badge" data-offer="hidden">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Marjoram Leaves</div>
-              <div class="face backPhoto">
-                <img
-                  src="../images/fields/Marjoram_Leaves.jpg"
-                  alt="Marjoram Leaves"
-                />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/fields/Marjoram_Leaves.jpg"
+              alt="Marjoram Leaves"
+            />
+            <h4 class="mediaTitle">Marjoram Leaves</h4>
           </div>
-
           <div class="band desc">
-            Amber seeds with balanced bitterness. Screened to spec and ready for
-            grinding.
+            Delicate, sweet-woody aroma with soft leaf texture. Gentle drying
+            preserves color and integrity for culinary use.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Marjoram Leaves">
@@ -700,19 +632,17 @@
         <!-- 9 -->
         <article class="card" data-product="other">
           <span class="badge" data-offer="hidden">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Other botanicals</div>
-              <div class="face backPhoto">
-                <img src="../images/fields/other.png" alt="Other botanicals" />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/fields/other.png"
+              alt="Other botanicals"
+            />
+            <h4 class="mediaTitle">Other botanicals</h4>
           </div>
-
           <div class="band desc">
-            We source a wide range of spices and herbs. Contact us to discuss
-            your specific needs.
+            Need something specific? Tell us the variety, grade, cut size, and
+            packaging—our team will source to spec.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="other">
@@ -731,7 +661,6 @@
         <a href="../quarries/index.html">Quarries</a>
         <a href="../contact.html">Contact Us</a>
       </nav>
-
       <address class="companyInfo">
         <strong>Planet Earth Treasures LLC</strong> ·
         <a href="mailto:info@planetearthtreasures.com"
@@ -793,20 +722,9 @@
 
     <script>
       const INQUIRY_ENDPOINT =
-        "https://script.google.com/macros/s/AKfycbxdSib9G0ZnX3ipEuOdT1VVOZzMOc0OJsjxOlXNLhlU3ZAAdo7qqjSubozHPoDnAnLD/exec"; // <-- replace
+        "https://script.google.com/macros/s/AKfycbxdSib9G0ZnX3ipEuOdT1VVOZzMOc0OJsjxOlXNLhlU3ZAAdo7qqjSubozHPoDnAnLD/exec"; // replace if needed
 
-      // Flip-on-tap for touch screens: only the MEDIA band toggles
       (function () {
-        const mediaBands = document.querySelectorAll(".band.media");
-        const isCoarse = window.matchMedia("(pointer: coarse)").matches;
-        if (isCoarse) {
-          mediaBands.forEach((band) => {
-            band.addEventListener("click", () =>
-              band.classList.toggle("flipped")
-            );
-          });
-        }
-
         // Modal logic
         const modal = document.getElementById("inquireModal");
         const productSpan = document.getElementById("inqProduct");
@@ -816,18 +734,15 @@
         function openModal(product) {
           productSpan.textContent = product;
           productInput.value = product;
-
-          modal.classList.add("open"); // optional: hook for animations/transitions
-          modal.removeAttribute("hidden"); // show (CSS handles display)
+          modal.classList.add("open");
+          modal.removeAttribute("hidden"); // show
           modal.setAttribute("aria-hidden", "false");
-
           setTimeout(() => document.getElementById("nameInput")?.focus(), 50);
         }
-
         function closeModal() {
-          modal.classList.remove("open"); // optional: end animations
+          modal.classList.remove("open");
           modal.setAttribute("aria-hidden", "true");
-          modal.setAttribute("hidden", ""); // hide (CSS handles display)
+          modal.setAttribute("hidden", ""); // hide
         }
 
         document.querySelectorAll(".inquireLink").forEach((btn) => {
@@ -848,7 +763,7 @@
           if (e.key === "Escape") closeModal();
         });
 
-        // Submit via Apps Script (CORS-safe)
+        // Submit to Google Sheet (CORS-safe simple POST)
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
 
@@ -865,19 +780,18 @@
           try {
             await fetch(INQUIRY_ENDPOINT, {
               method: "POST",
-              mode: "no-cors", // avoid CORS checks
-              headers: { "Content-Type": "text/plain;charset=utf-8" }, // no JSON header => no preflight
+              mode: "no-cors", // avoids CORS preflight
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
               body: JSON.stringify(payload),
             });
             alert("Thanks! Your inquiry was sent.");
+            form.reset();
           } catch (err) {
             alert(
-              "We couldn’t send your inquiry. Please email info@planetearthtreasures.com"
+              "We could not send your message. Please email info@planetearthtreasures.com"
             );
           }
-
           closeModal();
-          form.reset();
         });
       })();
     </script>
