@@ -97,7 +97,8 @@
         text-decoration: none;
         border-bottom: 1px dotted transparent;
       }
-      .localnav a: {
+      /* FIXED: correct class + :hover */
+      .localNav a:hover {
         border-bottom-color: currentColor;
       }
 
@@ -107,7 +108,7 @@
           linear-gradient(0deg, var(--tint-terra), transparent 50%);
       }
 
-      /* /fields/index.html — update these rules in your <style> */
+      /* centered, longer lines for smaller vertical height */
       .storyWrap {
         max-width: var(--container-max);
         margin: 0 auto;
@@ -163,7 +164,8 @@
         min-height: 240px;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
-      .card: {
+      /* FIXED: apply hover elevation */
+      .card:hover {
         transform: translateY(-4px);
         box-shadow: var(--shadow-strong);
       }
@@ -183,11 +185,10 @@
         font-weight: 800;
         padding: 6px 10px;
         border-radius: 999px;
-        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
-
-        border: 2px solid #e53935; /* red border */
+        /* Highlight with red border (your requested tweak) */
+        border: 2px solid #e53935;
         box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.15),
-          /* subtle glow ring */ 0 6px 14px rgba(0, 0, 0, 0.18); /* existing shadow */
+          0 6px 14px rgba(0, 0, 0, 0.18);
       }
       .badge[data-offer="hidden"] {
         display: none !important;
@@ -295,16 +296,7 @@
         transform: translateY(-1px);
       }
 
-      .modal {
-        position: fixed;
-        inset: 0;
-        z-index: 50;
-        display: grid;
-        place-items: center;
-      }
-      .modal[hidden] {
-        display: none !important;
-      } /* this is what makes the attribute work */
+      /* (Removed the earlier minimal .modal block to avoid duplication) */
 
       /* ---------- Footer (same as home) ---------- */
       footer {
@@ -485,7 +477,6 @@
     </header>
 
     <!-- STORY SECTION -->
-    <!-- /fields/index.html — replace the entire STORY SECTION with this -->
     <section class="story" aria-label="Our Story">
       <div class="storyWrap">
         <p>
@@ -857,7 +848,7 @@
           if (e.key === "Escape") closeModal();
         });
 
-        //
+        // Submit via Apps Script (CORS-safe)
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
 
@@ -874,11 +865,10 @@
           try {
             await fetch(INQUIRY_ENDPOINT, {
               method: "POST",
-              mode: "no-cors", // <-- avoid CORS checks
-              headers: { "Content-Type": "text/plain;charset=utf-8" }, // <-- no JSON header
-              body: JSON.stringify(payload), // Apps Script reads e.postData.contents
+              mode: "no-cors", // avoid CORS checks
+              headers: { "Content-Type": "text/plain;charset=utf-8" }, // no JSON header => no preflight
+              body: JSON.stringify(payload),
             });
-            // You cannot read the response in no-cors mode (it's opaque).
             alert("Thanks! Your inquiry was sent.");
           } catch (err) {
             alert(
