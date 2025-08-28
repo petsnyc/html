@@ -17,11 +17,11 @@
         --charcoal: #3f4341;
         --offwhite: #fcfaf4;
 
-        /* Quarries Division core */
+        /* Quarries Division */
         --slateblue: #49697c;
         --steelgray: #6a6f6d;
 
-        /* Light tints for page backgrounds */
+        /* Tints */
         --tint-slate: rgba(73, 105, 124, 0.08);
         --tint-steel: rgba(106, 111, 109, 0.08);
 
@@ -53,7 +53,7 @@
         line-height: 1.5;
       }
 
-      /* ---------- Header (same feel as other pages) ---------- */
+      /* ---------- Header ---------- */
       .hero {
         min-height: 28vh;
         display: grid;
@@ -104,7 +104,7 @@
         border-bottom-color: currentColor;
       }
 
-      /* ---------- Story (centered, compact height) ---------- */
+      /* ---------- Story (centered, compact) ---------- */
       .story {
         background: linear-gradient(180deg, var(--tint-slate), transparent 60%),
           linear-gradient(0deg, var(--tint-steel), transparent 50%);
@@ -117,10 +117,10 @@
       }
       .story p {
         margin: 0 auto 10px;
-        max-width: 90ch; /* longer line => less vertical space */
+        max-width: 90ch;
       }
 
-      /* ---------- Products Grid (2 columns) ---------- */
+      /* ---------- Products (image + title overlay) ---------- */
       .products {
         max-width: var(--container-max);
         margin: 0 auto;
@@ -144,14 +144,11 @@
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(
-          2,
-          1fr
-        ); /* 2-wide; add more cards freely */
-        gap: clamp(12px, 2vw, 22px);
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(8px, 1.4vw, 18px); /* slightly tighter gaps */
       }
 
-      /* --- Three-band card (name flips to photo) --- */
+      /* Card */
       .card {
         position: relative;
         border-radius: var(--radius);
@@ -159,8 +156,8 @@
         box-shadow: var(--shadow);
         overflow: hidden;
         display: grid;
-        grid-template-rows: auto 1fr auto; /* Media(Name/Photo) | Desc | CTA */
-        min-height: 240px;
+        grid-template-rows: auto 1fr auto; /* Media | Desc | CTA */
+        min-height: 260px;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
       .card:hover {
@@ -168,7 +165,7 @@
         box-shadow: var(--shadow-strong);
       }
 
-      /* Offer badge (toggle via data-offer attr) */
+      /* Offer badge */
       .badge {
         position: absolute;
         top: 8px;
@@ -179,10 +176,10 @@
         font-weight: 800;
         padding: 6px 10px;
         border-radius: 999px;
-        /* highlight with red border as requested */
-        border: 2px solid #e53935;
+        border: 2px solid #e53935; /* highlight with red border */
         box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.15),
           0 6px 14px rgba(0, 0, 0, 0.18);
+        z-index: 2;
       }
       .badge[data-offer="hidden"] {
         display: none !important;
@@ -191,58 +188,55 @@
         display: inline-flex;
       }
 
-      /* Band 1: MEDIA (name ↔ photo flip) */
+      /* MEDIA band — cover image with translucent title */
       .band.media {
+        position: relative;
         padding: 0;
-        background: linear-gradient(
-          180deg,
-          rgba(73, 105, 124, 0.07),
-          rgba(106, 111, 109, 0.07)
-        );
+        height: clamp(160px, 22vw, 220px);
         border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         overflow: hidden;
+        background: #000;
       }
-      .flip {
-        position: relative;
-        height: clamp(120px, 18vw, 160px);
-        transform-style: preserve-3d;
-        transition: transform 0.6s ease;
-      }
-      .band.media:hover .flip,
-      .band.media.flipped .flip {
-        transform: rotateY(180deg);
-      }
-
-      .face {
+      .band.media .cover {
         position: absolute;
         inset: 0;
-        backface-visibility: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .frontName {
-        padding: 10px 14px;
-        color: var(--slateblue);
-        font-weight: 800;
-        font-size: clamp(16px, 1.6vw, 20px);
-        text-align: center;
-        letter-spacing: 0.2px;
-      }
-      .backPhoto {
-        transform: rotateY(180deg);
-        overflow: hidden;
-      }
-      .backPhoto img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
+        transform: scale(1.01);
+      }
+      .band.media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0) 55%
+        );
+        pointer-events: none;
+      }
+      .mediaTitle {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        margin: 0;
+        padding: 6px 10px;
+        color: #fff;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+        font-size: clamp(16px, 1.6vw, 20px);
+        background: rgba(0, 0, 0, 0.28);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 10px;
+        backdrop-filter: saturate(160%) blur(2px);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+        z-index: 1;
       }
 
-      /* Band 2: Description (3 lines) */
+      /* Description (3 lines clamp) */
       .band.desc {
-        padding: 12px 14px;
+        padding: 10px 12px;
         font-size: 14px;
         color: var(--ink);
         opacity: 0.9;
@@ -252,28 +246,21 @@
         overflow: hidden;
       }
 
-      /* Band 3: CTA */
+      /* Full-width CTA */
       .band.cta {
-        padding: 12px 14px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 10px;
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
-        background: linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0),
-          rgba(0, 0, 0, 0.025)
-        );
+        padding: 10px 12px 12px;
       }
       .inquireLink {
         appearance: none;
         border: none;
         cursor: pointer;
+        display: block;
+        width: 100%;
+        text-align: center;
         background: linear-gradient(135deg, var(--slateblue), var(--steelgray));
         color: #fff;
         text-decoration: none;
-        padding: 8px 12px;
+        padding: 10px 12px;
         border-radius: 12px;
         font-weight: 700;
         transition: transform 0.06s ease, filter 0.2s ease;
@@ -283,7 +270,7 @@
         transform: translateY(-1px);
       }
 
-      /* ---------- Footer (same as home) ---------- */
+      /* ---------- Footer ---------- */
       footer {
         background: var(--charcoal);
         color: var(--offwhite);
@@ -327,7 +314,7 @@
         color: var(--offwhite);
       }
 
-      /* ---------- Modal (class-based, hidden by default) ---------- */
+      /* ---------- Modal ---------- */
       .modal {
         position: fixed;
         inset: 0;
@@ -404,7 +391,7 @@
       @media (max-width: 900px) {
         .grid {
           grid-template-columns: 1fr;
-        } /* stack on narrow screens */
+        }
         .row {
           grid-template-columns: 1fr;
         }
@@ -456,31 +443,30 @@
       <a href="../index.html#home">Home</a> · <strong>Quarries</strong>
     </div>
 
-    <!-- STORY SECTION (no title, centered text) -->
+    <!-- STORY -->
     <section class="story" aria-label="Our Quarries">
       <div class="storyWrap">
         <p>
           From bedrock to bespoke projects, our quarry partners bring
           disciplined extraction and patient finishing to every block. We focus
           on reliable veins, consistent coloration, and cuts that respect the
-          material—practices refined over decades of production and project
-          work.
+          material—practices refined over decades of work.
         </p>
         <p>
-          Our team supports architects, fabricators, and builders with traceable
-          sourcing, dimensional accuracy, and project-ready packing—so every
-          installation delivers durable performance and lasting beauty.
+          We support architects, fabricators, and builders with traceable
+          sourcing, dimensional accuracy, and project-ready packing—so
+          installations deliver durable performance and enduring beauty.
         </p>
       </div>
     </section>
 
-    <!-- PRODUCTS SECTION -->
+    <!-- PRODUCTS -->
     <section class="products" id="products" aria-label="Stone Products">
       <div class="productsHeader">
         <h3>Selected Stone</h3>
         <span class="hint"
-          >Hover/tap the top band to flip to a photo. Edit each image
-          <code>src</code> directly in the HTML.</span
+          >Titles overlay the images; descriptions remain concise. Click
+          “Inquire” to contact us.</span
         >
       </div>
 
@@ -488,22 +474,17 @@
         <!-- Galala Marble -->
         <article class="card" data-product="Galala Marble">
           <span class="badge" data-offer="visible">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Galala Marble</div>
-              <div class="face backPhoto">
-                <img
-                  src="../images/quarries/Galala_Marble.jpg"
-                  alt="Galala Marble"
-                />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/quarries/Galala_Marble.jpg"
+              alt="Galala Marble"
+            />
+            <h4 class="mediaTitle">Galala Marble</h4>
           </div>
-
           <div class="band desc">
-            Warm beige tone with consistent background; excellent for interior
-            flooring and wall cladding.
+            Warm beige body with uniform tone; popular for interior floors, wall
+            cladding, and stairs.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Galala Marble">
@@ -515,21 +496,16 @@
         <!-- Sunny Marble -->
         <article class="card" data-product="Sunny Marble">
           <span class="badge" data-offer="hidden">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Sunny Marble</div>
-              <div class="face backPhoto">
-                <img
-                  src="../images/quarries/Sunny_Marble.jpg"
-                  alt="Sunny Marble"
-                />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/quarries/Sunny_Marble.jpg"
+              alt="Sunny Marble"
+            />
+            <h4 class="mediaTitle">Sunny Marble</h4>
           </div>
-
           <div class="band desc">
-            Golden-beige body with subtle veining; versatile for tiles,
+            Golden-beige tone with subtle veining; versatile choice for tiles,
             countertops, and façades.
           </div>
           <div class="band cta">
@@ -542,22 +518,17 @@
         <!-- Sinai Pearl Marble (Triesta) -->
         <article class="card" data-product="Sinai Pearl Marble (Triesta)">
           <span class="badge" data-offer="hidden">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Sinai Pearl Marble (Triesta)</div>
-              <div class="face backPhoto">
-                <img
-                  src="../images/quarries/Sinai_Pearl_Marble_Triesta.jpg"
-                  alt="Sinai Pearl Marble (Triesta)"
-                />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/quarries/Sinai_Pearl_Marble_Triesta.jpg"
+              alt="Sinai Pearl Marble (Triesta)"
+            />
+            <h4 class="mediaTitle">Sinai Pearl Marble (Triesta)</h4>
           </div>
-
           <div class="band desc">
-            Neutral beige/pearl palette with fine fossil texture; reliable for
-            large-format projects.
+            Neutral pearl/beige with fine fossil texture; stable choice for
+            large-format flooring and walls.
           </div>
           <div class="band cta">
             <button
@@ -572,19 +543,17 @@
         <!-- Other -->
         <article class="card" data-product="Other">
           <span class="badge" data-offer="hidden">Season Discount!</span>
-
           <div class="band media">
-            <div class="flip">
-              <div class="face frontName">Other stone</div>
-              <div class="face backPhoto">
-                <img src="../images/quarries/Other.jpg" alt="Other stone" />
-              </div>
-            </div>
+            <img
+              class="cover"
+              src="../images/quarries/Other.jpg"
+              alt="Other stone"
+            />
+            <h4 class="mediaTitle">Other stone</h4>
           </div>
-
           <div class="band desc">
-            Looking for a different stone? Tell us the type, color, finish, and
-            dimensions you need.
+            Looking for a specific stone? Share color, finish, dimensions, and
+            application—we’ll source to spec.
           </div>
           <div class="band cta">
             <button class="inquireLink" data-product="Other">
@@ -611,7 +580,7 @@
       </address>
     </footer>
 
-    <!-- INQUIRY MODAL (hidden by default) -->
+    <!-- INQUIRY MODAL -->
     <div
       class="modal"
       id="inquireModal"
@@ -663,23 +632,12 @@
     </div>
 
     <script>
-      // Use the same Apps Script endpoint you're using on Fields/Contact:
+      // Same endpoint you used elsewhere:
       const INQUIRY_ENDPOINT =
         "https://script.google.com/macros/s/AKfycbxdSib9G0ZnX3ipEuOdT1VVOZzMOc0OJsjxOlXNLhlU3ZAAdo7qqjSubozHPoDnAnLD/exec"; // replace if needed
 
       (function () {
-        // Flip-on-tap for touch screens: only the MEDIA band toggles
-        const mediaBands = document.querySelectorAll(".band.media");
-        const isCoarse = window.matchMedia("(pointer: coarse)").matches;
-        if (isCoarse) {
-          mediaBands.forEach((band) => {
-            band.addEventListener("click", () =>
-              band.classList.toggle("flipped")
-            );
-          });
-        }
-
-        // Modal logic (attribute-driven visibility)
+        // Modal logic (attribute-driven)
         const modal = document.getElementById("inquireModal");
         const productSpan = document.getElementById("inqProduct");
         const productInput = document.getElementById("productInput");
@@ -689,14 +647,14 @@
           productSpan.textContent = product;
           productInput.value = product;
           modal.classList.add("open");
-          modal.removeAttribute("hidden"); // show
+          modal.removeAttribute("hidden");
           modal.setAttribute("aria-hidden", "false");
           setTimeout(() => document.getElementById("nameInput")?.focus(), 50);
         }
         function closeModal() {
           modal.classList.remove("open");
           modal.setAttribute("aria-hidden", "true");
-          modal.setAttribute("hidden", ""); // hide
+          modal.setAttribute("hidden", "");
         }
 
         document.querySelectorAll(".inquireLink").forEach((btn) => {
@@ -734,7 +692,7 @@
           try {
             await fetch(INQUIRY_ENDPOINT, {
               method: "POST",
-              mode: "no-cors", // avoids CORS preflight
+              mode: "no-cors",
               headers: { "Content-Type": "text/plain;charset=utf-8" },
               body: JSON.stringify(payload),
             });
