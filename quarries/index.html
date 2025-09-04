@@ -594,16 +594,34 @@
               required
             />
           </div>
-          <input
+          <div class="row">
+            <input
+              type="text"
+              id="companyInput"
+              name="company"
+              placeholder="Company"
+            />
+            <input
+              type="tel"
+              id="phoneInput"
+              name="phone"
+              placeholder="Telephone"
+              inputmode="tel"
+              pattern="^\+?[0-9\s().-]{7,}$"
+              title="Enter a valid phone (digits, spaces, (), ., -, optional leading +)"
+              autocomplete="tel"
+            />
+          </div>
+          <!-- <input
             type="text"
-            id="qtyInput"
+            id="qtyInput" hidden
             name="qty"
             placeholder="Quantity (e.g., 200 m²)"
-          />
+          /> -->
           <textarea
             id="msgInput"
             name="message"
-            placeholder="Tell us about your project"
+            placeholder="Please include: destination country, estimated quantity (and units), and any stone details (type, finish, thickness, slab/tile dimensions), packaging, certifications, and your timeline."
           ></textarea>
           <div class="dialogActions">
             <button type="button" class="btn ghost" data-close>Cancel</button>
@@ -665,7 +683,8 @@
             product: document.getElementById("productInput").value,
             name: document.getElementById("nameInput").value,
             email: document.getElementById("emailInput").value,
-            qty: document.getElementById("qtyInput").value,
+            company: document.getElementById("companyInput").value,
+            phone: document.getElementById("phoneInput").value,
             message: document.getElementById("msgInput").value,
             sourcePage: location.pathname,
             userAgent: navigator.userAgent,
