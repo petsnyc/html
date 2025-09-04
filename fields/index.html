@@ -797,16 +797,24 @@
               required
             />
           </div>
-          <input
-            type="text"
-            id="qtyInput"
-            name="qty"
-            placeholder="Quantity (e.g., 200 kg)"
-          />
+          <div class="row">
+            <input
+              type="text"
+              id="companyInput"
+              name="company"
+              placeholder="Company"
+            />
+            <input
+              type="tel"
+              id="phoneInput"
+              name="phone"
+              placeholder="Telephone"
+            />
+          </div>
           <textarea
             id="msgInput"
             name="message"
-            placeholder="Tell us about your request"
+            placeholder="Please include: destination country, estimated quantity (and units), and any product details (cut/grade, moisture or oil %, packaging, certifications) plus your timeline."
           ></textarea>
           <div class="dialogActions">
             <button type="button" class="btn ghost" data-close>Cancel</button>
@@ -867,7 +875,8 @@
             product: document.getElementById("productInput").value,
             name: document.getElementById("nameInput").value,
             email: document.getElementById("emailInput").value,
-            qty: document.getElementById("qtyInput").value,
+            company: document.getElementById("companyInput").value,
+            phone: document.getElementById("phoneInput").value,
             message: document.getElementById("msgInput").value,
             sourcePage: location.pathname,
             userAgent: navigator.userAgent,
