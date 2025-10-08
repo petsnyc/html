@@ -102,14 +102,14 @@
         grid-template-columns: auto 1fr;
         grid-template-rows: auto;
         gap: clamp(10px, 3vw, 24px);
-        align-items: center;
+        align-items: flex-start;
         gap: clamp(10px, 3vw, 24px);
-        align-items: center;
+        align-items: flex-start;
         padding: 2px;
       }
       .site__logo {
         display: inline-flex;
-        align-items: center;
+        align-items: flex-start;
         background: color-mix(in oklab, var(--paper), var(--bg) 25%);
         padding: 6px 14px;
         border-radius: var(--radius);
@@ -117,7 +117,7 @@
         box-shadow: var(--shadow);
       }
       .site__logo img {
-        width: clamp(180px, 26vw, 240px);
+        width: clamp(80px, 10vw, 120px);
         height: auto;
       }
       .brand__name {
@@ -146,7 +146,7 @@
       nav ul {
         display: flex;
         gap: 18px;
-        align-items: center;
+        align-items: flex-start;
         justify-content: flex-start;
         list-style: none;
         margin: 0;
@@ -159,7 +159,7 @@
       }
       .cta-header {
         display: inline-flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 10px;
         background: var(--accent);
         color: #fff;
@@ -222,7 +222,7 @@
         display: grid;
         grid-template-columns: 1.25fr 0.9fr;
         gap: clamp(20px, 4vw, 60px);
-        align-items: center;
+        align-items: flex-start;
       }
       @media (max-width: 900px) {
         .hero__grid {
@@ -246,7 +246,7 @@
       }
       .btn {
         display: inline-flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 10px;
         white-space: nowrap;
         padding: 12px 18px;
@@ -503,7 +503,7 @@
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 20px;
-        align-items: center;
+        align-items: flex-start;
       }
       @media (max-width: 900px) {
         .cta-band .wrap {
@@ -867,7 +867,11 @@
         <div class="posts">
           <article class="post">
             <figure class="post__media">
-              <img src="assets/post-1.png" alt="Close-up of dried hibiscus petals" loading="lazy" />
+              <img
+                src="assets/post-1.png"
+                alt="Close-up of dried hibiscus petals"
+                loading="lazy"
+              />
             </figure>
             <div class="body">
               <h3>Egyptian Hibiscus: What Buyers Should Know</h3>
@@ -879,7 +883,11 @@
           </article>
           <article class="post">
             <figure class="post__media">
-              <img src="assets/post-2.png" alt="Tea production compliance documents" loading="lazy" />
+              <img
+                src="assets/post-2.png"
+                alt="Tea production compliance documents"
+                loading="lazy"
+              />
             </figure>
             <div class="body">
               <h3>FSVP Basics for Small Brands</h3>
@@ -983,7 +991,4 @@
     </script>
   </body>
 </html>
-
-
-
 
