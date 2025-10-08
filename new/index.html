@@ -136,13 +136,13 @@
       }
       .floating-logo {
         position: fixed;
-        top: 12px;
+        top: 0px;
         left: 12px;
         z-index: 200;
         padding: 6px;
         background: color-mix(in oklab, var(--paper), var(--bg) 40%);
         border: 1px solid color-mix(in oklab, var(--line), #000 5%);
-        border-radius: 12px;
+        border-radius: 0 0 12px 12px;
         box-shadow: var(--shadow);
       }
       .floating-logo img {
@@ -600,8 +600,17 @@
     <!-- HEADER -->
     <header class="site" role="banner">
       <div class="site__row wrap">
-        <a class="brand-mobile" href="/" aria-label="Planet Earth Treasures - Home">
-          <img src="assets/logo-mark.png" alt="Planet Earth Treasures" width="48" height="48" />
+        <a
+          class="brand-mobile"
+          href="/"
+          aria-label="Planet Earth Treasures - Home"
+        >
+          <img
+            src="assets/logo-mark.png"
+            alt="Planet Earth Treasures"
+            width="48"
+            height="48"
+          />
           <span class="brand__name">Planet Earth Treasures</span>
         </a>
         <nav aria-label="Primary">
