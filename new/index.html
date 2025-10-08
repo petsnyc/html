@@ -399,6 +399,12 @@
         color: #888;
         font-size: 14px;
       }
+      .card__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: calc(var(--radius) - 4px);
+      }
       .card__body {
         padding: 16px;
       }
@@ -678,12 +684,8 @@
         <div class="grid">
           <!-- Hibiscus -->
           <article class="card col-4">
-            <figure
-              class="card__media"
-              role="img"
-              aria-label="Hibiscus calyces placeholder"
-            >
-              Image: Hibiscus
+            <figure class="card__media">
+              <img src="assets/Hibiscus.jpg" alt="Hibiscus calyces" />
             </figure>
             <div class="card__body">
               <span class="badge">Priority Supply</span>
@@ -707,12 +709,8 @@
 
           <!-- Moringa -->
           <article class="card col-4">
-            <figure
-              class="card__media"
-              role="img"
-              aria-label="Moringa leaves placeholder"
-            >
-              Image: Moringa
+            <figure class="card__media">
+              <img src="assets/Moringa.jpg" alt="Moringa leaves" />
             </figure>
             <div class="card__body">
               <span class="badge">Steady Supply</span>
@@ -736,12 +734,8 @@
 
           <!-- Peppermint -->
           <article class="card col-4">
-            <figure
-              class="card__media"
-              role="img"
-              aria-label="Peppermint leaves placeholder"
-            >
-              Image: Peppermint
+            <figure class="card__media">
+              <img src="assets/Peppermint.jpg" alt="Peppermint leaves" />
             </figure>
             <div class="card__body">
               <span class="badge">Tea-Cut</span>
@@ -763,12 +757,8 @@
 
           <!-- Chamomile -->
           <article class="card col-4">
-            <figure
-              class="card__media"
-              role="img"
-              aria-label="Chamomile flowers placeholder"
-            >
-              Image: Chamomile
+            <figure class="card__media">
+              <img src="assets/Chamomile.jpg" alt="Chamomile flowers" />
             </figure>
             <div class="card__body">
               <span class="badge">Bar-Cut</span>
@@ -790,12 +780,8 @@
 
           <!-- Basil -->
           <article class="card col-4">
-            <figure
-              class="card__media"
-              role="img"
-              aria-label="Basil leaves placeholder"
-            >
-              Image: Basil
+            <figure class="card__media">
+              <img src="assets/Basil.jpg" alt="Basil leaves" />
             </figure>
             <div class="card__body">
               <span class="badge">C&amp;S</span>
