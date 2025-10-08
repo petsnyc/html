@@ -299,8 +299,6 @@
       .link-highlight {
         color: var(--accent-2);
         font-weight: 600;
-        border-bottom: 1px solid var(--accent-2);
-        padding-bottom: 2px;
       }
 
       /* Featured products grid */
@@ -501,9 +499,20 @@
       footer a {
         color: #e2eee7;
       }
+      .explore-nav {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        gap: 6px 22px;
+        margin-top: 10px;
+        justify-content: flex-start;
+      }
+      .explore-nav a {
+        display: block;
+        white-space: nowrap;
+      }
       .foot {
         display: grid;
-        grid-template-columns: 1.4fr 1fr 1fr;
+        grid-template-columns: 1.2fr 1.6fr 1fr;
         gap: 16px;
       }
       @media (max-width: 900px) {
@@ -930,13 +939,17 @@
           </p>
         </div>
         <div>
-          <strong>Explore</strong><br />
-          <a href="/products">Products</a><br />
-          <a href="/quality">Quality &amp; Compliance</a><br />
-          <a href="/sourcing">Sourcing &amp; Logistics</a><br />
-          <a class="link-highlight" href="/marbles-stones">Marbles &amp; Stones</a><br />
-          <a href="/resources">Resources</a><br />
-          <a href="/contact?type=spices">Contact</a>
+          <strong>Explore</strong>
+          <div class="explore-nav">
+            <a href="/products">Products</a>
+            <a href="/quality">Quality &amp; Compliance</a>
+            <a href="/sourcing">Sourcing &amp; Logistics</a>
+            <a class="link-highlight" href="/marbles-stones"
+              >Marbles &amp; Stones</a
+            >
+            <a href="/resources">Resources</a>
+            <a href="/contact?type=spices">Contact</a>
+          </div>
         </div>
         <div>
           <strong>Contact</strong><br />
