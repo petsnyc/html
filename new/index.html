@@ -88,113 +88,66 @@
         position: sticky;
         top: 0;
         z-index: 50;
-        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
-        border-bottom: 1px solid var(--line);
-        backdrop-filter: saturate(140%) blur(8px);
+        background: transparent;
+        border-bottom: none;
+        backdrop-filter: none;
       }
-      .site__row {
-        display: flex;
+      .site__grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+        gap: 10px clamp(16px, 4vw, 32px);
         align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        padding: 10px var(--space);
-        flex-wrap: wrap;
+        padding: 14px var(--space);
       }
-      .brand {
+      .site__logo {
+        grid-column: 1;
+        grid-row: 1 / span 2;
         display: inline-flex;
         align-items: center;
-        gap: 12px;
-        flex: 0 0 auto;
+        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
+        padding: 10px 16px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
       }
-      .brand picture {
-        display: block;
-      }
-      .brand img {
-        width: auto;
-        height: auto;
-      }
-      .brand .logo {
-        width: 160px;
+      .site__logo img {
+        width: clamp(180px, 26vw, 240px);
         height: auto;
       }
       .brand__name {
         font-family: Marcellus, serif;
         font-size: 20px;
       }
-      .brand-mobile {
-        display: none;
-      }
-      .brand-mobile img {
-        display: block;
-        width: 64px;
-        height: auto;
-      }
-      .brand-mobile .brand__name {
-        margin-left: 10px;
-        font-size: 18px;
-        color: var(--ink);
-      }
-      .floating-logo {
-        position: fixed;
-        top: 0px;
-        left: 12px;
-        z-index: 200;
-        padding: 6px;
-        background: color-mix(in oklab, var(--paper), var(--bg) 40%);
-        border: 1px solid color-mix(in oklab, var(--line), #000 5%);
-        border-radius: 0 0 12px 12px;
+      .site__nav {
+        grid-column: 2;
+        grid-row: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 20px;
+        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
+        padding: 10px 16px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
         box-shadow: var(--shadow);
       }
-      .floating-logo img {
-        display: block;
-        width: 180px;
-        height: auto;
-      }
-      @media (max-width: 640px) {
-        .floating-logo {
-          top: 8px;
-          left: 8px;
-          padding: 4px;
-        }
-        .floating-logo img {
-          width: 150px;
-        }
-      }
-      @media (max-width: 640px) {
-        .floating-logo {
-          display: none;
-        }
-        .brand-mobile {
-          display: inline-flex;
-          align-items: center;
-          order: 1;
-          margin-right: auto;
-          padding: 4px 0;
-          gap: 10px;
-        }
-        .brand-mobile img {
-          width: 48px;
-        }
-        .brand-mobile .brand__name {
-          font-size: 16px;
-        }
+      .site__spacer {
+        grid-column: 2;
+        grid-row: 2;
+        min-height: 8px;
       }
       nav {
-        margin-left: auto;
         flex: 1 1 auto;
-        padding: 0 20px;
       }
       nav ul {
         display: flex;
         gap: 18px;
         align-items: center;
+        justify-content: flex-end;
         list-style: none;
         margin: 0;
         padding: 0;
-      }
-      .cta-header__wrap {
-        display: inline-flex;
-        margin-left: auto;
       }
       nav a {
         font-weight: 600;
@@ -212,25 +165,33 @@
         border: 1px solid color-mix(in oklab, #fff, var(--accent) 70%);
         box-shadow: var(--shadow);
         text-decoration: none;
-        margin-left: auto;
       }
       @media (max-width: 768px) {
-        .site__row {
-          row-gap: 8px;
+        .site__grid {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+          gap: 12px;
+          padding: 10px var(--space);
         }
-        nav {
-          order: 2;
-          width: 100%;
-          margin-left: 0;
+        .site__logo {
+          grid-row: 1;
+          justify-content: flex-start;
         }
-        .brand .logo {
-          width: 140px;
+        .site__logo img {
+          width: clamp(150px, 40vw, 200px);
+        }
+        .site__nav {
+          grid-column: 1;
+          grid-row: 2;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          gap: 12px;
         }
         nav ul {
           flex-wrap: wrap;
           justify-content: flex-start;
         }
-        .cta-header {
+        .site__spacer {
           display: none;
         }
       }
@@ -597,45 +558,35 @@
   </head>
 
   <body>
-    <div class="floating-logo">
-      <a href="/" aria-label="Planet Earth Treasures - Home">
-        <img
-          src="assets/logo-wordmark.png"
-          alt="Planet Earth Treasures"
-          width="180"
-          height="48"
-        />
-      </a>
-    </div>
     <!-- HEADER -->
     <header class="site" role="banner">
-      <div class="site__row wrap">
+      <div class="site__grid wrap">
         <a
-          class="brand-mobile"
+          class="site__logo"
           href="/"
           aria-label="Planet Earth Treasures - Home"
         >
           <img
-            src="assets/logo-mark.png"
+            src="assets/logo-wordmark.png"
             alt="Planet Earth Treasures"
-            width="48"
-            height="48"
+            width="220"
+            height="60"
           />
-          <span class="brand__name">Planet Earth Treasures</span>
         </a>
-        <nav aria-label="Primary">
-          <ul>
-            <li><a href="/products">Products</a></li>
-            <li><a href="/quality">Quality &amp; Compliance</a></li>
-            <li><a href="/sourcing">Sourcing &amp; Logistics</a></li>
-            <li><a href="/resources">Resources</a></li>
-            <li class="cta-header__wrap">
-              <a class="cta-header" href="/contact?type=spices"
-                >Request Samples/Quote</a
-              >
-            </li>
-          </ul>
-        </nav>
+        <div class="site__nav">
+          <nav aria-label="Primary">
+            <ul>
+              <li><a href="/products">Products</a></li>
+              <li><a href="/quality">Quality &amp; Compliance</a></li>
+              <li><a href="/sourcing">Sourcing &amp; Logistics</a></li>
+              <li><a href="/resources">Resources</a></li>
+            </ul>
+          </nav>
+          <a class="cta-header" href="/contact?type=spices"
+            >Request Samples/Quote</a
+          >
+        </div>
+        <div class="site__spacer" aria-hidden="true"></div>
       </div>
     </header>
 
