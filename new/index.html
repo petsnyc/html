@@ -511,13 +511,17 @@
         overflow: hidden;
         box-shadow: var(--shadow);
       }
-      .post .ph {
+      .post__media {
         aspect-ratio: 16/9;
         background: #efece6;
         border-bottom: 1px solid var(--line);
-        display: grid;
-        place-items: center;
-        color: #888;
+        overflow: hidden;
+      }
+      .post__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
       }
       .post .body {
         padding: 16px;
@@ -908,7 +912,9 @@
         </div>
         <div class="posts">
           <article class="post">
-            <div class="ph" aria-hidden="true">Post Image Placeholder</div>
+            <figure class="post__media">
+              <img src="assets/post-1.png" alt="Close-up of dried hibiscus petals" loading="lazy" />
+            </figure>
             <div class="body">
               <h3>Egyptian Hibiscus: What Buyers Should Know</h3>
               <p class="muted">
@@ -918,7 +924,9 @@
             </div>
           </article>
           <article class="post">
-            <div class="ph" aria-hidden="true">Post Image Placeholder</div>
+            <figure class="post__media">
+              <img src="assets/post-2.png" alt="Tea production compliance documents" loading="lazy" />
+            </figure>
             <div class="body">
               <h3>FSVP Basics for Small Brands</h3>
               <p class="muted">
