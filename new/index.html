@@ -121,6 +121,19 @@
         font-family: Marcellus, serif;
         font-size: 20px;
       }
+      .brand-mobile {
+        display: none;
+      }
+      .brand-mobile img {
+        display: block;
+        width: 64px;
+        height: auto;
+      }
+      .brand-mobile .brand__name {
+        margin-left: 10px;
+        font-size: 18px;
+        color: var(--ink);
+      }
       .floating-logo {
         position: fixed;
         top: 12px;
@@ -145,6 +158,25 @@
         }
         .floating-logo img {
           width: 150px;
+        }
+      }
+      @media (max-width: 640px) {
+        .floating-logo {
+          display: none;
+        }
+        .brand-mobile {
+          display: inline-flex;
+          align-items: center;
+          order: 1;
+          margin-right: auto;
+          padding: 4px 0;
+          gap: 10px;
+        }
+        .brand-mobile img {
+          width: 48px;
+        }
+        .brand-mobile .brand__name {
+          font-size: 16px;
         }
       }
       nav {
@@ -568,6 +600,10 @@
     <!-- HEADER -->
     <header class="site" role="banner">
       <div class="site__row wrap">
+        <a class="brand-mobile" href="/" aria-label="Planet Earth Treasures - Home">
+          <img src="assets/logo-mark.png" alt="Planet Earth Treasures" width="48" height="48" />
+          <span class="brand__name">Planet Earth Treasures</span>
+        </a>
         <nav aria-label="Primary">
           <ul>
             <li><a href="/products">Products</a></li>
