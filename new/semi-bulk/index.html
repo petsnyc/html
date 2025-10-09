@@ -703,28 +703,142 @@
               "
             />
 
-            <label for="products"><strong>Products of Interest</strong></label>
-            <select
-              id="products"
-              name="products[]"
-              multiple
+            <fieldset
               style="
-                width: 100%;
-                margin-bottom: 12px;
-                padding: 10px;
-                border: 1px solid var(--line);
+                margin-top: 12px;
+                margin-bottom: 16px;
+                border: 1px dashed var(--line);
+                padding: 12px;
                 border-radius: 8px;
               "
             >
-              <option>Hibiscus</option>
-              <option>Moringa (Leaf)</option>
-              <option>Moringa (Powder)</option>
-              <option>Peppermint</option>
-              <option>Chamomile</option>
-              <option>Basil</option>
-              <option>Anise</option>
-            </select>
-            <small class="muted">Hold Ctrl/Cmd to select multiple.</small>
+              <legend><strong>Products of Interest</strong></legend>
+              <div
+                style="
+                  display: grid;
+                  gap: 8px 16px;
+                  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                  align-items: start;
+                "
+              >
+                <label
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    white-space: nowrap;
+                  "
+                >
+                  <input type="checkbox" name="products[]" value="Hibiscus" />
+                  <span>Hibiscus</span>
+                </label>
+                <label
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    white-space: nowrap;
+                  "
+                >
+                  <input type="checkbox" name="products[]" value="Moringa (Leaf)" />
+                  <span>Moringa (Leaf)</span>
+                </label>
+                <label
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    white-space: nowrap;
+                  "
+                >
+                  <input type="checkbox" name="products[]" value="Moringa (Powder)" />
+                  <span>Moringa (Powder)</span>
+                </label>
+                <label
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    white-space: nowrap;
+                  "
+                >
+                  <input type="checkbox" name="products[]" value="Peppermint" />
+                  <span>Peppermint</span>
+                </label>
+                <label
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    white-space: nowrap;
+                  "
+                >
+                  <input type="checkbox" name="products[]" value="Chamomile" />
+                  <span>Chamomile</span>
+                </label>
+                <label
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    white-space: nowrap;
+                  "
+                >
+                  <input type="checkbox" name="products[]" value="Basil" />
+                  <span>Basil</span>
+                </label>
+                <label
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    white-space: nowrap;
+                  "
+                >
+                  <input type="checkbox" name="products[]" value="Anise" />
+                  <span>Anise</span>
+                </label>
+                <div
+                  style="
+                    display: grid;
+                    gap: 6px;
+                    grid-template-columns: auto 1fr;
+                    align-items: center;
+                  "
+                >
+                  <label
+                    for="products-other"
+                    style="
+                      display: inline-flex;
+                      align-items: center;
+                      gap: 8px;
+                      margin: 0;
+                    "
+                  >
+                    <input
+                      type="checkbox"
+                      id="products-other"
+                      name="products[]"
+                      value="Other"
+                    />
+                    <span id="products-other-label">Other specify:</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="products-other-input"
+                    name="products_other"
+                    placeholder="Add product"
+                    style="
+                      width: 100%;
+                      padding: 8px;
+                      border: 1px solid var(--line);
+                      border-radius: 6px;
+                    "
+                    aria-labelledby="products-other-label"
+                  />
+                </div>
+              </div>
+            </fieldset>
 
             <fieldset
               style="
@@ -736,13 +850,22 @@
               "
             >
               <legend><strong>Preferred Size</strong></legend>
-              <label><input type="radio" name="size" value="5kg" /> 5 kg</label>
               <label
-                ><input type="radio" name="size" value="10kg" /> 10 kg</label
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;
+                  margin-right: 12px;
+                "
+                ><input type="checkbox" name="size[]" value="5kg" /> 5 kg</label
               >
               <label
-                ><input type="radio" name="size" value="either" checked />
-                Either</label
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 8px;
+                "
+                ><input type="checkbox" name="size[]" value="10kg" /> 10 kg</label
               >
             </fieldset>
 
