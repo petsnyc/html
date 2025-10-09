@@ -740,7 +740,11 @@
                     white-space: nowrap;
                   "
                 >
-                  <input type="checkbox" name="products[]" value="Moringa (Leaf)" />
+                  <input
+                    type="checkbox"
+                    name="products[]"
+                    value="Moringa (Leaf)"
+                  />
                   <span>Moringa (Leaf)</span>
                 </label>
                 <label
@@ -751,7 +755,11 @@
                     white-space: nowrap;
                   "
                 >
-                  <input type="checkbox" name="products[]" value="Moringa (Powder)" />
+                  <input
+                    type="checkbox"
+                    name="products[]"
+                    value="Moringa (Powder)"
+                  />
                   <span>Moringa (Powder)</span>
                 </label>
                 <label
@@ -804,6 +812,7 @@
                     gap: 6px;
                     grid-template-columns: auto 1fr;
                     align-items: center;
+                    grid-column: span 2;
                   "
                 >
                   <label
@@ -821,7 +830,7 @@
                       name="products[]"
                       value="Other"
                     />
-                    <span id="products-other-label">Other specify:</span>
+                    <span id="products-other-label">Other, specify:</span>
                   </label>
                   <input
                     type="text"
@@ -850,23 +859,75 @@
               "
             >
               <legend><strong>Preferred Size</strong></legend>
-              <label
+              <div
                 style="
-                  display: inline-flex;
-                  align-items: center;
-                  gap: 8px;
-                  margin-right: 12px;
+                  display: grid;
+                  gap: 8px 16px;
+                  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                  align-items: start;
                 "
-                ><input type="checkbox" name="size[]" value="5kg" /> 5 kg</label
               >
-              <label
-                style="
-                  display: inline-flex;
-                  align-items: center;
-                  gap: 8px;
-                "
-                ><input type="checkbox" name="size[]" value="10kg" /> 10 kg</label
-              >
+                <label
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    white-space: nowrap;
+                  "
+                  ><input type="checkbox" name="size[]" value="11lb" />
+                  <span>10 lb</span></label
+                >
+                <label
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    white-space: nowrap;
+                  "
+                  ><input type="checkbox" name="size[]" value="22lb" />
+                  <span>20 lb</span></label
+                >
+                <div
+                  style="
+                    display: grid;
+                    gap: 6px;
+                    grid-template-columns: auto 1fr;
+                    align-items: center;
+                    grid-column: span 2;
+                  "
+                >
+                  <label
+                    for="size-other"
+                    style="
+                      display: inline-flex;
+                      align-items: center;
+                      gap: 8px;
+                      margin: 0;
+                    "
+                  >
+                    <input
+                      type="checkbox"
+                      id="size-other"
+                      name="size[]"
+                      value="Other"
+                    />
+                    <span id="size-other-label">Other specify:</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="size-other-input"
+                    name="size_other"
+                    placeholder="Enter preferred weight"
+                    style="
+                      width: 100%;
+                      padding: 8px;
+                      border: 1px solid var(--line);
+                      border-radius: 6px;
+                    "
+                    aria-labelledby="size-other-label"
+                  />
+                </div>
+              </div>
             </fieldset>
 
             <label for="use"><strong>Use Case</strong></label>
