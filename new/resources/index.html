@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Resources &mdash; Premium Egyptian Herbs &amp; Botanicals Insights
+    </title>
+    <meta
+      name="description"
+      content="Guides, compliance tips, and product insights for buyers of Egyptian herbs &amp; botanicals from Planet Earth Treasures."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Marcellus&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #f3eee3;
+        --paper: #ffffff;
+        --ink: #1f2a24;
+        --ink-muted: #58625c;
+        --accent: #234b3b;
+        --accent-2: #c97249;
+        --line: #e6e3db;
+        --ok: #1d7a46;
+        --radius: 14px;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        --space: clamp(14px, 2vw, 22px);
+        --max: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial,
+          sans-serif;
+        line-height: 1.45;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: Marcellus, serif;
+        letter-spacing: 0.2px;
+      }
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 clamp(8px, 2vw, var(--space));
+      }
+      header.site .wrap {
+        max-width: none;
+        margin: 0;
+        padding: 0 clamp(4px, 1.5vw, 16px);
+      }
+
+      header.site {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: transparent;
+        border-bottom: none;
+        backdrop-filter: none;
+      }
+      .site__grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: clamp(10px, 3vw, 24px);
+        align-items: flex-start;
+        padding: 2px;
+      }
+      .site__logo {
+        display: inline-flex;
+        align-items: flex-start;
+        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
+        padding: 6px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      .site__logo img {
+        width: clamp(80px, 10vw, 120px);
+        height: auto;
+      }
+      .brand__name {
+        font-family: Marcellus, serif;
+        font-size: 20px;
+      }
+      .site__nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: clamp(12px, 3vw, 28px);
+        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
+        padding: 8px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      .site__nav nav ul {
+        display: flex;
+        gap: clamp(10px, 2.5vw, 22px);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .site__nav nav a {
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .site__nav nav a:hover {
+        color: var(--accent);
+      }
+      .cta-header {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 999px;
+        font-weight: 600;
+        box-shadow: 0 12px 24px rgba(35, 75, 59, 0.12);
+      }
+      .cta-header:hover {
+        text-decoration: none;
+        background: color-mix(in oklab, var(--accent), #000 12%);
+      }
+      .site__spacer {
+        display: none;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+        box-shadow: 0 10px 20px rgba(35, 75, 59, 0.18);
+      }
+      .btn-primary:hover {
+        background: color-mix(in oklab, var(--accent), #000 10%);
+      }
+      .btn-ghost {
+        background: rgba(35, 75, 59, 0.1);
+        border-color: color-mix(in oklab, var(--accent), #fff 60%);
+        color: var(--accent);
+      }
+      .btn-ghost:hover {
+        background: rgba(35, 75, 59, 0.18);
+        border-color: var(--accent);
+      }
+
+      section {
+        padding: clamp(28px, 5vw, 52px) 0;
+      }
+      .panel {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: clamp(18px, 4vw, 26px);
+      }
+      .posts {
+        display: grid;
+        gap: 18px;
+      }
+      .post {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        display: grid;
+        gap: 0;
+      }
+      .post__media {
+        aspect-ratio: 16 / 9;
+        background: #f0eee9;
+      }
+      .post__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .post .body {
+        padding: 16px;
+      }
+      .post .body h3 {
+        margin: 0 0 8px;
+        font-size: clamp(18px, 2.4vw, 22px);
+      }
+      .muted {
+        color: var(--ink-muted);
+        font-size: 15px;
+      }
+      .link-highlight {
+        color: var(--accent-2);
+        font-weight: 600;
+      }
+      .section-title {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+        margin: 0 0 16px;
+      }
+      .section-title h2 {
+        font-size: clamp(22px, 3.4vw, 32px);
+        margin: 0;
+      }
+
+      footer {
+        background: #0f1311;
+        color: #cfd6cf;
+        padding: 30px 0;
+        border-top: 1px solid #223127;
+      }
+      footer a {
+        color: #e2eee7;
+      }
+      .explore-nav {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        gap: 6px 22px;
+        margin-top: 10px;
+        justify-content: flex-start;
+      }
+      .explore-nav a {
+        display: block;
+        white-space: nowrap;
+      }
+      .foot {
+        display: grid;
+        grid-template-columns: 1.2fr 1.6fr 1fr;
+        gap: 16px;
+      }
+      .foot .brand {
+        margin-bottom: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      footer .brand__name {
+        color: #e8efe9;
+      }
+      .small {
+        font-size: 13px;
+        color: #a9b3ad;
+      }
+
+      main#resources {
+        padding: clamp(32px, 5vw, 60px) 0 clamp(40px, 6vw, 72px);
+      }
+      .resources-hero {
+        background: linear-gradient(135deg, #f7f4ec, #efe4d2);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: clamp(20px, 4vw, 28px);
+        margin-top: 18px;
+      }
+      .resources-hero h1 {
+        margin: 0.2rem 0 0.6rem;
+      }
+      .resources-hero .lead {
+        color: var(--ink-muted);
+        max-width: 72ch;
+        margin: 0;
+      }
+      .resources-layout {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 18px;
+        align-items: start;
+        margin-top: 18px;
+      }
+      .resources-nav {
+        position: sticky;
+        top: 80px;
+      }
+      .resources-nav .panel {
+        padding: 14px;
+      }
+      .topics-nav {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 8px;
+      }
+      .topics-nav a {
+        display: block;
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        background: color-mix(in oklab, var(--paper), var(--bg) 60%);
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+      .topics-nav a:hover {
+        border-color: var(--accent);
+        background: color-mix(in oklab, var(--paper), var(--bg) 30%);
+        text-decoration: none;
+      }
+      .posts.posts--two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+      .panel.panel--cta {
+        margin-top: 18px;
+      }
+      .topics-mobile {
+        display: none;
+        margin-top: 16px;
+      }
+      .topics-mobile nav {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 14px;
+        background: var(--paper);
+      }
+      .topics-nav--mobile a {
+        padding: 8px 10px;
+        border-radius: 6px;
+        border: 1px solid transparent;
+        background: color-mix(in oklab, var(--paper), var(--bg) 70%);
+      }
+      .topics-nav--mobile a:hover {
+        border-color: var(--accent);
+        text-decoration: none;
+      }
+
+      @media (max-width: 1100px) {
+        .site__nav nav ul {
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .foot {
+          grid-template-columns: 1fr;
+        }
+        .resources-layout {
+          grid-template-columns: 1fr;
+        }
+        .resources-nav {
+          position: static;
+          display: none;
+        }
+        .topics-mobile {
+          display: block;
+        }
+      }
+
+      @media (max-width: 780px) {
+        .site__grid {
+          grid-template-columns: 1fr;
+        }
+        .site__nav {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .site__nav nav ul {
+          flex-direction: column;
+          gap: 12px;
+        }
+        .posts.posts--two {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site" role="banner">
+      <div class="site__grid wrap">
+        <a
+          class="site__logo"
+          href="/"
+          aria-label="Planet Earth Treasures - Home"
+        >
+          <img
+            src="../assets/logo-wordmark.png"
+            alt="Planet Earth Treasures"
+            width="220"
+            height="60"
+          />
+        </a>
+        <div class="site__nav">
+          <nav aria-label="Primary">
+            <ul>
+              <li><a href="/products">Products</a></li>
+              <li><a href="/quality">Quality &amp; Compliance</a></li>
+              <li><a href="/sourcing">Sourcing &amp; Logistics</a></li>
+              <li><a href="/resources">Resources</a></li>
+            </ul>
+          </nav>
+          <a class="cta-header" href="/contact?type=spices"
+            >Request Samples/Quote</a
+          >
+        </div>
+        <div class="site__spacer" aria-hidden="true"></div>
+      </div>
+    </header>
+
+    <main
+      id="resources"
+      class="wrap"
+      tabindex="-1"
+      aria-label="Resources &amp; Insights"
+    >
+      <section class="resources-hero">
+        <h1>Resources &amp; Insights</h1>
+        <p class="lead">
+          Guides, compliance tips, and product insights for buyers of Egyptian
+          herbs &amp; botanicals. Explore articles below or jump using the menu.
+        </p>
+      </section>
+
+      <section class="resources-layout">
+        <aside class="resources-nav" aria-label="Topics navigation">
+          <nav class="panel">
+            <h2 class="sr-only">Topics</h2>
+            <ul class="topics-nav">
+              <li>
+                <a href="pages/hibiscus-buyers-guide.html"
+                  >Egyptian Hibiscus: What Buyers Should Know</a
+                >
+              </li>
+              <li>
+                <a href="pages/fsvp-small-brands.html"
+                  >FSVP Basics for Small Brands</a
+                >
+              </li>
+              <li>
+                <a href="pages/spices-health-benefits.html"
+                  >Spices &amp; Herbs: Health Benefits Beyond Flavor</a
+                >
+              </li>
+              <li>
+                <a href="pages/hibiscus-bulk-semi-bulk-beverage.html"
+                  >Hibiscus &mdash; Bulk &amp; Semi-Bulk for Beverage Brands</a
+                >
+              </li>
+              <li>
+                <a href="pages/moringa-leaf-powder-supply.html"
+                  >Moringa Powder &amp; Leaf &mdash; Bulk Supply</a
+                >
+              </li>
+              <li>
+                <a href="pages/peppermint-chamomile-rtd.html"
+                  >Peppermint &amp; Chamomile for RTD Startups</a
+                >
+              </li>
+              <li>
+                <a href="pages/basil-anise-culinary-bulk.html"
+                  >Basil &amp; Anise &mdash; Culinary Uses &amp; Bulk Supply</a
+                >
+              </li>
+              <li>
+                <a href="pages/semi-bulk-5-10kg-benefits.html"
+                  >Why Semi-Bulk (5&ndash;10 kg) Fits Caf&eacute;s &amp;
+                  Grocers</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </aside>
+
+        <div>
+          <div class="section-title">
+            <h2>All Topics</h2>
+            <p class="muted">Updated as new guides are published</p>
+          </div>
+
+          <div class="posts posts--two">
+            <article class="post">
+              <div class="post__media">
+                <img
+                  src="../assets/post-1.png"
+                  alt="Hibiscus petals close-up"
+                  loading="lazy"
+                />
+              </div>
+              <div class="body">
+                <h3>
+                  <a href="pages/hibiscus-buyers-guide.html"
+                    >Egyptian Hibiscus: What Buyers Should Know</a
+                  >
+                </h3>
+                <p class="muted">
+                  Color, cut, moisture &amp; micro specs to evaluate for teas,
+                  syrups, and RTD beverages.
+                </p>
+              </div>
+            </article>
+
+            <article class="post">
+              <div class="post__media">
+                <img
+                  src="../assets/post-2.png"
+                  alt="Compliance documents for FSVP"
+                  loading="lazy"
+                />
+              </div>
+              <div class="body">
+                <h3>
+                  <a href="pages/fsvp-small-brands.html"
+                    >FSVP Basics for Small Brands</a
+                  >
+                </h3>
+                <p class="muted">
+                  How an importer reduces regulatory risk and organizes supplier
+                  documentation.
+                </p>
+              </div>
+            </article>
+
+            <article class="post">
+              <div class="post__media">
+                <img
+                  src="../assets/placeholder-16x9.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+              <div class="body">
+                <h3>
+                  <a href="pages/spices-health-benefits.html"
+                    >Spices &amp; Herbs: Health Benefits Beyond Flavor</a
+                  >
+                </h3>
+                <p class="muted">
+                  Hibiscus, moringa, peppermint, chamomile, and basil &mdash;
+                  wellness benefits with sourcing notes.
+                </p>
+              </div>
+            </article>
+
+            <article class="post">
+              <div class="post__media">
+                <img
+                  src="../assets/placeholder-16x9.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+              <div class="body">
+                <h3>
+                  <a href="pages/hibiscus-bulk-semi-bulk-beverage.html"
+                    >Hibiscus &mdash; Bulk &amp; Semi-Bulk for Beverage
+                    Brands</a
+                  >
+                </h3>
+                <p class="muted">
+                  Choosing origin, cut, and specs; when to use 5&ndash;10 kg vs.
+                  25&ndash;100 kg sacks.
+                </p>
+              </div>
+            </article>
+
+            <article class="post">
+              <div class="post__media">
+                <img
+                  src="../assets/placeholder-16x9.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+              <div class="body">
+                <h3>
+                  <a href="pages/moringa-leaf-powder-supply.html"
+                    >Moringa Powder &amp; Leaf &mdash; Bulk Supply</a
+                  >
+                </h3>
+                <p class="muted">
+                  Spec consistency for tea &amp; supplements; COA verification
+                  and sieve profiles.
+                </p>
+              </div>
+            </article>
+
+            <article class="post">
+              <div class="post__media">
+                <img
+                  src="../assets/placeholder-16x9.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+              <div class="body">
+                <h3>
+                  <a href="pages/peppermint-chamomile-rtd.html"
+                    >Peppermint &amp; Chamomile for RTD Startups</a
+                  >
+                </h3>
+                <p class="muted">
+                  Aroma stability, cut sizes, and compliance for ready-to-drink
+                  tea formulations.
+                </p>
+              </div>
+            </article>
+
+            <article class="post">
+              <div class="post__media">
+                <img
+                  src="../assets/placeholder-16x9.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+              <div class="body">
+                <h3>
+                  <a href="pages/basil-anise-culinary-bulk.html"
+                    >Basil &amp; Anise &mdash; Culinary Uses &amp; Bulk
+                    Supply</a
+                  >
+                </h3>
+                <p class="muted">
+                  Flavor attributes, common applications, and bulk sourcing
+                  considerations.
+                </p>
+              </div>
+            </article>
+
+            <article class="post">
+              <div class="post__media">
+                <img
+                  src="../assets/placeholder-16x9.jpg"
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+              <div class="body">
+                <h3>
+                  <a href="pages/semi-bulk-5-10kg-benefits.html"
+                    >Why Semi-Bulk (5&ndash;10 kg) Fits Caf&eacute;s &amp;
+                    Grocers</a
+                  >
+                </h3>
+                <p class="muted">
+                  Smaller cartons, same specs and compliance &mdash; perfect for
+                  pilots and short runs.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="panel panel--cta">
+            <h3>Need Specs or Samples?</h3>
+            <p class="muted">
+              Tell us your product of interest and volume range. We&rsquo;ll
+              send specs, pricing, and timelines.
+            </p>
+            <a class="btn btn-primary" href="/contact?type=spices"
+              >Request Samples/Quote</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="topics-mobile" aria-hidden="true">
+        <div class="wrap">
+          <nav>
+            <ul class="topics-nav topics-nav--mobile">
+              <li><a href="pages/hibiscus-buyers-guide.html">Hibiscus guide</a></li>
+              <li><a href="pages/fsvp-small-brands.html">FSVP basics</a></li>
+              <li><a href="pages/spices-health-benefits.html">Health benefits</a></li>
+              <li>
+                <a href="pages/hibiscus-bulk-semi-bulk-beverage.html"
+                  >Hibiscus for beverage</a
+                >
+              </li>
+              <li>
+                <a href="pages/moringa-leaf-powder-supply.html"
+                  >Moringa supply</a
+                >
+              </li>
+              <li>
+                <a href="pages/peppermint-chamomile-rtd.html"
+                  >Peppermint &amp; chamomile</a
+                >
+              </li>
+              <li>
+                <a href="pages/basil-anise-culinary-bulk.html">Basil &amp; anise</a>
+              </li>
+              <li>
+                <a href="pages/semi-bulk-5-10kg-benefits.html"
+                  >Semi-bulk benefits</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <div class="wrap foot">
+        <div>
+          <div class="brand">
+            <img src="../assets/logo-mark-32.png" alt="" width="36" height="36" />
+            <strong class="brand__name"
+              >Planet Earth Treasures</strong
+            >
+          </div>
+          <p class="small">
+            Importer &amp; Wholesale Distributor of Egyptian herbs &amp;
+            botanicals. Based near the Port of NY/NJ.
+          </p>
+          <p class="small">
+            &copy; <span id="y"></span> Planet Earth Treasures LLC. All rights
+            reserved.
+          </p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <div class="explore-nav">
+            <a href="/products">Products</a>
+            <a href="/quality">Quality &amp; Compliance</a>
+            <a href="/sourcing">Sourcing &amp; Logistics</a>
+            <a class="link-highlight" href="/marbles-stones"
+              >Marbles &amp; Stones</a
+            >
+            <a href="/resources">Resources</a>
+            <a href="/contact?type=spices">Contact</a>
+          </div>
+        </div>
+        <div>
+          <strong>Contact</strong><br />
+          <span class="small">Email: hello@planetearthtreasures.com</span><br />
+          <span class="small">USA (NY/NJ)</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
+

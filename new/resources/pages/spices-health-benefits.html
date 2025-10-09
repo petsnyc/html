@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Spices &amp; Herbs: Health Benefits Beyond Flavor | Resources | Planet
+      Earth Treasures
+    </title>
+    <meta
+      name="description"
+      content="Explore wellness benefits of hibiscus, moringa, peppermint, chamomile, and basil for natural food and beverage brands."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Marcellus&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #f3eee3;
+        --paper: #ffffff;
+        --ink: #1f2a24;
+        --ink-muted: #58625c;
+        --accent: #234b3b;
+        --accent-2: #c97249;
+        --line: #e6e3db;
+        --ok: #1d7a46;
+        --radius: 14px;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        --space: clamp(14px, 2vw, 22px);
+        --max: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial,
+          sans-serif;
+        line-height: 1.6;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: Marcellus, serif;
+        letter-spacing: 0.2px;
+        color: var(--ink);
+      }
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 clamp(8px, 2vw, var(--space));
+      }
+      header.site .wrap {
+        max-width: none;
+        margin: 0;
+        padding: 0 clamp(4px, 1.5vw, 16px);
+      }
+
+      header.site {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: transparent;
+        border-bottom: none;
+        backdrop-filter: none;
+      }
+      .site__grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: clamp(10px, 3vw, 24px);
+        align-items: flex-start;
+        padding: 2px;
+      }
+      .site__logo {
+        display: inline-flex;
+        align-items: flex-start;
+        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
+        padding: 6px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      .site__logo img {
+        width: clamp(80px, 10vw, 120px);
+        height: auto;
+      }
+      .site__nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: clamp(12px, 3vw, 28px);
+        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
+        padding: 8px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      .site__nav ul {
+        display: flex;
+        gap: clamp(10px, 2.5vw, 22px);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .site__nav a {
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .site__nav a:hover {
+        color: var(--accent);
+      }
+      .cta-header {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 999px;
+        font-weight: 600;
+        box-shadow: 0 12px 24px rgba(35, 75, 59, 0.12);
+      }
+      .cta-header:hover {
+        text-decoration: none;
+        background: color-mix(in oklab, var(--accent), #000 12%);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+        box-shadow: 0 10px 20px rgba(35, 75, 59, 0.18);
+      }
+      .btn-primary:hover {
+        background: color-mix(in oklab, var(--accent), #000 10%);
+      }
+      .btn-ghost {
+        background: rgba(35, 75, 59, 0.1);
+        border-color: color-mix(in oklab, var(--accent), #fff 60%);
+        color: var(--accent);
+      }
+      .btn-ghost:hover {
+        background: rgba(35, 75, 59, 0.18);
+        border-color: var(--accent);
+      }
+
+      main.article {
+        padding: clamp(32px, 6vw, 72px) 0 clamp(48px, 6vw, 80px);
+        display: grid;
+        gap: clamp(24px, 4vw, 36px);
+      }
+      .article__header {
+        background: linear-gradient(135deg, #f7f4ec, #efe4d2);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: clamp(22px, 4vw, 32px);
+        box-shadow: var(--shadow);
+      }
+      .article__header h1 {
+        margin: 0 0 0.6rem;
+        font-size: clamp(28px, 4vw, 36px);
+      }
+      .lead {
+        color: var(--ink-muted);
+        font-size: clamp(17px, 2.6vw, 18px);
+        margin: 0;
+        max-width: 70ch;
+      }
+      .article__meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+        color: var(--ink-muted);
+        font-size: 14px;
+      }
+      .article__body {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: clamp(22px, 4vw, 32px);
+        box-shadow: var(--shadow);
+      }
+      .article__body p {
+        margin: 0 0 1.1rem;
+      }
+      .article__body p:last-child {
+        margin-bottom: 0;
+      }
+      .article__footer {
+        display: grid;
+        gap: 18px;
+      }
+      .panel {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: clamp(18px, 4vw, 26px);
+      }
+      .muted {
+        color: var(--ink-muted);
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        color: var(--accent);
+      }
+      .back-link::before {
+        content: "‹";
+        font-size: 18px;
+        line-height: 1;
+      }
+
+      footer {
+        background: #0f1311;
+        color: #cfd6cf;
+        padding: 30px 0;
+        border-top: 1px solid #223127;
+      }
+      footer a {
+        color: #e2eee7;
+      }
+      .explore-nav {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        gap: 6px 22px;
+        margin-top: 10px;
+        justify-content: flex-start;
+      }
+      .explore-nav a {
+        display: block;
+        white-space: nowrap;
+      }
+      .foot {
+        display: grid;
+        grid-template-columns: 1.2fr 1.6fr 1fr;
+        gap: 16px;
+      }
+      .foot .brand {
+        margin-bottom: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      footer .brand__name {
+        color: #e8efe9;
+      }
+      .small {
+        font-size: 13px;
+        color: #a9b3ad;
+      }
+      .link-highlight {
+        color: var(--accent-2);
+        font-weight: 600;
+      }
+
+      @media (max-width: 900px) {
+        .foot {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 780px) {
+        .site__grid {
+          grid-template-columns: 1fr;
+        }
+        .site__nav {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .site__nav ul {
+          flex-direction: column;
+          gap: 12px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site" role="banner">
+      <div class="site__grid wrap">
+        <a
+          class="site__logo"
+          href="/"
+          aria-label="Planet Earth Treasures - Home"
+        >
+          <img
+            src="../../assets/logo-wordmark.png"
+            alt="Planet Earth Treasures"
+            width="220"
+            height="60"
+          />
+        </a>
+        <div class="site__nav">
+          <nav aria-label="Primary">
+            <ul>
+              <li><a href="/products">Products</a></li>
+              <li><a href="/quality">Quality &amp; Compliance</a></li>
+              <li><a href="/sourcing">Sourcing &amp; Logistics</a></li>
+              <li><a href="/resources">Resources</a></li>
+            </ul>
+          </nav>
+          <a class="cta-header" href="/contact?type=spices"
+            >Request Samples/Quote</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main class="article wrap" tabindex="-1">
+      <a class="back-link" href="../index.html">Back to Resources</a>
+
+      <header class="article__header">
+        <div class="article__meta">Resources &ndash; Product Insight</div>
+        <h1>Spices &amp; Herbs: Health Benefits Beyond Flavor</h1>
+        <p class="lead">
+          Discover how hibiscus, moringa, peppermint, chamomile, and basil
+          support wellness.
+        </p>
+      </header>
+
+      <div class="article__body">
+        <p>
+          Spices and herbs are not just flavor enhancers — they carry
+          scientifically recognized health benefits. Hibiscus is rich in
+          antioxidants and supports heart health, making it a staple in
+          functional beverages.
+        </p>
+        <p>
+          Moringa leaves deliver vitamins, minerals, and plant protein, boosting
+          supplements and wellness teas. Peppermint aids digestion with a
+          refreshing menthol profile, while chamomile is celebrated for
+          relaxation and stress reduction.
+        </p>
+        <p>
+          Basil contributes anti-inflammatory compounds and a bright aroma ideal
+          for culinary blends. Together, these botanicals support consumer
+          demand for natural, functional ingredients in beverages, supplements,
+          and foods.
+        </p>
+      </div>
+
+      <div class="article__footer">
+        <div class="panel">
+          <h2>Build a Functional Herbs Lineup</h2>
+          <p class="muted">
+            Share the wellness claims or applications you&rsquo;re targeting.
+            We&rsquo;ll recommend botanicals with matching specs and COA.
+          </p>
+          <a class="btn btn-primary" href="/contact?type=spices&amp;topic=wellness"
+            >Start a Formulation Chat</a
+          >
+        </div>
+      </div>
+    </main>
+
+    <footer role="contentinfo">
+      <div class="wrap foot">
+        <div>
+          <div class="brand">
+            <img src="../../assets/logo-mark-32.png" alt="" width="36" height="36" />
+            <strong class="brand__name"
+              >Planet Earth Treasures</strong
+            >
+          </div>
+          <p class="small">
+            Importer &amp; Wholesale Distributor of Egyptian herbs &amp;
+            botanicals. Based near the Port of NY/NJ.
+          </p>
+          <p class="small">
+            &copy; <span id="y"></span> Planet Earth Treasures LLC. All rights
+            reserved.
+          </p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <div class="explore-nav">
+            <a href="/products">Products</a>
+            <a href="/quality">Quality &amp; Compliance</a>
+            <a href="/sourcing">Sourcing &amp; Logistics</a>
+            <a class="link-highlight" href="/marbles-stones"
+              >Marbles &amp; Stones</a
+            >
+            <a href="/resources">Resources</a>
+            <a href="/contact?type=spices">Contact</a>
+          </div>
+        </div>
+        <div>
+          <strong>Contact</strong><br />
+          <span class="small">Email: hello@planetearthtreasures.com</span><br />
+          <span class="small">USA (NY/NJ)</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
+
