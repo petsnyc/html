@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Request Samples/Quote | Planet Earth Treasures</title>
+    <meta
+      name="description"
+      content="Request samples or quotes for Egyptian herbs and botanicals from Planet Earth Treasures."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Marcellus&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #f3eee3;
+        --paper: #ffffff;
+        --ink: #1f2a24;
+        --ink-muted: #58625c;
+        --accent: #234b3b;
+        --accent-2: #c97249;
+        --line: #e6e3db;
+        --ok: #1d7a46;
+        --radius: 14px;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        --space: clamp(14px, 2vw, 22px);
+        --max: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial,
+          sans-serif;
+        line-height: 1.45;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: Marcellus, serif;
+        letter-spacing: 0.2px;
+      }
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 clamp(8px, 2vw, var(--space));
+      }
+      header.site .wrap {
+        max-width: none;
+        margin: 0;
+        padding: 0 clamp(4px, 1.5vw, 16px);
+      }
+
+      header.site {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: transparent;
+        border-bottom: none;
+        backdrop-filter: none;
+      }
+      .site__grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: clamp(10px, 3vw, 24px);
+        align-items: flex-start;
+        padding: 2px;
+      }
+      .site__logo {
+        display: inline-flex;
+        align-items: flex-start;
+        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
+        padding: 6px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      .site__logo img {
+        width: clamp(80px, 10vw, 120px);
+        height: auto;
+      }
+      .brand__name {
+        font-family: Marcellus, serif;
+        font-size: 20px;
+      }
+      .site__nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: clamp(12px, 3vw, 28px);
+        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
+        padding: 8px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      .site__nav nav ul {
+        display: flex;
+        gap: clamp(10px, 2.5vw, 22px);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .site__nav nav a {
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .site__nav nav a:hover {
+        color: var(--accent);
+      }
+      .site__nav a.cta-header {
+        color: #fff;
+      }
+      .site__nav a.cta-header:hover {
+        color: #fff;
+      }
+      .cta-header {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 999px;
+        font-weight: 600;
+        box-shadow: 0 12px 24px rgba(35, 75, 59, 0.12);
+      }
+      .cta-header:hover {
+        text-decoration: none;
+        background: color-mix(in oklab, var(--accent), #000 12%);
+      }
+      .site__spacer {
+        display: none;
+      }
+
+      main {
+        padding: clamp(24px, 4vw, 48px) 0 clamp(32px, 4.5vw, 56px);
+      }
+
+      footer {
+        background: #0f1311;
+        color: #cfd6cf;
+        padding: 30px 0;
+        border-top: 1px solid #223127;
+      }
+      footer a {
+        color: #e2eee7;
+      }
+      .explore-nav {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        gap: 6px 22px;
+        margin-top: 10px;
+        justify-content: flex-start;
+      }
+      .explore-nav a {
+        display: block;
+        white-space: nowrap;
+      }
+      .foot {
+        display: grid;
+        grid-template-columns: 1.2fr 1.6fr 1fr;
+        gap: 16px;
+      }
+      .foot .brand {
+        margin-bottom: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      footer .brand__name {
+        color: #e8efe9;
+      }
+      .small {
+        font-size: 13px;
+        color: #a9b3ad;
+      }
+
+      @media (max-width: 900px) {
+        .foot {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 780px) {
+        .site__grid {
+          grid-template-columns: 1fr;
+        }
+        .site__nav {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .site__nav nav ul {
+          flex-direction: column;
+          gap: 12px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site" role="banner">
+      <div class="site__grid wrap">
+        <a
+          class="site__logo"
+          href="/"
+          aria-label="Planet Earth Treasures - Home"
+        >
+          <img
+            src="../assets/logo-wordmark.png"
+            alt="Planet Earth Treasures"
+            width="220"
+            height="60"
+          />
+        </a>
+        <div class="site__nav">
+          <nav aria-label="Primary">
+            <ul>
+              <li><a href="/products">Products</a></li>
+              <li><a href="/quality">Quality &amp; Compliance</a></li>
+              <li><a href="/sourcing">Sourcing &amp; Logistics</a></li>
+              <li><a href="../resources/index.html">Resources</a></li>
+            </ul>
+          </nav>
+          <a class="cta-header" href="/contact?type=spices"
+            >Request Samples/Quote</a
+          >
+        </div>
+        <div class="site__spacer" aria-hidden="true"></div>
+      </div>
+    </header>
+
+    <main
+      id="request-quote"
+      class="wrap"
+      tabindex="-1"
+      aria-label="Request Samples or Quote"
+    >
+      <!-- REQUEST SAMPLES / QUOTE FORM -->
+      <section class="panel" style="margin-top: 18px">
+        <h1 style="margin: 0.2rem 0 0.6rem">Request Samples / Quote</h1>
+        <p class="muted" style="max-width: 75ch">
+          Tell us what you need and where it’s going. We’ll reply with specs,
+          pricing, lead times, and a calendar link. Fields marked * are
+          required.
+        </p>
+
+        <form
+          action="/contact/submit"
+          method="post"
+          enctype="multipart/form-data"
+          novalidate
+        >
+          <!-- Anti-spam honeypot -->
+          <input
+            type="text"
+            name="website"
+            aria-hidden="true"
+            tabindex="-1"
+            autocomplete="off"
+            style="
+              position: absolute;
+              left: -9999px;
+              height: 0;
+              width: 0;
+              padding: 0;
+              border: 0;
+            "
+          />
+
+          <!-- Hidden context -->
+          <input type="hidden" name="source" value="request-samples-quote" />
+
+          <!-- 1) Contact -->
+          <fieldset style="margin: 14px 0">
+            <legend><strong>Contact Details</strong></legend>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 12px;
+              "
+            >
+              <label style="grid-column: span 6">
+                <span><strong>Full Name *</strong></span>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  placeholder="Jane Doe"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Work Email *</strong></span>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="jane@company.com"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Company *</strong></span>
+                <input
+                  type="text"
+                  name="company"
+                  required
+                  placeholder="Company Inc."
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Role</strong></span>
+                <input
+                  type="text"
+                  name="role"
+                  placeholder="Buyer, Founder, QA, etc."
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Phone</strong></span>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="+1 (___) ___-____"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Website</strong></span>
+                <input
+                  type="url"
+                  name="company_url"
+                  placeholder="https://example.com"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- 2) Products & Sizes -->
+          <fieldset style="margin: 14px 0">
+            <legend><strong>Products &amp; Sizes</strong></legend>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 12px;
+              "
+            >
+              <label style="grid-column: span 7">
+                <span><strong>Product(s) of Interest *</strong></span>
+                <select
+                  name="products[]"
+                  multiple
+                  required
+                  aria-describedby="products-help"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                    min-height: 120px;
+                  "
+                >
+                  <option>Hibiscus (Whole)</option>
+                  <option>Hibiscus (Tea-Cut)</option>
+                  <option>Moringa (Leaf)</option>
+                  <option>Moringa (Powder)</option>
+                  <option>Peppermint (Tea-Cut)</option>
+                  <option>Chamomile (Bar-Cut)</option>
+                  <option>Basil (Cut &amp; Sift)</option>
+                  <option>Anise (Seeds)</option>
+                  <option>Other (specify in notes)</option>
+                </select>
+                <small id="products-help" class="muted"
+                  >Hold Ctrl/Cmd to select multiple.</small
+                >
+              </label>
+
+              <fieldset
+                style="
+                  grid-column: span 5;
+                  border: 1px dashed var(--line);
+                  border-radius: 10px;
+                  padding: 10px;
+                "
+              >
+                <legend><strong>Preferred Pack Size *</strong></legend>
+                <label
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 6px;
+                  "
+                >
+                  <input type="radio" name="pack_size" value="25kg" required />
+                  25 kg (≈55 lb)
+                </label>
+                <label
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 6px;
+                  "
+                >
+                  <input type="radio" name="pack_size" value="50kg" /> 50 kg
+                  (≈110 lb)
+                </label>
+                <label
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 6px;
+                  "
+                >
+                  <input type="radio" name="pack_size" value="100kg" /> 100 kg
+                  (≈220 lb)
+                </label>
+                <label
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 6px;
+                  "
+                >
+                  <input type="radio" name="pack_size" value="semi-bulk-5" /> 5
+                  kg (≈11 lb) — Semi-Bulk (Coming Soon)
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px">
+                  <input type="radio" name="pack_size" value="semi-bulk-10" />
+                  10 kg (≈22 lb) — Semi-Bulk (Coming Soon)
+                </label>
+              </fieldset>
+
+              <label style="grid-column: span 6">
+                <span><strong>Estimated First Order Quantity *</strong></span>
+                <select
+                  name="quantity_band"
+                  required
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                >
+                  <option value="">Select…</option>
+                  <option>25–100 kg</option>
+                  <option>100–300 kg</option>
+                  <option>1–3 pallets</option>
+                  <option>3+ pallets</option>
+                </select>
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Target Timeline *</strong></span>
+                <select
+                  name="timeline"
+                  required
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                >
+                  <option value="">Select…</option>
+                  <option>ASAP (in stock if available)</option>
+                  <option>2–4 weeks</option>
+                  <option>4–8 weeks</option>
+                  <option>8+ weeks</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- 3) Logistics -->
+          <fieldset style="margin: 14px 0">
+            <legend><strong>Logistics</strong></legend>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 12px;
+              "
+            >
+              <label style="grid-column: span 4">
+                <span><strong>Destination Country *</strong></span>
+                <input
+                  type="text"
+                  name="dest_country"
+                  required
+                  placeholder="United States"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+
+              <label style="grid-column: span 4">
+                <span><strong>State/Region *</strong></span>
+                <input
+                  type="text"
+                  name="dest_region"
+                  required
+                  placeholder="NY / NJ / CA …"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+
+              <label style="grid-column: span 4">
+                <span><strong>City &amp; ZIP/Postal *</strong></span>
+                <input
+                  type="text"
+                  name="dest_city_zip"
+                  required
+                  placeholder="City, ZIP"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Preferred Incoterms *</strong></span>
+                <select
+                  name="incoterms"
+                  required
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                >
+                  <option value="">Select…</option>
+                  <option>FOB (Alexandria)</option>
+                  <option>CIF (NY/NJ)</option>
+                  <option>DDP (Delivered Duty Paid) — by request</option>
+                </select>
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Delivery Type *</strong></span>
+                <select
+                  name="delivery_type"
+                  required
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                >
+                  <option value="">Select…</option>
+                  <option>Business dock</option>
+                  <option>Business liftgate required</option>
+                  <option>Residential (small orders)</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- 4) Compliance & Samples -->
+          <fieldset style="margin: 14px 0">
+            <legend><strong>Compliance &amp; Samples</strong></legend>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 12px;
+              "
+            >
+              <label style="grid-column: span 6">
+                <span><strong>Documentation Needed *</strong></span>
+                <select
+                  name="docs_needed"
+                  required
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                >
+                  <option value="">Select…</option>
+                  <option>COA only</option>
+                  <option>COA + Micro/Pesticide Panels</option>
+                  <option>FSVP package (Importer of Record)</option>
+                </select>
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Certifications</strong></span>
+                <select
+                  name="certs[]"
+                  multiple
+                  aria-describedby="certs-help"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                    min-height: 96px;
+                  "
+                >
+                  <option>Conventional</option>
+                  <option>Organic (if available)</option>
+                  <option>Non-GMO</option>
+                  <option>Allergen statement</option>
+                  <option>Other (specify in notes)</option>
+                </select>
+                <small id="certs-help" class="muted"
+                  >Hold Ctrl/Cmd to select multiple.</small
+                >
+              </label>
+
+              <label style="grid-column: span 12">
+                <span><strong>Sample Shipping Address (optional)</strong></span>
+                <input
+                  type="text"
+                  name="sample_address"
+                  placeholder="Company, Street, City, State/Region, ZIP, Country"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+
+              <label style="grid-column: span 12">
+                <span><strong>Attach NDA / Spec (optional)</strong></span>
+                <input
+                  type="file"
+                  name="attachment"
+                  style="
+                    display: block;
+                    margin-top: 6px;
+                    padding: 8px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- 5) Notes -->
+          <fieldset style="margin: 14px 0">
+            <legend><strong>Notes</strong></legend>
+            <textarea
+              name="notes"
+              rows="4"
+              placeholder="Tell us about target cut/mesh, aroma profile, packaging, or anything else."
+              style="
+                width: 100%;
+                padding: 10px;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                background: #fff;
+              "
+            ></textarea>
+          </fieldset>
+
+          <!-- 6) Consent & Submit -->
+          <div
+            style="
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              gap: 12px;
+              margin-top: 8px;
+            "
+          >
+            <label style="display: flex; align-items: center; gap: 8px">
+              <input type="checkbox" name="consent" required />
+              <span>I agree to be contacted regarding this request *</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px">
+              <input type="checkbox" name="newsletter" />
+              <span>Subscribe to monthly updates (optional)</span>
+            </label>
+          </div>
+
+          <div
+            style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px"
+          >
+            <button class="btn btn-primary" type="submit">Send Request</button>
+            <a class="btn btn-ghost" href="/resources/specs-pack.pdf"
+              >Download Specs Pack</a
+            >
+          </div>
+
+          <p class="muted" style="margin-top: 10px">
+            We’ll reply within one business day with specs, pricing, and lead
+            time options.
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <div class="wrap foot">
+        <div>
+          <div class="brand">
+            <img
+              src="../assets/logo-mark-32.png"
+              alt=""
+              width="36"
+              height="36"
+            />
+            <strong class="brand__name">Planet Earth Treasures</strong>
+          </div>
+          <p class="small">
+            Importer &amp; Wholesale Distributor of Egyptian herbs &amp;
+            botanicals. Based near the Port of NY/NJ.
+          </p>
+          <p class="small">
+            &copy; <span id="y"></span> Planet Earth Treasures LLC. All rights
+            reserved.
+          </p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <div class="explore-nav">
+            <a href="/products">Products</a>
+            <a href="/quality">Quality &amp; Compliance</a>
+            <a href="/sourcing">Sourcing &amp; Logistics</a>
+            <a class="link-highlight" href="/marbles-stones"
+              >Marbles &amp; Stones</a
+            >
+            <a href="../resources/index.html">Resources</a>
+            <a href="/contact?type=spices">Contact</a>
+          </div>
+        </div>
+        <div>
+          <strong>Contact</strong><br />
+          <span class="small">Email: hello@planetearthtreasures.com</span><br />
+          <span class="small">USA (NY/NJ)</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
