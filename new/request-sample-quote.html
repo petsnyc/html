@@ -240,7 +240,7 @@
           aria-label="Planet Earth Treasures - Home"
         >
           <img
-            src="../assets/logo-wordmark.png"
+            src="./assets/logo-wordmark.png"
             alt="Planet Earth Treasures"
             width="220"
             height="60"
@@ -252,10 +252,10 @@
               <li><a href="/products">Products</a></li>
               <li><a href="/quality">Quality &amp; Compliance</a></li>
               <li><a href="/sourcing">Sourcing &amp; Logistics</a></li>
-              <li><a href="../resources/index.html">Resources</a></li>
+              <li><a href="./resources/index.html">Resources</a></li>
             </ul>
           </nav>
-          <a class="cta-header" href="/contact?type=spices"
+          <a class="cta-header" href="./request-sample-quote.html"
             >Request Samples/Quote</a
           >
         </div>
@@ -431,95 +431,274 @@
                 gap: 12px;
               "
             >
-              <label style="grid-column: span 7">
-                <span><strong>Product(s) of Interest *</strong></span>
-                <select
-                  name="products[]"
-                  multiple
-                  required
-                  aria-describedby="products-help"
-                  style="
-                    width: 100%;
-                    margin-top: 6px;
-                    padding: 10px;
-                    border: 1px solid var(--line);
-                    border-radius: 10px;
-                    background: #fff;
-                    min-height: 120px;
-                  "
-                >
-                  <option>Hibiscus (Whole)</option>
-                  <option>Hibiscus (Tea-Cut)</option>
-                  <option>Moringa (Leaf)</option>
-                  <option>Moringa (Powder)</option>
-                  <option>Peppermint (Tea-Cut)</option>
-                  <option>Chamomile (Bar-Cut)</option>
-                  <option>Basil (Cut &amp; Sift)</option>
-                  <option>Anise (Seeds)</option>
-                  <option>Other (specify in notes)</option>
-                </select>
-                <small id="products-help" class="muted"
-                  >Hold Ctrl/Cmd to select multiple.</small
-                >
-              </label>
-
               <fieldset
                 style="
-                  grid-column: span 5;
+                  grid-column: span 12;
                   border: 1px dashed var(--line);
                   border-radius: 10px;
-                  padding: 10px;
+                  padding: 12px;
+                "
+              >
+                <legend><strong>Product(s) of Interest *</strong></legend>
+                <div
+                  class="checks"
+                  style="
+                    display: grid;
+                    gap: 8px 16px;
+                    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                  "
+                >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Hibiscus (Whole Calyces)"
+                      required
+                    />
+                    Hibiscus (Whole Calyces)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Hibiscus (Tea-Cut / TBC)"
+                    />
+                    Hibiscus (Tea-Cut / TBC)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Hibiscus (Powder)"
+                    />
+                    Hibiscus (Powder)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Moringa (Leaf, Whole)"
+                    />
+                    Moringa (Leaf, Whole)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Moringa (Powder)"
+                    />
+                    Moringa (Powder)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Basil (Cut &amp; Sift)"
+                    />
+                    Basil (Cut &amp; Sift)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Basil (Powder, optional)"
+                    />
+                    Basil (Powder, optional)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Marjoram (Cut &amp; Sift)"
+                    />
+                    Marjoram (Cut &amp; Sift)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Marjoram (Powder, optional)"
+                    />
+                    Marjoram (Powder, optional)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Peppermint (Tea-Cut)"
+                    />
+                    Peppermint (Tea-Cut)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Peppermint (Powder)"
+                    />
+                    Peppermint (Powder)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Spearmint (Tea-Cut)"
+                    />
+                    Spearmint (Tea-Cut)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Chamomile (Whole Flowers)"
+                    />
+                    Chamomile (Whole Flowers)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Chamomile (Bar-Cut)"
+                    />
+                    Chamomile (Bar-Cut)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Calendula (Whole Petals)"
+                    />
+                    Calendula (Whole Petals)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Calendula (Cut &amp; Sift)"
+                    />
+                    Calendula (Cut &amp; Sift)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Anise (Seeds, Whole)"
+                    />
+                    Anise (Seeds, Whole)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Anise (Ground)"
+                    />
+                    Anise (Ground)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Cumin (Seeds, Whole)"
+                    />
+                    Cumin (Seeds, Whole)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Cumin (Ground)"
+                    />
+                    Cumin (Ground)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Fennel (Seeds, Whole)"
+                    />
+                    Fennel (Seeds, Whole)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Fennel (Ground)"
+                    />
+                    Fennel (Ground)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Parsley (Leaves, Cut &amp; Sift)"
+                    />
+                    Parsley (Leaves, Cut &amp; Sift)</label
+                  >
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Parsley (Powder)"
+                    />
+                    Parsley (Powder)</label
+                  >
+                </div>
+              </fieldset>
+
+                            <fieldset
+                style="
+                  grid-column: span 12;
+                  border: 1px dashed var(--line);
+                  border-radius: 10px;
+                  padding: 12px;
                 "
               >
                 <legend><strong>Preferred Pack Size *</strong></legend>
-                <label
+                <div
                   style="
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    margin-bottom: 6px;
+                    display: grid;
+                    gap: 18px;
+                    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
                   "
                 >
-                  <input type="radio" name="pack_size" value="25kg" required />
-                  25 kg (≈55 lb)
-                </label>
-                <label
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    margin-bottom: 6px;
-                  "
-                >
-                  <input type="radio" name="pack_size" value="50kg" /> 50 kg
-                  (≈110 lb)
-                </label>
-                <label
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    margin-bottom: 6px;
-                  "
-                >
-                  <input type="radio" name="pack_size" value="100kg" /> 100 kg
-                  (≈220 lb)
-                </label>
-                <label
-                  style="
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    margin-bottom: 6px;
-                  "
-                >
-                  <input type="radio" name="pack_size" value="semi-bulk-5" /> 5
-                  kg (≈11 lb) — Semi-Bulk (Coming Soon)
-                </label>
-                <label style="display: flex; align-items: center; gap: 8px">
-                  <input type="radio" name="pack_size" value="semi-bulk-10" />
-                  10 kg (≈22 lb) — Semi-Bulk (Coming Soon)
-                </label>
+                  <div>
+                    <strong style="display: block; margin-bottom: 8px">Bulk</strong>
+                    <div class="checks" style="gap: 8px 12px">
+                      <label style="display: inline-flex; align-items: center; gap: 8px">
+                        <input type="checkbox" name="pack_size_bulk[]" value="25 kg" />
+                        <span>25 kg sacks</span>
+                      </label>
+                      <label style="display: inline-flex; align-items: center; gap: 8px">
+                        <input type="checkbox" name="pack_size_bulk[]" value="50 kg" />
+                        <span>50 kg sacks</span>
+                      </label>
+                      <label style="display: inline-flex; align-items: center; gap: 8px">
+                        <input type="checkbox" name="pack_size_bulk[]" value="100 kg" />
+                        <span>100 kg sacks</span>
+                      </label>
+                      <label style="display: inline-flex; align-items: center; gap: 8px">
+                        <input type="checkbox" name="pack_size_bulk[]" value="Pallet" />
+                        <span>Palletized (100 kg+)</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <strong style="display: block; margin-bottom: 8px">Semi-bulk</strong>
+                    <div class="checks" style="gap: 8px 12px">
+                      <label style="display: inline-flex; align-items: center; gap: 8px">
+                        <input type="checkbox" name="pack_size_semi_bulk[]" value="5 kg" />
+                        <span>5 kg cartons</span>
+                      </label>
+                      <label style="display: inline-flex; align-items: center; gap: 8px">
+                        <input type="checkbox" name="pack_size_semi_bulk[]" value="10 kg" />
+                        <span>10 kg cartons</span>
+                      </label>
+                      <label style="display: inline-flex; align-items: center; gap: 8px">
+                        <input type="checkbox" name="pack_size_semi_bulk[]" value="Other" />
+                        <span>Other semi-bulk</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
               </fieldset>
 
               <label style="grid-column: span 6">
@@ -816,8 +995,8 @@
           </div>
 
           <p class="muted" style="margin-top: 10px">
-            We’ll reply within one business day with specs, pricing, and lead
-            time options.
+            We’ll reply in a few days with specs, pricing, and lead time
+            options.
           </p>
         </form>
       </section>
@@ -828,7 +1007,7 @@
         <div>
           <div class="brand">
             <img
-              src="../assets/logo-mark-32.png"
+              src="./assets/logo-mark-32.png"
               alt=""
               width="36"
               height="36"
@@ -853,8 +1032,8 @@
             <a class="link-highlight" href="/marbles-stones"
               >Marbles &amp; Stones</a
             >
-            <a href="../resources/index.html">Resources</a>
-            <a href="/contact?type=spices">Contact</a>
+            <a href="./resources/index.html">Resources</a>
+            <a href="./contact.html">Contact</a>
           </div>
         </div>
         <div>
@@ -870,3 +1049,6 @@
     </script>
   </body>
 </html>
+
+
+
