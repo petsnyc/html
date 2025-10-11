@@ -159,9 +159,18 @@
         font-weight: 600;
         box-shadow: 0 12px 24px rgba(35, 75, 59, 0.12);
       }
+      button.cta-header {
+        border: none;
+        cursor: pointer;
+        font: inherit;
+      }
       .cta-header:hover {
         text-decoration: none;
         background: color-mix(in oklab, var(--accent), #000 12%);
+      }
+      .cta-header:focus-visible {
+        outline: 3px solid color-mix(in oklab, var(--accent), #fff 40%);
+        outline-offset: 2px;
       }
       .site__spacer {
         display: none;
@@ -208,6 +217,10 @@
       .small {
         font-size: 13px;
         color: #a9b3ad;
+      }
+      .link-highlight {
+        color: var(--accent-2);
+        font-weight: 600;
       }
       .product-grid {
         column-width: 240px;
@@ -709,7 +722,7 @@
                     <strong style="display: block; margin-bottom: 8px"
                       >Bulk</strong
                     >
-                    <div class="checks" style="gap: 8px 12px">
+                    <div class="checks" style="gap: 6px 9px">
                       <label
                         style="
                           display: inline-flex;
@@ -722,7 +735,7 @@
                           name="pack_size_bulk[]"
                           value="25 kg"
                         />
-                        <span>25 kg sacks</span>
+                        <span>25 kg sacks (≈55 lb)</span>
                       </label>
                       <label
                         style="
@@ -736,7 +749,7 @@
                           name="pack_size_bulk[]"
                           value="50 kg"
                         />
-                        <span>50 kg sacks</span>
+                        <span>50 kg sacks (≈110 lb)</span>
                       </label>
                       <label
                         style="
@@ -748,23 +761,9 @@
                         <input
                           type="checkbox"
                           name="pack_size_bulk[]"
-                          value="100 kg"
+                          value="MOQ 100 kg (Palletized)"
                         />
-                        <span>100 kg sacks</span>
-                      </label>
-                      <label
-                        style="
-                          display: inline-flex;
-                          align-items: center;
-                          gap: 8px;
-                        "
-                      >
-                        <input
-                          type="checkbox"
-                          name="pack_size_bulk[]"
-                          value="Pallet"
-                        />
-                        <span>Palletized (100 kg+)</span>
+                        <span>MOQ 100 kg (Palletized)</span>
                       </label>
                     </div>
                   </div>
@@ -772,7 +771,7 @@
                     <strong style="display: block; margin-bottom: 8px"
                       >Semi-bulk</strong
                     >
-                    <div class="checks" style="gap: 8px 12px">
+                    <div class="checks" style="gap: 6px 9px">
                       <label
                         style="
                           display: inline-flex;
@@ -1042,7 +1041,7 @@
           </div>
 
           <div style="display: flex; flex-wrap: wrap; margin-top: 14px">
-            <button class="btn btn-primary" type="submit">Send Request</button>
+            <button class="cta-header" type="submit">Send Request</button>
           </div>
 
           <p class="muted" style="margin-top: 10px">
