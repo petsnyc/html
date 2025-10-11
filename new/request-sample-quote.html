@@ -218,15 +218,18 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 4px;
-        padding-bottom: 6px;
-        margin-bottom: 12px;
+        gap: 2px;
+        padding-bottom: 4px;
+        margin-bottom: 8px;
         border-bottom: 1px dashed var(--line);
       }
       .product-grid > div:last-child {
         border-bottom: none;
         padding-bottom: 0;
         margin-bottom: 0;
+      }
+      .hidden {
+        display: none !important;
       }
 
       @media (max-width: 900px) {
@@ -464,6 +467,7 @@
                 "
               >
                 <legend><strong>Product(s) of Interest *</strong></legend>
+
                 <div class="checks product-grid">
                   <div>
                     <label
@@ -831,10 +835,10 @@
                   "
                 >
                   <option value="">Select…</option>
-                  <option>25–100 kg</option>
-                  <option>100–300 kg</option>
-                  <option>1–3 pallets</option>
+                  <option>50-300 kg</option>
+                  <option>1-3 pallets</option>
                   <option>3+ pallets</option>
+                  <option>Full Container (20'/40')</option>
                 </select>
               </label>
 
@@ -925,48 +929,6 @@
                   "
                 />
               </label>
-
-              <label style="grid-column: span 6">
-                <span><strong>Preferred Incoterms *</strong></span>
-                <select
-                  name="incoterms"
-                  required
-                  style="
-                    width: 100%;
-                    margin-top: 6px;
-                    padding: 10px;
-                    border: 1px solid var(--line);
-                    border-radius: 10px;
-                    background: #fff;
-                  "
-                >
-                  <option value="">Select…</option>
-                  <option>FOB (Alexandria)</option>
-                  <option>CIF (NY/NJ)</option>
-                  <option>DDP (Delivered Duty Paid) — by request</option>
-                </select>
-              </label>
-
-              <label style="grid-column: span 6">
-                <span><strong>Delivery Type *</strong></span>
-                <select
-                  name="delivery_type"
-                  required
-                  style="
-                    width: 100%;
-                    margin-top: 6px;
-                    padding: 10px;
-                    border: 1px solid var(--line);
-                    border-radius: 10px;
-                    background: #fff;
-                  "
-                >
-                  <option value="">Select…</option>
-                  <option>Business dock</option>
-                  <option>Business liftgate required</option>
-                  <option>Residential (small orders)</option>
-                </select>
-              </label>
             </div>
           </fieldset>
 
@@ -980,86 +942,61 @@
                 gap: 12px;
               "
             >
-              <label style="grid-column: span 6">
-                <span><strong>Documentation Needed *</strong></span>
-                <select
-                  name="docs_needed"
-                  required
-                  style="
-                    width: 100%;
-                    margin-top: 6px;
-                    padding: 10px;
-                    border: 1px solid var(--line);
-                    border-radius: 10px;
-                    background: #fff;
-                  "
-                >
-                  <option value="">Select…</option>
-                  <option>COA only</option>
-                  <option>COA + Micro/Pesticide Panels</option>
-                  <option>FSVP package (Importer of Record)</option>
-                </select>
-              </label>
-
-              <label style="grid-column: span 6">
-                <span><strong>Certifications</strong></span>
-                <select
-                  name="certs[]"
-                  multiple
-                  aria-describedby="certs-help"
-                  style="
-                    width: 100%;
-                    margin-top: 6px;
-                    padding: 10px;
-                    border: 1px solid var(--line);
-                    border-radius: 10px;
-                    background: #fff;
-                    min-height: 96px;
-                  "
-                >
-                  <option>Conventional</option>
-                  <option>Organic (if available)</option>
-                  <option>Non-GMO</option>
-                  <option>Allergen statement</option>
-                  <option>Other (specify in notes)</option>
-                </select>
-                <small id="certs-help" class="muted"
-                  >Hold Ctrl/Cmd to select multiple.</small
-                >
-              </label>
-
-              <label style="grid-column: span 12">
-                <span><strong>Sample Shipping Address (optional)</strong></span>
+              <label
+                style="
+                  grid-column: span 12;
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                "
+              >
                 <input
-                  type="text"
-                  name="sample_address"
-                  placeholder="Company, Street, City, State/Region, ZIP, Country"
-                  style="
-                    width: 100%;
-                    margin-top: 6px;
-                    padding: 10px;
-                    border: 1px solid var(--line);
-                    border-radius: 10px;
-                    background: #fff;
-                  "
+                  type="checkbox"
+                  name="sample_request"
+                  id="sample-request"
                 />
+                <span>Do you want a sample?</span>
               </label>
 
-              <label style="grid-column: span 12">
-                <span><strong>Attach NDA / Spec (optional)</strong></span>
-                <input
-                  type="file"
-                  name="attachment"
+              <div
+                id="sample-options"
+                class="sample-options hidden"
+                style="
+                  grid-column: span 12;
+                  display: grid;
+                  grid-template-columns: repeat(12, 1fr);
+                  gap: 12px;
+                "
+              >
+                <label
                   style="
-                    display: block;
-                    margin-top: 6px;
-                    padding: 8px;
-                    border: 1px solid var(--line);
-                    border-radius: 10px;
-                    background: #fff;
+                    grid-column: span 6;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
                   "
-                />
-              </label>
+                >
+                  <input type="checkbox" name="include_coa" />
+                  <span>Include COA</span>
+                </label>
+
+                <label style="grid-column: span 12">
+                  <span><strong>Sample Shipping Address</strong></span>
+                  <input
+                    type="text"
+                    name="sample_address"
+                    placeholder="Company, Street, City, State/Region, ZIP, Country"
+                    style="
+                      width: 100%;
+                      margin-top: 6px;
+                      padding: 10px;
+                      border: 1px solid var(--line);
+                      border-radius: 10px;
+                      background: #fff;
+                    "
+                  />
+                </label>
+              </div>
             </div>
           </fieldset>
 
@@ -1098,15 +1035,14 @@
               <input type="checkbox" name="newsletter" />
               <span>Subscribe to monthly updates (optional)</span>
             </label>
+            <label style="display: flex; align-items: center; gap: 8px">
+              <input type="checkbox" name="include_specs" />
+              <span>Include Specs in the reply email</span>
+            </label>
           </div>
 
-          <div
-            style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px"
-          >
+          <div style="display: flex; flex-wrap: wrap; margin-top: 14px">
             <button class="btn btn-primary" type="submit">Send Request</button>
-            <a class="btn btn-ghost" href="/resources/specs-pack.pdf"
-              >Download Specs Pack</a
-            >
           </div>
 
           <p class="muted" style="margin-top: 10px">
@@ -1160,7 +1096,20 @@
     </footer>
 
     <script>
-      document.getElementById("y").textContent = new Date().getFullYear();
+      const yearEl = document.getElementById("y");
+      if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+      }
+
+      const sampleToggle = document.getElementById("sample-request");
+      const sampleOptions = document.getElementById("sample-options");
+      if (sampleToggle && sampleOptions) {
+        const updateSampleOptions = () => {
+          sampleOptions.classList.toggle("hidden", !sampleToggle.checked);
+        };
+        sampleToggle.addEventListener("change", updateSampleOptions);
+        updateSampleOptions();
+      }
     </script>
   </body>
 </html>
