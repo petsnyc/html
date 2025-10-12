@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact — Planet Earth Treasures LLC</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merienda:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        /* Brand Palette */
+        --charcoal: #3f4341;
+        --offwhite: #fcfaf4;
+
+        /* Fields Division */
+        --terracotta: #c8643d;
+        --deepgreen: #2f5e3d;
+
+        /* Quarries Division */
+        --slateblue: #49697c;
+        --steelgray: #6a6f6d;
+
+        /* UI */
+        --container-max: 1100px;
+        --gutter: clamp(12px, 2vw, 28px);
+        --radius: 16px;
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        --shadow-strong: 0 14px 30px rgba(0, 0, 0, 0.16);
+        --ink: var(--charcoal);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        color: var(--ink);
+        background: var(--offwhite);
+        line-height: 1.5;
+      }
+
+      /* ---------- Header ---------- */
+      .hero {
+        min-height: 28vh;
+        display: grid;
+        grid-template-columns: 20% 1fr;
+        gap: var(--gutter);
+        align-items: center;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 16px var(--gutter);
+      }
+      .logoWrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo {
+        width: min(180px, 90%);
+        height: auto;
+        display: block;
+      }
+      .motto {
+        font-family: "Merienda", cursive;
+        font-weight: 700;
+        font-size: clamp(26px, 4.6vw, 48px);
+        line-height: 1.1;
+        letter-spacing: 0.2px;
+        margin: 0;
+      }
+      .motto .line2 {
+        display: block;
+        white-space: nowrap;
+      }
+
+      /* ---------- Contact Form ---------- */
+      .contactWrap {
+        max-width: var(--container-max);
+        margin: 0 auto;
+        padding: clamp(16px, 3vw, 36px) var(--gutter) 40px;
+      }
+      .card {
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: clamp(16px, 2.4vw, 24px);
+      }
+      .card h2 {
+        margin: 0 0 12px 0;
+        font-size: clamp(22px, 2.2vw, 30px);
+        color: var(--deepgreen);
+      }
+      .intro {
+        margin: 0 0 18px 0;
+        opacity: 0.9;
+      }
+      form {
+        display: grid;
+        gap: 16px;
+      }
+      .row {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: 1fr 1fr;
+      }
+      label {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        font: inherit;
+      }
+      textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      .groups {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        align-items: start;
+      }
+      .productsGroup {
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 14px;
+        padding: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(47, 94, 61, 0.03),
+          rgba(0, 0, 0, 0)
+        );
+      }
+      .productsGroup h4 {
+        margin: 0 0 10px 0;
+        font-size: 16px;
+        letter-spacing: 0.2px;
+        color: var(--deepgreen);
+      }
+      .productsGroup.quarries h4 {
+        color: var(--slateblue);
+      }
+
+      .checks {
+        display: grid;
+        gap: 8px 16px;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+      .checks label {
+        display: grid;
+        grid-template-columns: 18px 1fr;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        line-height: 1.3;
+      }
+      .checks input[type="checkbox"] {
+        width: auto;
+        height: 18px;
+        margin: 0;
+        accent-color: var(--deepgreen);
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 8px;
+      }
+      .btn {
+        appearance: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-weight: 800;
+      }
+      .btn.primary {
+        background: linear-gradient(
+          135deg,
+          var(--deepgreen),
+          var(--terracotta)
+        );
+        color: #fff;
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--deepgreen);
+      }
+
+      /* ---------- Footer ---------- */
+      footer {
+        background: var(--charcoal);
+        color: var(--offwhite);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: var(--gutter);
+        padding: 10px var(--gutter); /* compact like other pages */
+      }
+      .nav {
+        display: flex;
+        gap: clamp(14px, 2vw, 28px);
+        flex-wrap: wrap;
+      }
+      .nav a {
+        color: var(--offwhite);
+        text-decoration: none;
+        font-weight: 600;
+        position: relative;
+      }
+      .nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 0;
+        height: 2px;
+        background: var(--offwhite);
+        transition: width 0.3s ease;
+      }
+      .nav a:hover::after {
+        width: 100%;
+      }
+      .companyInfo {
+        margin-left: auto;
+        text-align: right;
+        font-size: 13px;
+        opacity: 0.9;
+      }
+      .companyInfo a {
+        color: var(--offwhite);
+      }
+
+      /* ---------- Responsive ---------- */
+      @media (max-width: 900px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+        .checks {
+          grid-template-columns: repeat(2, minmax(150px, 1fr));
+        }
+        footer {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .companyInfo {
+          margin-left: 0;
+          text-align: center;
+        }
+      }
+      @media (max-width: 600px) {
+        .checks {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .logo {
+          width: 140px;
+          margin: 0 auto 6px;
+        }
+        .motto {
+          font-size: clamp(22px, 6vw, 30px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="hero" id="home" aria-label="Header: logo and motto">
+      <div class="logoWrap">
+        <img
+          src="./logo.png"
+          alt="Planet Earth Treasures LLC logo"
+          class="logo"
+        />
+      </div>
+      <div>
+        <h1 class="motto">
+          “Nature’s Finest Treasures,<span class="line2"
+            >Shared with the World”</span
+          >
+        </h1>
+      </div>
+    </header>
+
+    <!-- CONTACT CARD -->
+    <main class="contactWrap">
+      <section class="card" aria-label="Contact form">
+        <h2>Contact Us</h2>
+        <p class="intro">
+          Tell us about your request and select your products of interest. We’ll
+          get back to you shortly.
+        </p>
+
+        <form id="contactForm">
+          <!-- Contact details -->
+          <div class="row">
+            <div>
+              <label for="name">Your Name</label>
+              <input id="name" name="name" placeholder="Jane Smith" required />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="company">Company</label>
+              <input id="company" name="company" placeholder="Company Inc." />
+            </div>
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" placeholder="+1 555 000 1234" />
+            </div>
+          </div>
+
+          <!-- Products of Interest -->
+          <div class="groups" aria-label="Products of Interest">
+            <!-- Fields -->
+            <div class="productsGroup">
+              <h4>Fields — Spices &amp; Herbs</h4>
+              <div class="checks">
+                <!-- Updated list from your latest data -->
+                <label for="prod-hibiscus">
+                  <input
+                    type="checkbox"
+                    id="prod-hibiscus"
+                    name="products"
+                    value="Hibiscus"
+                  />
+                  Hibiscus
+                </label>
+                <label for="prod-moringa">
+                  <input
+                    type="checkbox"
+                    id="prod-moringa"
+                    name="products"
+                    value="Moringa"
+                  />
+                  Moringa
+                </label>
+                <label for="prod-basil">
+                  <input
+                    type="checkbox"
+                    id="prod-basil"
+                    name="products"
+                    value="Basil"
+                  />
+                  Basil
+                </label>
+                <label for="prod-marjoram">
+                  <input
+                    type="checkbox"
+                    id="prod-marjoram"
+                    name="products"
+                    value="Marjoram"
+                  />
+                  Marjoram
+                </label>
+                <label for="prod-peppermint">
+                  <input
+                    type="checkbox"
+                    id="prod-peppermint"
+                    name="products"
+                    value="Peppermint"
+                  />
+                  Peppermint
+                </label>
+                <label for="prod-spearmint">
+                  <input
+                    type="checkbox"
+                    id="prod-spearmint"
+                    name="products"
+                    value="Spearmint"
+                  />
+                  Spearmint
+                </label>
+                <label for="prod-chamomile">
+                  <input
+                    type="checkbox"
+                    id="prod-chamomile"
+                    name="products"
+                    value="Chamomile"
+                  />
+                  Chamomile
+                </label>
+                <label for="prod-calendula">
+                  <input
+                    type="checkbox"
+                    id="prod-calendula"
+                    name="products"
+                    value="Calendula"
+                  />
+                  Calendula
+                </label>
+                <label for="prod-anise">
+                  <input
+                    type="checkbox"
+                    id="prod-anise"
+                    name="products"
+                    value="Anise Seeds"
+                  />
+                  Anise Seeds
+                </label>
+                <label for="prod-cumin">
+                  <input
+                    type="checkbox"
+                    id="prod-cumin"
+                    name="products"
+                    value="Cumin Seeds"
+                  />
+                  Cumin Seeds
+                </label>
+                <label for="prod-fennel">
+                  <input
+                    type="checkbox"
+                    id="prod-fennel"
+                    name="products"
+                    value="Fennel Seeds"
+                  />
+                  Fennel Seeds
+                </label>
+                <label for="prod-parsley">
+                  <input
+                    type="checkbox"
+                    id="prod-parsley"
+                    name="products"
+                    value="Parsley"
+                  />
+                  Parsley
+                </label>
+                <label for="prod-other-bot">
+                  <input
+                    type="checkbox"
+                    id="prod-other-bot"
+                    name="products"
+                    value="Other botanicals"
+                  />
+                  Other botanicals
+                </label>
+              </div>
+            </div>
+
+            <!-- Quarries -->
+            <div class="productsGroup quarries">
+              <h4>Quarries — Stone</h4>
+              <div class="checks">
+                <label for="prod-galala">
+                  <input
+                    type="checkbox"
+                    id="prod-galala"
+                    name="products"
+                    value="Galala Marble"
+                  />
+                  Galala Marble
+                </label>
+                <label for="prod-sunny">
+                  <input
+                    type="checkbox"
+                    id="prod-sunny"
+                    name="products"
+                    value="Sunny Marble"
+                  />
+                  Sunny Marble
+                </label>
+                <label for="prod-sinai">
+                  <input
+                    type="checkbox"
+                    id="prod-sinai"
+                    name="products"
+                    value="Sinai Pearl Marble (Triesta)"
+                  />
+                  Sinai Pearl Marble (Triesta)
+                </label>
+                <label for="prod-other-stone">
+                  <input
+                    type="checkbox"
+                    id="prod-other-stone"
+                    name="products"
+                    value="Other stone"
+                  />
+                  Other stone
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="message">Your Message</label>
+            <textarea
+              id="message"
+              name="message"
+              placeholder="Tell us about your project or specification…"
+            ></textarea>
+          </div>
+
+          <!-- Actions -->
+          <div class="actions">
+            <button type="reset" class="btn ghost">Clear</button>
+            <button type="submit" class="btn primary">Send</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer aria-label="Footer">
+      <nav class="nav" aria-label="Primary">
+        <a href="./index.html#home">Home</a>
+        <a href="./fields/index.html">Fields</a>
+        <a href="./quarries/index.html">Quarries</a>
+        <a href="./contact.html">Contact Us</a>
+      </nav>
+      <address class="companyInfo">
+        <strong>Planet Earth Treasures LLC</strong> ·
+        <a href="mailto:info@planetearthtreasures.com"
+          >info@planetearthtreasures.com</a
+        >
+        ·
+        <a href="mailto:sales@planetearthtresures.com"
+          >sales@planetearthtresures.com</a
+        >
+      </address>
+    </footer>
+
+    <script>
+      // Same endpoint you used for inquiries on other pages:
+      const CONTACT_ENDPOINT =
+        "https://script.google.com/macros/s/AKfycbxdSib9G0ZnX3ipEuOdT1VVOZzMOc0OJsjxOlXNLhlU3ZAAdo7qqjSubozHPoDnAnLD/exec"; // replace with your own
+
+      (function () {
+        const form = document.getElementById("contactForm");
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          // Collect checked products (both Fields & Quarries)
+          const products = Array.from(
+            document.querySelectorAll('input[name="products"]:checked')
+          ).map((el) => el.value);
+
+          const payload = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            company: document.getElementById("company").value,
+            phone: document.getElementById("phone").value,
+            message: document.getElementById("message").value,
+            products, // array of selected products
+            productsText: products.join(", "), // convenient text version
+            sourcePage: location.pathname,
+            userAgent: navigator.userAgent,
+          };
+
+          try {
+            await fetch(CONTACT_ENDPOINT, {
+              method: "POST",
+              mode: "no-cors", // avoids CORS preflight on Apps Script web app
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: JSON.stringify(payload),
+            });
+            alert("Thanks! Your message was sent.");
+            form.reset();
+          } catch (err) {
+            alert(
+              "We could not send your message. Please email info@planetearthtreasures.com"
+            );
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
