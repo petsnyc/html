@@ -261,6 +261,28 @@
         color: var(--accent-2);
         font-weight: 600;
       }
+      .form-feedback {
+        margin: 12px 0 0;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        background: color-mix(in oklab, var(--paper), var(--bg) 60%);
+        font-size: 15px;
+      }
+      .form-feedback--error {
+        border-color: #c97249;
+        background: color-mix(in oklab, #fff0ee, var(--bg) 40%);
+        color: #742d15;
+      }
+      .form-feedback--success {
+        border-color: var(--ok);
+        background: color-mix(in oklab, #e9f7f0, var(--bg) 40%);
+        color: #135c35;
+      }
+      .form-feedback ul {
+        margin: 0;
+        padding-left: 18px;
+      }
       .product-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(220px, 1fr));
@@ -278,7 +300,6 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        white-space: nowrap;
       }
       .hidden {
         display: none !important;
@@ -347,6 +368,7 @@
         </p>
 
         <form
+          id="sampleQuoteForm"
           action="/contact/submit"
           method="post"
           enctype="multipart/form-data"
@@ -371,6 +393,14 @@
 
           <!-- Hidden context -->
           <input type="hidden" name="source" value="request-samples-quote" />
+
+          <div
+            id="form-feedback"
+            class="form-feedback"
+            role="alert"
+            aria-live="polite"
+            hidden
+          ></div>
 
           <!-- 1) Contact -->
           <fieldset style="margin: 14px 0">
@@ -1027,20 +1057,231 @@
     </footer>
 
     <script>
-      const yearEl = document.getElementById("y");
-      if (yearEl) {
-        yearEl.textContent = new Date().getFullYear();
-      }
+      (() => {
+        const yearEl = document.getElementById("y");
+        if (yearEl) {
+          yearEl.textContent = new Date().getFullYear();
+        }
 
-      const sampleToggle = document.getElementById("sample-request");
-      const sampleOptions = document.getElementById("sample-options");
-      if (sampleToggle && sampleOptions) {
+        const sampleToggle = document.getElementById("sample-request");
+        const sampleOptions = document.getElementById("sample-options");
         const updateSampleOptions = () => {
-          sampleOptions.classList.toggle("hidden", !sampleToggle.checked);
+          if (!sampleOptions) return;
+          const isActive = !!(sampleToggle && sampleToggle.checked);
+          sampleOptions.classList.toggle("hidden", !isActive);
         };
-        sampleToggle.addEventListener("change", updateSampleOptions);
         updateSampleOptions();
-      }
+        if (sampleToggle) {
+          sampleToggle.addEventListener("change", updateSampleOptions);
+        }
+
+        const form = document.getElementById("sampleQuoteForm");
+        if (!form) {
+          return;
+        }
+
+        const feedbackEl = document.getElementById("form-feedback");
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const GOOGLE_SCRIPT_URL =
+          window.GOOGLE_SCRIPT_URL ||
+          "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+
+        const setFeedback = (type, messages) => {
+          if (!feedbackEl) return;
+          if (!type) {
+            feedbackEl.hidden = true;
+            feedbackEl.textContent = "";
+            feedbackEl.className = "form-feedback";
+            return;
+          }
+          const content = Array.isArray(messages)
+            ? `<ul>${messages.map((msg) => `<li>${msg}</li>`).join("")}</ul>`
+            : `<p>${messages}</p>`;
+          feedbackEl.className = `form-feedback form-feedback--${type}`;
+          feedbackEl.innerHTML = content;
+          feedbackEl.hidden = false;
+          feedbackEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        };
+
+        const sanitizePhone = (value) => {
+          if (!value) return "";
+          const compact = value.replace(/[^0-9+]/g, "");
+          if (!compact) return "";
+          if (compact.includes("+")) {
+            const parts = compact.split("+").filter(Boolean);
+            return "+" + parts.join("");
+          }
+          return compact;
+        };
+
+        const normalizeUrl = (value) => {
+          if (!value) return "";
+          const trimmed = value.trim();
+          if (!trimmed) return "";
+          if (/^https?:\/\//i.test(trimmed)) return trimmed;
+          return `https://${trimmed}`;
+        };
+
+        const toCSV = (arr) => (arr && arr.length ? arr.join(", ") : "");
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          setFeedback(null);
+
+          const formData = new FormData(form);
+          const errors = [];
+
+          if ((formData.get("website") || "").toString().trim()) {
+            setFeedback(
+              "error",
+              "Something went wrong. Please reload the page and try again."
+            );
+            return;
+          }
+
+          const getTrimmed = (name) =>
+            (formData.get(name) || "").toString().trim();
+
+          const requiredFields = [
+            ["name", "Full Name"],
+            ["email", "Work Email"],
+            ["company", "Company"],
+            ["quantity_band", "Estimated First Order Quantity"],
+            ["timeline", "Target Timeline"],
+            ["dest_country", "Destination Country"],
+            ["dest_region", "Destination Region/State"],
+            ["dest_city_zip", "Destination City / ZIP"],
+          ];
+
+          requiredFields.forEach(([name, label]) => {
+            if (!getTrimmed(name)) {
+              errors.push(`${label} is required.`);
+            }
+          });
+
+          const consentChecked = form.querySelector(
+            'input[name="consent"]'
+          )?.checked;
+          if (!consentChecked) {
+            errors.push(
+              "You must agree to be contacted regarding this request."
+            );
+          }
+
+          const email = getTrimmed("email");
+          if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            errors.push("Work Email must be a valid email address.");
+          }
+
+          const productsSelected = formData.getAll("products[]");
+          if (!productsSelected.length) {
+            errors.push("Select at least one product of interest.");
+          }
+
+          const wantsSample = formData.get("sample_request") === "on";
+          if (wantsSample && !getTrimmed("sample_address")) {
+            errors.push("Provide a shipping address for the sample request.");
+          }
+
+          const companyUrl = getTrimmed("company_url");
+          if (companyUrl && !/^(([a-z]+:)?\/\/)?[^\s]+$/i.test(companyUrl)) {
+            errors.push("Website / URL appears to be invalid.");
+          }
+
+          if (errors.length) {
+            setFeedback("error", errors);
+            return;
+          }
+
+          const payload = {
+            submittedAt: new Date().toISOString(),
+            name: getTrimmed("name"),
+            email,
+            phone: sanitizePhone(getTrimmed("phone")),
+            company: getTrimmed("company"),
+            role: getTrimmed("role"),
+            company_url: normalizeUrl(companyUrl),
+            description: getTrimmed("description"),
+            products: toCSV(productsSelected),
+            quantity_band: getTrimmed("quantity_band"),
+            timeline: getTrimmed("timeline"),
+            dest_country: getTrimmed("dest_country"),
+            dest_region: getTrimmed("dest_region"),
+            dest_city_zip: getTrimmed("dest_city_zip"),
+            pack_size_bulk: toCSV(formData.getAll("pack_size_bulk[]")),
+            pack_size_semi_bulk: toCSV(
+              formData.getAll("pack_size_semi_bulk[]")
+            ),
+            include_specs: formData.get("include_specs") === "on",
+            newsletter: formData.get("newsletter") === "on",
+            consent: formData.get("consent") === "on",
+            sample_request: wantsSample,
+            include_coa: formData.get("include_coa") === "on",
+            sample_address: getTrimmed("sample_address"),
+            notes: getTrimmed("notes"),
+            source: getTrimmed("source") || "request-samples-quote",
+          };
+
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Sending...";
+          }
+
+          try {
+            const response = await fetch(GOOGLE_SCRIPT_URL, {
+              method: "POST",
+              mode: "cors",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+              throw new Error(`Request failed with status ${response.status}`);
+            }
+
+            let resultMessage = "Request sent successfully.";
+            const contentType = response.headers.get("content-type") || "";
+            if (contentType.includes("application/json")) {
+              const data = await response.json();
+              if (data && data.message) {
+                resultMessage = data.message;
+              }
+            } else {
+              const text = await response.text();
+              if (text && text.length < 400) {
+                resultMessage = text;
+              }
+            }
+
+            setFeedback(
+              "success",
+              resultMessage || "Request sent successfully."
+            );
+            form.reset();
+            updateSampleOptions();
+          } catch (error) {
+            console.error("Form submission failed:", error);
+            if (GOOGLE_SCRIPT_URL.includes("YOUR_SCRIPT_ID")) {
+              setFeedback(
+                "error",
+                "Submission endpoint is not configured. Replace GOOGLE_SCRIPT_URL with your published Google Apps Script URL."
+              );
+            } else {
+              setFeedback(
+                "error",
+                "We were unable to send your request. Please try again, or email hello@planetearthtreasures.com."
+              );
+            }
+          } finally {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = "Send Request";
+            }
+          }
+        });
+      })();
     </script>
   </body>
 </html>
