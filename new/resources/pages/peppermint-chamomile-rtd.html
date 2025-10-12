@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -78,6 +78,7 @@
         padding: 0 clamp(4px, 1.5vw, 16px);
       }
 
+            /* Header */
       header.site {
         position: sticky;
         top: 0;
@@ -89,6 +90,7 @@
       .site__grid {
         display: grid;
         grid-template-columns: auto 1fr;
+        grid-template-rows: auto;
         gap: clamp(10px, 3vw, 24px);
         align-items: flex-start;
         padding: 2px;
@@ -106,51 +108,104 @@
         width: clamp(80px, 10vw, 120px);
         height: auto;
       }
+      .brand__name {
+        font-family: Marcellus, serif;
+        font-size: 20px;
+      }
       .site__nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: clamp(12px, 3vw, 28px);
+        gap: 20px;
         background: color-mix(in oklab, var(--paper), var(--bg) 25%);
-        padding: 8px 14px;
+        padding: 10px 16px;
         border-radius: var(--radius);
         border: 1px solid var(--line);
         box-shadow: var(--shadow);
       }
-      .site__nav ul {
+      .site__spacer {
+        display: none;
+      }
+      nav {
+        flex: 1 1 auto;
         display: flex;
-        gap: clamp(10px, 2.5vw, 22px);
+        justify-content: flex-start;
+      }
+      nav ul {
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+        justify-content: flex-start;
         list-style: none;
         margin: 0;
         padding: 0;
       }
-      .site__nav a {
-        font-weight: 500;
+      nav a {
+        font-weight: 600;
         color: var(--ink);
-      }
-      .site__nav a:hover {
-        color: var(--accent);
-      }
-      .site__nav a.cta-header {
-        color: #fff;
-      }
-      .site__nav a.cta-header:hover {
-        color: #fff;
+        opacity: 0.92;
       }
       .cta-header {
         display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 16px;
+        align-items: flex-start;
+        gap: 10px;
         background: var(--accent);
         color: #fff;
         border-radius: 999px;
-        font-weight: 600;
-        box-shadow: 0 12px 24px rgba(35, 75, 59, 0.12);
+        padding: 10px 16px;
+        border: 1px solid color-mix(in oklab, #fff, var(--accent) 70%);
+        box-shadow: var(--shadow);
+        text-decoration: none;
+      }
+      button.cta-header {
+        border: none;
+        cursor: pointer;
+        font: inherit;
       }
       .cta-header:hover {
         text-decoration: none;
         background: color-mix(in oklab, var(--accent), #000 12%);
+      }
+      .cta-header:focus-visible {
+        outline: 3px solid color-mix(in oklab, var(--accent), #fff 40%);
+        outline-offset: 2px;
+      }
+      @media (max-width: 768px) {
+        .site__grid {
+          grid-template-columns: auto 1fr;
+          grid-template-rows: auto;
+          gap: 8px;
+          padding: 6px clamp(6px, 4vw, 12px);
+          align-items: center;
+        }
+        .site__logo {
+          grid-column: 1;
+          justify-content: center;
+          align-items: center;
+          align-self: center;
+        }
+        .site__logo img {
+          width: clamp(80px, 24vw, 140px);
+        }
+        .site__nav {
+          grid-column: 2;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+          align-self: center;
+        }
+        nav {
+          width: 100%;
+          justify-content: flex-start;
+        }
+        nav ul {
+          flex-direction: column;
+          gap: 6px;
+          align-items: flex-start;
+        }
+        .site__nav .cta-header {
+          display: none;
+        }
       }
 
       .btn {
@@ -304,19 +359,7 @@
           grid-template-columns: 1fr;
         }
       }
-      @media (max-width: 780px) {
-        .site__grid {
-          grid-template-columns: 1fr;
-        }
-        .site__nav {
-          flex-direction: column;
-          align-items: stretch;
-        }
-        .site__nav ul {
-          flex-direction: column;
-          gap: 12px;
-        }
-      }
+
     </style>
   </head>
 
