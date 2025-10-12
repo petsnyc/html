@@ -262,23 +262,17 @@
         font-weight: 600;
       }
       .product-grid {
-        column-width: 240px;
-        column-gap: 24px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(220px, 1fr));
+        gap: 12px 18px;
+        padding-bottom: 4px;
       }
       .product-grid > div {
-        break-inside: avoid;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 2px;
-        padding-bottom: 4px;
-        margin-bottom: 8px;
-        border-bottom: 1px dashed var(--line);
-      }
-      .product-grid > div:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: 0;
+        gap: 4px;
+        padding: 0;
       }
       .hidden {
         display: none !important;
@@ -292,7 +286,8 @@
 
       @media (max-width: 720px) {
         .product-grid {
-          column-width: 100%;
+          grid-template-columns: minmax(200px, 1fr);
+          gap: 10px;
         }
       }
     </style>
@@ -514,26 +509,10 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Hibiscus (Whole Calyces)"
+                        value="Hibiscus (Whole Calyces, Tea-Cut / TBC, Powder)"
                         required
                       />
-                      Hibiscus (Whole Calyces)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Hibiscus (Tea-Cut / TBC)"
-                      />
-                      Hibiscus (Tea-Cut / TBC)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Hibiscus (Powder)"
-                      />
-                      Hibiscus (Powder)</label
+                      Hibiscus (Whole Calyces, Tea-Cut / TBC, Powder)</label
                     >
                   </div>
                   <div>
@@ -541,17 +520,9 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Moringa (Leaf, Whole)"
+                        value="Moringa (Leaf, Whole; Powder)"
                       />
-                      Moringa (Leaf, Whole)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Moringa (Powder)"
-                      />
-                      Moringa (Powder)</label
+                      Moringa (Leaf, Whole; Powder)</label
                     >
                   </div>
                   <div>
@@ -559,17 +530,9 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Basil (Cut &amp; Sift)"
+                        value="Basil (Cut &amp; Sift; Powder)"
                       />
-                      Basil (Cut &amp; Sift)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Basil (Powder, optional)"
-                      />
-                      Basil (Powder, optional)</label
+                      Basil (Cut &amp; Sift; Powder)</label
                     >
                   </div>
                   <div>
@@ -577,17 +540,9 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Marjoram (Cut &amp; Sift)"
+                        value="Marjoram (Cut &amp; Sift; Powder)"
                       />
-                      Marjoram (Cut &amp; Sift)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Marjoram (Powder, optional)"
-                      />
-                      Marjoram (Powder, optional)</label
+                      Marjoram (Cut &amp; Sift; Powder)</label
                     >
                   </div>
                   <div>
@@ -595,17 +550,9 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Peppermint (Tea-Cut)"
+                        value="Peppermint (Tea-Cut; Powder)"
                       />
-                      Peppermint (Tea-Cut)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Peppermint (Powder)"
-                      />
-                      Peppermint (Powder)</label
+                      Peppermint (Tea-Cut; Powder)</label
                     >
                   </div>
                   <div>
@@ -623,17 +570,9 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Chamomile (Whole Flowers)"
+                        value="Chamomile (Whole Flowers; Bar-Cut)"
                       />
-                      Chamomile (Whole Flowers)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Chamomile (Bar-Cut)"
-                      />
-                      Chamomile (Bar-Cut)</label
+                      Chamomile (Whole Flowers; Bar-Cut)</label
                     >
                   </div>
                   <div>
@@ -641,17 +580,9 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Calendula (Whole Petals)"
+                        value="Calendula (Whole Petals; Cut &amp; Sift)"
                       />
-                      Calendula (Whole Petals)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Calendula (Cut &amp; Sift)"
-                      />
-                      Calendula (Cut &amp; Sift)</label
+                      Calendula (Whole Petals; Cut &amp; Sift)</label
                     >
                   </div>
                   <div>
@@ -659,17 +590,9 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Anise (Seeds, Whole)"
+                        value="Anise (Seeds, Whole; Ground)"
                       />
-                      Anise (Seeds, Whole)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Anise (Ground)"
-                      />
-                      Anise (Ground)</label
+                      Anise (Seeds, Whole; Ground)</label
                     >
                   </div>
                   <div>
@@ -677,17 +600,9 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Cumin (Seeds, Whole)"
+                        value="Cumin (Seeds, Whole; Ground)"
                       />
-                      Cumin (Seeds, Whole)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Cumin (Ground)"
-                      />
-                      Cumin (Ground)</label
+                      Cumin (Seeds, Whole; Ground)</label
                     >
                   </div>
                   <div>
@@ -695,17 +610,9 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Fennel (Seeds, Whole)"
+                        value="Fennel (Seeds, Whole; Ground)"
                       />
-                      Fennel (Seeds, Whole)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Fennel (Ground)"
-                      />
-                      Fennel (Ground)</label
+                      Fennel (Seeds, Whole; Ground)</label
                     >
                   </div>
                   <div>
@@ -713,17 +620,9 @@
                       ><input
                         type="checkbox"
                         name="products[]"
-                        value="Parsley (Leaves, Cut &amp; Sift)"
+                        value="Parsley (Leaves, Cut &amp; Sift; Powder)"
                       />
-                      Parsley (Leaves, Cut &amp; Sift)</label
-                    >
-                    <label
-                      ><input
-                        type="checkbox"
-                        name="products[]"
-                        value="Parsley (Powder)"
-                      />
-                      Parsley (Powder)</label
+                      Parsley (Leaves, Cut &amp; Sift; Powder)</label
                     >
                   </div>
                 </div>
