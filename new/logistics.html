@@ -495,6 +495,18 @@
       .post .body {
         padding: 16px;
       }
+      .logistics-layout {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+        align-items: start;
+      }
+      @media (max-width: 720px) {
+        .logistics-layout {
+          grid-template-columns: 1fr;
+        }
+      }
 
       /* CTA band */
       .cta-band {
@@ -618,15 +630,7 @@
       </section>
 
       <!-- Flow / Timeline -->
-      <section
-        style="
-          margin-top: 16px;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 22px;
-          align-items: start;
-        "
-      >
+      <section class="logistics-layout">
         <div class="panel">
           <h2>How Your Order Moves</h2>
           <ol>
