@@ -600,418 +600,196 @@
         <div class="site__spacer" aria-hidden="true"></div>
       </div>
     </header>
+    <main
+      id="specs-pack"
+      class="wrap"
+      tabindex="-1"
+      aria-label="Download Specs Pack"
+    >
+      <!-- SPECS PACK INTRO -->
+      <section class="panel" style="margin-top: 18px">
+        <h1 style="margin: 0.2rem 0 0.6rem">Download: Specs Pack (PDF)</h1>
+        <p class="muted" style="max-width: 70ch">
+          Get detailed specifications for our top Egyptian herbs — Hibiscus,
+          Moringa, Peppermint, Chamomile, and Basil — including cut profiles,
+          moisture targets, and COA parameters. Fill in your details below and
+          we’ll email you the full Specs Pack PDF.
+        </p>
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-      <div class="wrap hero__grid">
-        <div>
-          <h1>
-            Importing Egypt’s Finest Herbs & Botanicals — From Fields to NY/NJ
-          </h1>
-          <p class="lead">
-            Planet Earth Treasures LLC is a U.S.-based importer and distributor
-            of premium Egyptian herbs and botanicals.
-          </p>
+        <!-- PRODUCT PREVIEW LIST -->
+        <ul style="margin: 16px 0 20px; padding-left: 20px; line-height: 1.6">
+          <li>🌺 Hibiscus (Whole &amp; Tea-Cut)</li>
+          <li>🌿 Moringa (Leaf &amp; Powder)</li>
+          <li>🌿 Peppermint (Tea-Cut)</li>
+          <li>🌼 Chamomile (Whole &amp; Bar-Cut)</li>
+          <li>🌿 Basil (Cut &amp; Sift)</li>
+        </ul>
 
-          <p class="lead">
-            We connect audited growers and processors in Egypt with American
-            brands through FSVP-aligned sourcing, COA documentation, and full
-            traceability.
-          </p>
-          <div class="actions">
-            <a class="btn btn-primary" href="request-sample-quote.html"
-              >Request Samples/Quote</a
-            >
-            <a class="btn btn-ghost" href="semi-bulk/index.html"
-              >Semi-Bulk (Coming Soon)</a
-            >
-          </div>
+        <!-- DOWNLOAD REQUEST FORM -->
+        <form action="/resources/specs-pack/submit" method="post" novalidate>
+          <!-- Honeypot -->
+          <input
+            type="text"
+            name="website"
+            aria-hidden="true"
+            tabindex="-1"
+            autocomplete="off"
+            style="
+              position: absolute;
+              left: -9999px;
+              height: 0;
+              width: 0;
+              padding: 0;
+              border: 0;
+            "
+          />
 
-          <p class="muted" style="margin-top: 10px">
-            Coming soon:
-            <strong>5–10 kg (≈11–22 lb) semi-bulk cartons</strong> for cafés,
-            tea brands, and natural shops. Join the waitlist to be notified.
-          </p>
-
-          <div class="trust" aria-label="Trust badges">
-            <span>Importer of Record</span>
-            <span>FDA / FSVP</span>
-            <span>HACCP-aligned</span>
-            <span>COA &amp; Traceability</span>
-            <span>NY/NJ Port Access</span>
-          </div>
-        </div>
-
-        <!-- Right-hand visual (placeholders only) -->
-        <aside class="hero__art" aria-hidden="true">
-          <img src="assets/other.png" alt="" />
-          <img src="assets/secondary.jpg" alt="" />
-        </aside>
-      </div>
-    </section>
-
-    <!-- FEATURED PRODUCTS -->
-    <section id="featured">
-      <div class="wrap">
-        <div class="section-title">
-          <h2>High-Demand Staples</h2>
-          <div class="muted">
-            Hibiscus &bull; Moringa &bull; Peppermint &bull; Chamomile &bull;
-            Basil
-          </div>
-        </div>
-
-        <div class="grid">
-          <!-- Hibiscus -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Hibiscus.jpg" alt="Hibiscus calyces" />
-            </figure>
-            <div class="card__body">
-              <span class="badge">Priority Supply</span>
-              <h3>Hibiscus (Whole &amp; TBC)</h3>
-              <p class="meta">
-                Deep color, bold tartness. Tea-cut &amp; whole calyces.
-              </p>
-              <p class="meta">MOQ: 25&ndash;100 kg &bull; COA on request</p>
-              <div class="card__links">
-                <a class="link-btn" href="/products/hibiscus"
-                  >View Specs &rsaquo;</a
-                >
-                <a
-                  class="link-btn"
-                  href="request-sample-quote.html&amp;product=hibiscus"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Moringa -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Moringa.jpg" alt="Moringa leaves" />
-            </figure>
-            <div class="card__body">
-              <span class="badge">Steady Supply</span>
-              <h3>Moringa (Leaf &amp; Powder)</h3>
-              <p class="meta">
-                Vibrant leaf, clean aroma. Consistent sieve profile.
-              </p>
-              <p class="meta">MOQ: 25&ndash;100 kg &bull; COA on request</p>
-              <div class="card__links">
-                <a class="link-btn" href="/products/moringa"
-                  >View Specs &rsaquo;</a
-                >
-                <a
-                  class="link-btn"
-                  href="request-sample-quote.html&amp;product=moringa"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Peppermint -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Peppermint.jpg" alt="Peppermint leaves" />
-            </figure>
-            <div class="card__body">
-              <span class="badge">Tea-Cut</span>
-              <h3>Peppermint</h3>
-              <p class="meta">Fresh menthol profile. Low foreign matter.</p>
-              <p class="meta">MOQ: 25&ndash;100 kg &bull; COA on request</p>
-              <div class="card__links">
-                <a class="link-btn" href="/products/peppermint"
-                  >View Specs &rsaquo;</a
-                >
-                <a
-                  class="link-btn"
-                  href="request-sample-quote.html&amp;product=peppermint"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Chamomile -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Chamomile.jpg" alt="Chamomile flowers" />
-            </figure>
-            <div class="card__body">
-              <span class="badge">Bar-Cut</span>
-              <h3>Chamomile</h3>
-              <p class="meta">Clean floral notes, stable bar-cut.</p>
-              <p class="meta">MOQ: 25&ndash;100 kg &bull; COA on request</p>
-              <div class="card__links">
-                <a class="link-btn" href="/products/chamomile"
-                  >View Specs &rsaquo;</a
-                >
-                <a
-                  class="link-btn"
-                  href="request-sample-quote.html&amp;product=chamomile"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Basil -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Basil.jpg" alt="Basil leaves" />
-            </figure>
-            <div class="card__body">
-              <span class="badge">C&amp;S</span>
-              <h3>Basil</h3>
-              <p class="meta">Bright aroma, consistent cut &amp; sift.</p>
-              <p class="meta">MOQ: 25&ndash;100 kg &bull; COA on request</p>
-              <div class="card__links">
-                <a class="link-btn" href="/products/basil"
-                  >View Specs &rsaquo;</a
-                >
-                <a
-                  class="link-btn"
-                  href="request-sample-quote.html&amp;product=basil"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHY WORK WITH PETS -->
-    <section id="why">
-      <div class="wrap">
-        <div class="section-title">
-          <h2>Why Work with PETS</h2>
-          <p class="muted">
-            Egypt + U.S. trade bridge with compliance built-in
-          </p>
-        </div>
-
-        <div class="steps">
-          <div class="step">
-            <h3>1) Source</h3>
-            <p>
-              Audited Egyptian growers &amp; processors with priority lots for
-              hibiscus, moringa, peppermint &amp; more.
-            </p>
-          </div>
-          <div class="step">
-            <h3>2) Verify</h3>
-            <p>
-              Third-party COA, pesticide &amp; micro panels, plus full lot/batch
-              traceability retained with each shipment.
-            </p>
-          </div>
-          <div class="step">
-            <h3>3) Deliver</h3>
-            <p>
-              Alexandria + NY/NJ. Flexible MOQs (25&ndash;100 kg pilot) and
-              Incoterms (FOB/CIF/DDP on request).
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- USE CASES -->
-    <section id="use-cases">
-      <div class="wrap">
-        <div class="section-title">
-          <h2>Built for Your Category</h2>
-          <p class="muted">Tailored volumes, paperwork &amp; timelines</p>
-        </div>
-        <div class="cases">
-          <div class="case">
-            <h3>For Beverage Startups</h3>
-            <p>
-              Pilot 25&ndash;100 kg with predictable re-orders. COA &amp; FSVP
-              support included.
-            </p>
-          </div>
-          <div class="case">
-            <h3>For Tea Brands</h3>
-            <p>
-              Tea-ready cuts &amp; stable color/aroma profiles for whole leaf or
-              blends.
-            </p>
-          </div>
-          <div class="case">
-            <h3>For Spice Packers</h3>
-            <p>
-              Bulk sacks, steady supply &amp; alternative sourcing for key
-              Egyptian botanicals.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPLIANCE -->
-    <section id="compliance">
-      <div class="wrap">
-        <div class="section-title">
-          <h2>Quality &amp; Compliance</h2>
-          <p class="muted">
-            Importer of Record &bull; FDA/FSVP &bull; HACCP-aligned &bull; COA
-            &amp; Traceability
-          </p>
-        </div>
-        <div class="panel">
-          <p>
-            PETS acts as Importer of Record and maintains FSVP &amp;
-            HACCP-aligned procedures. Each shipment ships with traceable
-            lots/batches and third-party COA. Ask us for our compliance
-            checklist or a redacted COA example.
-          </p>
-          <p>
-            <a class="link-btn" href="/quality"
-              >Learn more about our quality program &rsaquo;</a
-            >
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SEMI-BULK TEASER -->
-    <section id="semi-bulk-teaser">
-      <div class="wrap">
-        <div class="section-title">
-          <h2>Semi-Bulk Packs (5–10 kg / ≈ 11–22 lb)</h2>
-          <p class="muted">
-            Launching soon — perfect for cafés, beverage startups &amp; natural
-            shops
-          </p>
-        </div>
-        <div class="panel">
-          <p>
-            PETS is preparing to launch
-            <strong>Semi-Bulk Cartons (5 kg & 10 kg / ≈ 11 lb & 22 lb)</strong>
-            of our priority Egyptian herbs — Hibiscus, Moringa, Peppermint,
-            Chamomile, and Basil. Same importer-managed compliance, smaller
-            volumes.
-          </p>
-          <a class="btn btn-ghost" href="semi-bulk/index.html"
-            >Join Waitlist &rsaquo;</a
-          >
-        </div>
-      </div>
-    </section>
-
-    <!-- RESOURCES -->
-    <section id="resources">
-      <div class="wrap">
-        <div class="section-title">
-          <h2>Resources</h2>
-          <p class="muted">Education that helps procurement &amp; QA teams</p>
-        </div>
-        <div class="posts">
-          <article class="post">
-            <figure class="post__media">
-              <img
-                src="./resources/pages/assets/post-1.png"
-                alt="Close-up of dried hibiscus petals"
-                loading="lazy"
-              />
-            </figure>
-            <div class="body">
-              <h3>
-                <a href="./resources/pages/hibiscus-buyers-guide.html"
-                  >Egyptian Hibiscus: What Buyers Should Know</a
-                >
-              </h3>
-              <p class="muted">
-                Color, cut, moisture &amp; micro specs to evaluate for beverages
-                and teas.
-              </p>
-            </div>
-          </article>
-          <article class="post">
-            <figure class="post__media">
-              <img
-                src="./resources/pages/assets/post-2.png"
-                alt="Tea production compliance documents"
-                loading="lazy"
-              />
-            </figure>
-            <div class="body">
-              <h3>
-                <a href="./resources/pages/fsvp-small-brands.html"
-                  >FSVP Basics for Small Brands</a
-                >
-              </h3>
-              <p class="muted">
-                How importers reduce your regulatory risk and keep documentation
-                tidy.
-              </p>
-            </div>
-          </article>
-          <article class="post">
-            <figure class="post__media">
-              <img
-                src="./resources/pages/assets/health-benfits.png"
-                alt="Herbal ingredients supporting wellness"
-                loading="lazy"
-              />
-            </figure>
-            <div class="body">
-              <h3>
-                <a href="./resources/pages/spices-health-benefits.html"
-                  >Spices &amp; Herbs: Health Benefits Beyond Flavor</a
-                >
-              </h3>
-              <p class="muted">
-                Discover how hibiscus, moringa, peppermint, chamomile, and basil
-                support wellness - from antioxidants to digestion and
-                relaxation.
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA BAND -->
-    <section class="cta-band" id="cta">
-      <div class="wrap">
-        <div>
-          <h2>Ready to evaluate samples or specs?</h2>
-          <p>
-            Tell us your product of interest and volume range. We'll reply with
-            a short list of options and a calendar link.
-          </p>
-          <a class="btn btn-ghost" href="request-sample-quote.html"
-            >Request Samples/Quote</a
-          >
-        </div>
-        <div>
           <div
             style="
-              background: rgba(255, 255, 255, 0.07);
-              border: 1px solid rgba(255, 255, 255, 0.25);
-              border-radius: 12px;
-              padding: 14px;
+              display: grid;
+              grid-template-columns: repeat(12, 1fr);
+              gap: 12px;
+              margin-top: 14px;
             "
           >
-            <strong>Download:</strong> Specs Pack (PDF) &mdash; Hibiscus,
-            Moringa, Peppermint, Chamomile, Basil
-            <div style="margin-top: 10px">
-              <a class="btn btn-ghost" href="./specs-pack.html"
-                >Get PDF</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            <label style="grid-column: span 6">
+              <span><strong>Name *</strong></span>
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="Jane Doe"
+                style="
+                  width: 100%;
+                  margin-top: 6px;
+                  padding: 10px;
+                  border: 1px solid var(--line);
+                  border-radius: 10px;
+                  background: #fff;
+                "
+              />
+            </label>
 
-    <!-- FOOTER -->
+            <label style="grid-column: span 6">
+              <span><strong>Email *</strong></span>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="you@company.com"
+                style="
+                  width: 100%;
+                  margin-top: 6px;
+                  padding: 10px;
+                  border: 1px solid var(--line);
+                  border-radius: 10px;
+                  background: #fff;
+                "
+              />
+            </label>
+
+            <label style="grid-column: span 12">
+              <span><strong>Company</strong></span>
+              <input
+                type="text"
+                name="company"
+                placeholder="Company or organization"
+                style="
+                  width: 100%;
+                  margin-top: 6px;
+                  padding: 10px;
+                  border: 1px solid var(--line);
+                  border-radius: 10px;
+                  background: #fff;
+                "
+              />
+            </label>
+
+            <label style="grid-column: span 12">
+              <span><strong>Products of Interest</strong></span>
+              <div
+                class="checks"
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 8px 12px;
+                  margin-top: 6px;
+                "
+              >
+                <label
+                  style="display: inline-flex; align-items: center; gap: 8px"
+                >
+                  <input
+                    type="checkbox"
+                    name="products[]"
+                    value="Hibiscus"
+                  /><span>Hibiscus</span>
+                </label>
+                <label
+                  style="display: inline-flex; align-items: center; gap: 8px"
+                >
+                  <input
+                    type="checkbox"
+                    name="products[]"
+                    value="Moringa"
+                  /><span>Moringa</span>
+                </label>
+                <label
+                  style="display: inline-flex; align-items: center; gap: 8px"
+                >
+                  <input
+                    type="checkbox"
+                    name="products[]"
+                    value="Peppermint"
+                  /><span>Peppermint</span>
+                </label>
+                <label
+                  style="display: inline-flex; align-items: center; gap: 8px"
+                >
+                  <input
+                    type="checkbox"
+                    name="products[]"
+                    value="Chamomile"
+                  /><span>Chamomile</span>
+                </label>
+                <label
+                  style="display: inline-flex; align-items: center; gap: 8px"
+                >
+                  <input type="checkbox" name="products[]" value="Basil" /><span
+                    >Basil</span
+                  >
+                </label>
+              </div>
+            </label>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              gap: 12px;
+              margin-top: 14px;
+            "
+          >
+            <label style="display: flex; align-items: center; gap: 8px">
+              <input type="checkbox" name="consent" required />
+              <span
+                >I agree to receive the Specs Pack by email and occasional
+                product updates *</span
+              >
+            </label>
+          </div>
+
+          <div style="margin-top: 18px">
+            <button class="btn btn-primary" type="submit">
+              Send Me the PDF
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+
     <footer role="contentinfo">
       <div class="wrap foot">
         <div>
