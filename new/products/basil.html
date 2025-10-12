@@ -3,22 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      PETS &mdash; Premium Egyptian Herbs &amp; Botanicals (Importer &amp;
-      Wholesale Distributor)
-    </title>
-    <meta
-      name="description"
-      content="Planet Earth Treasures LLC &mdash; Importer &amp; Wholesale Distributor of premium Egyptian herbs &amp; botanicals. FSVP/HACCP-aligned, COA &amp; traceability. Delivered from NY/NJ."
-    />
+    <title>Basil - Planet Earth Treasures</title>
+    <meta name="description" content="Basil from Egypt in 25-50 kg sacks lots. Cut and sift particle size. Bright sweet aroma. Consistent sieve profile" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Marcellus&amp;display=swap"
       rel="stylesheet"
     />
-
-    <style>
+<style>
       :root {
         --bg: #f3eee3;
         --paper: #ffffff;
@@ -565,11 +558,80 @@
         font-size: 13px;
         color: #a9b3ad;
       }
+    
+      .feature-list {
+        margin: 0 0 18px;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 6px;
+      }
+      .feature-list li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--ink-muted);
+      }
+      .feature-list li::before {
+        content: "-";
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .product-grid {
+        display: grid;
+        gap: clamp(18px, 5vw, 28px);
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+      .product-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: clamp(18px, 4vw, 28px);
+      }
+      .product-card h2 {
+        margin: 0 0 14px;
+      }
+      .product-card ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--ink-muted);
+      }
+      .hero__art figcaption {
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--ink-muted);
+      }
+      .cta-band {
+        background: color-mix(in oklab, var(--paper), var(--bg) 40%);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: clamp(28px, 5vw, 48px) 0;
+      }
+      .cta-band__inner {
+        display: grid;
+        gap: clamp(16px, 4vw, 32px);
+        align-items: center;
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+      .cta-band__actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      @media (max-width: 720px) {
+        .cta-band__inner {
+          grid-template-columns: 1fr;
+        }
+        .cta-band__actions {
+          justify-content: flex-start;
+        }
+      }
+
     </style>
   </head>
-
   <body>
-    <!-- HEADER -->
     <header class="site" role="banner">
       <div class="site__grid wrap">
         <a
@@ -600,266 +662,70 @@
         <div class="site__spacer" aria-hidden="true"></div>
       </div>
     </header>
-    <main id="products" class="wrap" tabindex="-1" aria-label="Products">
-      <section style="margin-top: 18px">
-        <div class="section-title">
-          <h1>Our Products</h1>
-          <p class="muted">
-            Premium Egyptian herbs and botanicals, imported and distributed from
-            our NY/NJ base. FSVP/HACCP aligned, COA available, full lot
-            traceability.
-          </p>
+    <main id="product" tabindex="-1">
+      <section class="hero hero--product">
+        <div class="wrap hero__grid">
+          <div>
+            <p class="eyebrow">Herbs &amp; Botanicals</p>
+            <h1>Basil</h1>
+            <p class="lead">Basil leaves are gently dried and sieved to keep their bright savory character. Cut and sift grades stay free flowing for blends and co pack projects.</p>
+            <ul class="feature-list">
+              <li>Cut and sift particle size</li>
+              <li>Bright sweet aroma</li>
+              <li>Consistent sieve profile</li>
+            </ul>
+            <div class="actions">
+              <a class="btn btn-primary" href="../request-sample-quote.html?product=basil">Request Samples/Quote</a>
+              <a class="btn btn-ghost" href="../contact.html?product=basil">Contact Team</a>
+            </div>
+          </div>
+          <figure class="hero__art">
+            <img src="assets/Basil.jpg" alt="Basil leaves" />
+            <figcaption class="muted">Basil cut for culinary programs</figcaption>
+          </figure>
         </div>
-
-        <div class="grid">
-          <!-- Hibiscus -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Hibiscus.jpg" alt="Hibiscus calyces" />
-            </figure>
-            <div class="card__body">
-              <h3>Hibiscus</h3>
-              <p class="meta">
-                Whole &amp; Tea-Cut · Deep red color · Bold tartness
-              </p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="hibiscus.html">View Details ›</a>
-                <a class="link-btn" href="../contact.html?product=hibiscus"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
+      </section>
+      <section class="product-sections">
+        <div class="wrap product-grid">
+          <article class="product-card">
+            <h2>Quality Snapshot</h2>
+            <ul class="bullet">
+              <li>Single origin programs with audited growers in Egypt</li>
+              <li>COA and full traceability provided per lot</li>
+              <li>Steam sterilization, metal detection, and custom milling via partners</li>
+            </ul>
           </article>
-
-          <!-- Moringa -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Moringa.jpg" alt="Moringa leaves and powder" />
-            </figure>
-            <div class="card__body">
-              <h3>Moringa</h3>
-              <p class="meta">
-                Leaf &amp; Powder · Vibrant green color · Clean aroma
-              </p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="moringa.html">View Details ›</a>
-                <a class="link-btn" href="../contact.html?product=moringa"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
+          <article class="product-card">
+            <h2>Applications</h2>
+            <ul class="bullet">
+                <li>Dry seasoning blends</li>
+                <li>Sauce and soup bases</li>
+                <li>Herbal tea concepts</li>
+            </ul>
           </article>
-
-          <!-- Peppermint -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Peppermint.jpg" alt="Peppermint leaves" />
-            </figure>
-            <div class="card__body">
-              <h3>Peppermint</h3>
-              <p class="meta">
-                Tea-Cut · Fresh menthol aroma · Low foreign matter
-              </p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="peppermint.html"
-                  >View Details ›</a
-                >
-                <a class="link-btn" href="../contact.html?product=peppermint"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Spearmint -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Spearmint.jpg" alt="Spearmint leaves" />
-            </figure>
-            <div class="card__body">
-              <h3>Spearmint</h3>
-              <p class="meta">
-                Tea-Cut · Softer menthol than peppermint · Clean leaf character
-              </p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="spearmint.html"
-                  >View Details ›</a
-                >
-                <a class="link-btn" href="../contact.html?product=spearmint"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Chamomile -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Chamomile.jpg" alt="Chamomile flowers" />
-            </figure>
-            <div class="card__body">
-              <h3>Chamomile</h3>
-              <p class="meta">Whole &amp; Bar-Cut · Clean floral aroma</p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="chamomile.html"
-                  >View Details ›</a
-                >
-                <a class="link-btn" href="../contact.html?product=chamomile"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Basil -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Basil.jpg" alt="Basil leaves" />
-            </figure>
-            <div class="card__body">
-              <h3>Basil</h3>
-              <p class="meta">
-                Cut &amp; Sift · Bright aroma · Consistent sieve profile
-              </p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="basil.html">View Details ›</a>
-                <a class="link-btn" href="../contact.html?product=basil"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Calendula -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Calendula.jpg" alt="Calendula petals" />
-            </figure>
-            <div class="card__body">
-              <h3>Calendula</h3>
-              <p class="meta">
-                Whole Petals &amp; Cut · Warm orange-yellow color · Visual
-                appeal for blends
-              </p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="calendula.html"
-                  >View Details ›</a
-                >
-                <a class="link-btn" href="../contact.html?product=calendula"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Marjoram -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Marjoram.jpg" alt="Marjoram leaves" />
-            </figure>
-            <div class="card__body">
-              <h3>Marjoram</h3>
-              <p class="meta">
-                Cut &amp; Sift · Light green color · Herbal aroma
-              </p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="marjoram.html">View Details ›</a>
-                <a class="link-btn" href="../contact.html?product=marjoram"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Anise -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Anise.jpg" alt="Anise seeds" />
-            </figure>
-            <div class="card__body">
-              <h3>Anise</h3>
-              <p class="meta">
-                Whole Seeds · Sweet aromatic · Light greenish-brown
-              </p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="anise.html">View Details ›</a>
-                <a class="link-btn" href="../contact.html?product=anise"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Cumin -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Cumin.jpg" alt="Cumin seeds" />
-            </figure>
-            <div class="card__body">
-              <h3>Cumin</h3>
-              <p class="meta">Whole Seeds · Robust aroma · High oil content</p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="cumin.html">View Details ›</a>
-                <a class="link-btn" href="../contact.html?product=cumin"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Fennel -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Fennel.jpg" alt="Fennel seeds" />
-            </figure>
-            <div class="card__body">
-              <h3>Fennel</h3>
-              <p class="meta">
-                Whole Seeds · Sweet licorice aroma · Uniform color
-              </p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="fennel.html">View Details ›</a>
-                <a class="link-btn" href="../contact.html?product=fennel"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Parsley -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Parsley.jpg" alt="Parsley leaves" />
-            </figure>
-            <div class="card__body">
-              <h3>Parsley</h3>
-              <p class="meta">
-                Cut &amp; Sift · Bright green color · Mild herbal aroma
-              </p>
-              <p class="meta">Available in 25–50 kg sacks</p>
-              <div class="card__links">
-                <a class="link-btn" href="parsley.html">View Details ›</a>
-                <a class="link-btn" href="../contact.html?product=parsley"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
+          <article class="product-card">
+            <h2>Formats &amp; Logistics</h2>
+            <ul class="bullet">
+              <li>Bulk availability: 25-50 kg sacks</li>
+              <li>Palletized export ready shipments staged from NY/NJ</li>
+              <li>Standard lead time 4 to 6 weeks, rush programs available</li>
+            </ul>
           </article>
         </div>
       </section>
+      <section class="cta-band">
+        <div class="wrap cta-band__inner">
+          <div>
+            <h2>Ready to source Basil?</h2>
+            <p class="muted">Partner with Planet Earth Treasures to secure dependable basil supply backed by FSVP aligned sourcing.</p>
+          </div>
+          <div class="cta-band__actions">
+            <a class="btn btn-primary" href="../request-sample-quote.html?product=basil">Request Quote</a>
+            <a class="btn btn-ghost" href="../specs-pack.html">Download Specs Pack</a>
+          </div>
+        </div>
+      </section>
     </main>
-
     <footer role="contentinfo">
       <div class="wrap foot">
         <div>
@@ -873,18 +739,10 @@
             "
           >
             <img src="../assets/logo-mark-32.png" alt="" width="36" height="36" />
-            <strong class="brand__name" style="color: #e8efe9"
-              >Planet Earth Treasures</strong
-            >
+            <strong class="brand__name" style="color: #e8efe9">Planet Earth Treasures</strong>
           </div>
-          <p class="small">
-            Importer &amp; Wholesale Distributor of Egyptian herbs &amp;
-            botanicals. Based near the Port of NY/NJ.
-          </p>
-          <p class="small">
-            &copy; <span id="y"></span> Planet Earth Treasures LLC. All rights
-            reserved.
-          </p>
+          <p class="small">Importer &amp; Wholesale Distributor of Egyptian herbs &amp; botanicals. Based near the Port of NY/NJ.</p>
+          <p class="small">&copy; <span id="y"></span> Planet Earth Treasures LLC. All rights reserved.</p>
         </div>
         <div>
           <strong>Explore</strong>
@@ -892,9 +750,7 @@
             <a href="../products/index.html">Products</a>
             <a href="/quality">Quality &amp; Compliance</a>
             <a href="/sourcing">Sourcing &amp; Logistics</a>
-            <a class="link-highlight" href="/marbles-stones"
-              >Marbles &amp; Stones</a
-            >
+            <a class="link-highlight" href="/marbles-stones">Marbles &amp; Stones</a>
             <a href="../resources/index.html">Resources</a>
             <a href="../contact.html">Contact</a>
           </div>
@@ -906,17 +762,8 @@
         </div>
       </div>
     </footer>
-
     <script>
-      // year in footer
-      document.getElementById("y").textContent = new Date().getFullYear();
+      document.getElementById("y").textContent = new Date().getFullYear()
     </script>
   </body>
 </html>
-
-
-
-
-
-
-
