@@ -626,7 +626,12 @@
         </ul>
 
         <!-- DOWNLOAD REQUEST FORM -->
-        <form action="/resources/specs-pack/submit" method="post" novalidate>
+        <form
+          id="specsPackForm"
+          action="/resources/specs-pack/submit"
+          method="post"
+          novalidate
+        >
           <!-- Honeypot -->
           <input
             type="text"
@@ -652,6 +657,7 @@
               margin-top: 14px;
             "
           >
+            <!-- Name -->
             <label style="grid-column: span 6">
               <span><strong>Name *</strong></span>
               <input
@@ -670,9 +676,11 @@
               />
             </label>
 
+            <!-- Email -->
             <label style="grid-column: span 6">
               <span><strong>Email *</strong></span>
               <input
+                id="email"
                 type="email"
                 name="email"
                 required
@@ -688,6 +696,7 @@
               />
             </label>
 
+            <!-- Company -->
             <label style="grid-column: span 12">
               <span><strong>Company</strong></span>
               <input
@@ -705,10 +714,62 @@
               />
             </label>
 
+            <!-- Reason -->
             <label style="grid-column: span 12">
-              <span><strong>Products of Interest</strong></span>
+              <span><strong>Reason for Request *</strong></span>
+              <select
+                id="reason"
+                name="reason"
+                required
+                style="
+                  width: 100%;
+                  margin-top: 6px;
+                  padding: 10px;
+                  border: 1px solid var(--line);
+                  border-radius: 10px;
+                  background: #fff;
+                "
+              >
+                <option value="" disabled selected>Select one...</option>
+                <option>Product evaluation for sourcing</option>
+                <option>QA or regulatory documentation review</option>
+                <option>New supplier benchmarking</option>
+                <option>Internal R&D or formulation testing</option>
+                <option>Other</option>
+              </select>
+            </label>
+
+            <!-- Conditional Other -->
+            <label
+              id="other-reason-box"
+              style="grid-column: span 12; display: none"
+            >
+              <span><strong>Please specify</strong></span>
+              <input
+                type="text"
+                name="other_reason"
+                placeholder="Enter your reason..."
+                style="
+                  width: 100%;
+                  margin-top: 6px;
+                  padding: 10px;
+                  border: 1px solid var(--line);
+                  border-radius: 10px;
+                  background: #fff;
+                "
+              />
+            </label>
+
+            <!-- Products of Interest (required group) -->
+            <fieldset
+              style="grid-column: span 12; border: 0; padding: 0; margin: 0"
+            >
+              <legend class="sr-only">Products of Interest *</legend>
+              <span><strong>Products of Interest *</strong></span>
               <div
                 class="checks"
+                data-required-group="products"
+                aria-describedby="products-error"
                 style="
                   display: flex;
                   flex-wrap: wrap;
@@ -760,9 +821,19 @@
                   >
                 </label>
               </div>
-            </label>
+              <div
+                id="products-error"
+                class="muted"
+                role="alert"
+                aria-live="polite"
+                style="color: #b3261e; margin-top: 6px; display: none"
+              >
+                Please select at least one product.
+              </div>
+            </fieldset>
           </div>
 
+          <!-- Consent -->
           <div
             style="
               display: flex;
@@ -781,10 +852,19 @@
             </label>
           </div>
 
-          <div style="margin-top: 18px">
-            <button class="btn btn-primary" type="submit">
+          <!-- Submit -->
+          <div
+            style="
+              margin-top: 18px;
+              display: flex;
+              gap: 12px;
+              align-items: center;
+            "
+          >
+            <button id="specs-submit" class="btn btn-primary" type="submit">
               Send Me the PDF
             </button>
+            <span id="specs-status" class="muted" aria-live="polite"></span>
           </div>
         </form>
       </section>
@@ -840,6 +920,140 @@
     <script>
       // year in footer
       document.getElementById("y").textContent = new Date().getFullYear();
+
+      // Form handling
+      (function () {
+        // 1) Replace with your deployed Google Apps Script Web App URL
+        //    (Apps Script -> Deploy -> New Deployment -> Web app -> Anyone with the link)
+        const APPS_SCRIPT_URL =
+          "https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec";
+
+        const form = document.getElementById("specsPackForm");
+        const submitBtn = document.getElementById("specs-submit");
+        const statusEl = document.getElementById("specs-status");
+        const reasonEl = document.getElementById("reason");
+        const otherBox = document.getElementById("other-reason-box");
+        const productsGroup = form.querySelector(
+          '[data-required-group="products"]'
+        );
+        const productsError = document.getElementById("products-error");
+
+        // Toggle "Other" field
+        reasonEl.addEventListener("change", () => {
+          otherBox.style.display =
+            reasonEl.value === "Other" ? "block" : "none";
+        });
+
+        // Basic email format validation (in addition to type="email")
+        function isValidEmail(v) {
+          // Simple RFC 5322-ish check
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        }
+
+        // Validate at least one product selected
+        function validateProductsRequired() {
+          const checked = productsGroup.querySelectorAll(
+            'input[type="checkbox"]:checked'
+          ).length;
+          const ok = checked > 0;
+          productsError.style.display = ok ? "none" : "block";
+          return ok;
+        }
+        productsGroup.addEventListener("change", validateProductsRequired);
+
+        // Serialize form to object
+        function serializeForm(frm) {
+          const fd = new FormData(frm);
+          const data = {};
+          for (const [k, v] of fd.entries()) {
+            if (k.endsWith("[]")) {
+              const key = k.slice(0, -2);
+              if (!Array.isArray(data[key])) data[key] = [];
+              data[key].push(v);
+            } else if (data[k] !== undefined) {
+              // handle duplicate names without []
+              if (!Array.isArray(data[k])) data[k] = [data[k]];
+              data[k].push(v);
+            } else {
+              data[k] = v;
+            }
+          }
+          return data;
+        }
+
+        async function postToGoogleSheets(payload) {
+          const res = await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors", // if your Apps Script is set to "Anyone" you can use no-cors; response body won't be readable
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          // With no-cors we can't read status; optimistically show success.
+          return true;
+        }
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          statusEl.textContent = "";
+
+          // Honeypot check
+          if (form.website && form.website.value) {
+            statusEl.textContent = "Submission blocked.";
+            return;
+          }
+
+          // Built-in required checks
+          if (!form.checkValidity()) {
+            // trigger native UI in some browsers
+            form.reportValidity && form.reportValidity();
+            // still run our group validations
+            validateProductsRequired();
+            // email custom check for older browsers
+            const email = form.querySelector("#email").value.trim();
+            if (!isValidEmail(email)) {
+              statusEl.textContent = "Please enter a valid email address.";
+            }
+            return;
+          }
+
+          // Group validation (Products required)
+          if (!validateProductsRequired()) {
+            return;
+          }
+
+          // Extra email validation (some browsers let invalid emails pass type=email)
+          const emailVal = form.querySelector("#email").value.trim();
+          if (!isValidEmail(emailVal)) {
+            statusEl.textContent = "Please enter a valid email address.";
+            return;
+          }
+
+          // Disable UI
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending…";
+
+          // Build payload
+          const payload = serializeForm(form);
+          payload.form_name = "Specs Pack Request";
+          payload.timestamp = new Date().toISOString();
+
+          try {
+            await postToGoogleSheets(payload);
+            statusEl.textContent =
+              "Thanks! The Specs Pack will be sent to your email.";
+            form.reset();
+            otherBox.style.display = "none";
+            productsError.style.display = "none";
+          } catch (err) {
+            statusEl.textContent =
+              "Sorry, something went wrong. Please try again.";
+            console.error(err);
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Send Me the PDF";
+          }
+        });
+      })();
     </script>
   </body>
 </html>
