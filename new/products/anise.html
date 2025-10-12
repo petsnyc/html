@@ -245,6 +245,19 @@
         gap: 12px;
         margin-top: 8px;
       }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--accent);
+        text-decoration: none;
+        margin-bottom: 16px;
+      }
+      .back-link:hover {
+        text-decoration: underline;
+      }
       .btn {
         display: inline-flex;
         align-items: flex-start;
@@ -603,10 +616,18 @@
         color: var(--ink-muted);
       }
       .cta-band {
-        background: color-mix(in oklab, var(--paper), var(--bg) 40%);
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
+        background: color-mix(in oklab, var(--accent), #000 6%);
+        color: #f5f7f5;
+        border-top: 1px solid color-mix(in oklab, var(--accent), #000 25%);
+        border-bottom: 1px solid color-mix(in oklab, var(--accent), #000 25%);
         padding: clamp(28px, 5vw, 48px) 0;
+      }
+      .cta-band h2 {
+        margin: 0 0 8px;
+        color: #fff;
+      }
+      .cta-band .muted {
+        color: color-mix(in oklab, #fff, #000 20%);
       }
       .cta-band__inner {
         display: grid;
@@ -619,6 +640,19 @@
         gap: 12px;
         flex-wrap: wrap;
         justify-content: flex-end;
+      }
+      .cta-band__actions .btn-primary {
+        background: #fff;
+        color: var(--accent);
+        border-color: color-mix(in oklab, #fff, var(--accent) 35%);
+      }
+      .cta-band__actions .btn-ghost {
+        color: #fff;
+        border-color: color-mix(in oklab, #fff, rgba(255, 255, 255, 0) 30%);
+      }
+      .cta-band__actions .btn-ghost:hover {
+        background: color-mix(in oklab, #fff, rgba(255, 255, 255, 0) 80%);
+        color: var(--accent);
       }
       @media (max-width: 720px) {
         .cta-band__inner {
@@ -666,6 +700,7 @@
       <section class="hero hero--product">
         <div class="wrap hero__grid">
           <div>
+            <a class="back-link" href="index.html">&larr; Back to Products</a>
             <p class="eyebrow">Herbs &amp; Botanicals</p>
             <h1>Anise</h1>
             <p class="lead">Anise seeds develop a naturally sweet profile in Egypt&#x27;s dry climate. Graded whole seed lots show the familiar light green brown color and aromatic finish.</p>
