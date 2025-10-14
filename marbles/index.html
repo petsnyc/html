@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Marbles & Stones &mdash; PETS</title>
+    <meta
+      name="description"
+      content="High-quality marbles and stones from Egypt."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Marcellus&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #f3eee3;
+        --paper: #ffffff;
+        --ink: #1f2a24; /* deep charcoal green */
+        --ink-muted: #58625c;
+        --accent: #234b3b; /* deep green */
+        --accent-2: #c97249; /* terracotta (for small accents only) */
+        --line: #e6e3db;
+        --ok: #1d7a46;
+        --radius: 14px;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        --space: clamp(14px, 2vw, 22px);
+        --max: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial,
+          sans-serif;
+        line-height: 1.45;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: Marcellus, serif;
+        letter-spacing: 0.2px;
+      }
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 0 clamp(8px, 2vw, var(--space));
+      }
+      header.site .wrap {
+        max-width: none;
+        margin: 0;
+        padding: 0 clamp(4px, 1.5vw, 16px);
+      }
+
+      /* Header */
+      header.site {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: transparent;
+        border-bottom: none;
+        backdrop-filter: none;
+      }
+      .site__grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto;
+        gap: clamp(10px, 3vw, 24px);
+        align-items: flex-start;
+        gap: clamp(10px, 3vw, 24px);
+        align-items: flex-start;
+        padding: 2px;
+      }
+      .site__logo {
+        display: inline-flex;
+        align-items: flex-start;
+        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
+        padding: 6px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      .site__logo img {
+        width: clamp(80px, 10vw, 120px);
+        height: auto;
+      }
+      .brand__name {
+        font-family: Marcellus, serif;
+        font-size: 20px;
+      }
+      .site__nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
+        padding: 10px 16px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+      }
+      .site__spacer {
+        display: none;
+      }
+      nav {
+        flex: 1 1 auto;
+        display: flex;
+        justify-content: flex-start;
+      }
+      nav ul {
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      nav a {
+        font-weight: 600;
+        color: var(--ink);
+        opacity: 0.92;
+      }
+      .cta-header {
+        display: inline-flex;
+        align-items: flex-start;
+        gap: 10px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 999px;
+        padding: 10px 16px;
+        border: 1px solid color-mix(in oklab, #fff, var(--accent) 70%);
+        box-shadow: var(--shadow);
+        text-decoration: none;
+      }
+      @media (max-width: 768px) {
+        .site__grid {
+          grid-template-columns: auto 1fr;
+          grid-template-rows: auto;
+          gap: 8px;
+          padding: 6px clamp(6px, 4vw, 12px);
+          align-items: center;
+        }
+        .site__logo {
+          grid-column: 1;
+          justify-content: center;
+          align-items: center;
+          align-self: center;
+        }
+        .site__logo img {
+          width: clamp(80px, 24vw, 140px);
+        }
+        .site__nav {
+          grid-column: 2;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+          align-self: center;
+        }
+        nav {
+          width: 100%;
+          justify-content: flex-start;
+        }
+        nav ul {
+          flex-direction: column;
+          gap: 6px;
+          align-items: flex-start;
+        }
+        .cta-header {
+          display: none;
+        }
+      }
+
+      /* Footer */
+      footer {
+        background: #0f1311;
+        color: #cfd6cf;
+        padding: 30px 0;
+        border-top: 1px solid #223127;
+      }
+      footer a {
+        color: #e2eee7;
+      }
+      .explore-nav {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        gap: 6px 22px;
+        margin-top: 10px;
+        justify-content: flex-start;
+      }
+      .explore-nav a {
+        display: block;
+        white-space: nowrap;
+      }
+      .foot {
+        display: grid;
+        grid-template-columns: 1.2fr 1.6fr 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 900px) {
+        .foot {
+          grid-template-columns: 1fr;
+        }
+      }
+      .small {
+        font-size: 13px;
+        color: #a9b3ad;
+      }
+
+      .link-highlight {
+        color: var(--accent-2);
+        font-weight: 600;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header class="site" role="banner">
+      <div class="site__grid wrap">
+        <a
+          class="site__logo"
+          href="/"
+          aria-label="Planet Earth Treasures - Home"
+        >
+          <img
+            src="../assets/logo-wordmark.png"
+            alt="Planet Earth Treasures"
+            width="220"
+            height="60"
+          />
+        </a>
+        <div class="site__nav">
+          <nav aria-label="Primary">
+            <ul>
+              <li><a href="../products/index.html">Products</a></li>
+              <li><a href="../quality.html">Quality &amp; Compliance</a></li>
+              <li><a href="../logistics.html">Sourcing &amp; Logistics</a></li>
+              <li><a href="../resources/index.html">Resources</a></li>
+            </ul>
+          </nav>
+          <a class="cta-header" href="../request-sample-quote.html"
+            >Request Samples/Quote</a
+          >
+        </div>
+        <div class="site__spacer" aria-hidden="true"></div>
+      </div>
+    </header>
+
+    <main id="quarries-main" style="padding: 36px 0">
+      <div
+        class="container"
+        style="max-width: 1100px; margin: 0 auto; padding: 0 16px"
+      >
+        <header style="margin-bottom: 18px">
+          <h1
+            style="
+              margin: 0 0 8px;
+              font-size: clamp(24px, 3.6vw, 34px);
+              line-height: 1.2;
+            "
+          >
+            Premium Egyptian Stones & Marble
+          </h1>
+          <p style="margin: 0; color: var(--muted, #606466); max-width: 72ch">
+            Quarried in Egypt. Cut, finished, and inspected to spec.
+            Export-ready with origin, grading, and packing documentation.
+          </p>
+        </header>
+
+        <div
+          class="cards"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+          "
+        >
+          <!-- Card 1 -->
+          <article
+            class="card"
+            data-product="Galala Marble"
+            style="
+              border: 1px solid var(--line, #e6e7e7);
+              border-radius: 14px;
+              overflow: hidden;
+              background: #fff;
+              display: flex;
+              flex-direction: column;
+            "
+          >
+            <div class="media" style="aspect-ratio: 16/10; background: #f4f4f4">
+              <img
+                src="/images/quarries/galala.jpg"
+                alt="Galala Marble slab close-up"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+            <div style="padding: 14px">
+              <h2 style="margin: 0 0 6px; font-size: 20px">Galala Marble</h2>
+              <p style="margin: 0 0 10px; color: var(--muted, #606466)">
+                Cream-beige base with subtle fossils; timeless interior & facade
+                stone.
+              </p>
+              <div
+                class="chips"
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 6px;
+                  margin: 10px 0 12px;
+                "
+              >
+                <span
+                  style="
+                    font-size: 12px;
+                    border: 1px solid var(--line);
+                    padding: 4px 8px;
+                    border-radius: 999px;
+                  "
+                  >Polished</span
+                >
+                <span
+                  style="
+                    font-size: 12px;
+                    border: 1px solid var(--line);
+                    padding: 4px 8px;
+                    border-radius: 999px;
+                  "
+                  >Honed</span
+                >
+                <span
+                  style="
+                    font-size: 12px;
+                    border: 1px solid var(--line);
+                    padding: 4px 8px;
+                    border-radius: 999px;
+                  "
+                  >Brushed</span
+                >
+              </div>
+              <a
+                href="#quote-form"
+                class="open-quote"
+                data-product="Galala Marble"
+                style="
+                  text-decoration: none;
+                  color: var(--primary, #2f5e3d);
+                  font-weight: 600;
+                "
+                >Request Quote / Specs</a
+              >
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article
+            class="card"
+            data-product="Sunny (Menia)"
+            style="
+              border: 1px solid var(--line, #e6e7e7);
+              border-radius: 14px;
+              overflow: hidden;
+              background: #fff;
+              display: flex;
+              flex-direction: column;
+            "
+          >
+            <div class="media" style="aspect-ratio: 16/10; background: #f4f4f4">
+              <img
+                src="/images/quarries/sunny.jpg"
+                alt="Sunny Menia limestone tile surface"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+            <div style="padding: 14px">
+              <h2 style="margin: 0 0 6px; font-size: 20px">Sunny (Menia)</h2>
+              <p style="margin: 0 0 10px; color: var(--muted, #606466)">
+                Warm beige limestone; even texture for floors, cladding, and
+                stairs.
+              </p>
+              <div
+                class="chips"
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 6px;
+                  margin: 10px 0 12px;
+                "
+              >
+                <span
+                  style="
+                    font-size: 12px;
+                    border: 1px solid var(--line);
+                    padding: 4px 8px;
+                    border-radius: 999px;
+                  "
+                  >Honed</span
+                >
+                <span
+                  style="
+                    font-size: 12px;
+                    border: 1px solid var(--line);
+                    padding: 4px 8px;
+                    border-radius: 999px;
+                  "
+                  >Tumbled</span
+                >
+                <span
+                  style="
+                    font-size: 12px;
+                    border: 1px solid var(--line);
+                    padding: 4px 8px;
+                    border-radius: 999px;
+                  "
+                  >Brushed</span
+                >
+              </div>
+              <a
+                href="#quote-form"
+                class="open-quote"
+                data-product="Sunny (Menia)"
+                style="
+                  text-decoration: none;
+                  color: var(--primary, #2f5e3d);
+                  font-weight: 600;
+                "
+                >Request Quote / Specs</a
+              >
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article
+            class="card"
+            data-product="Silvia (Menia)"
+            style="
+              border: 1px solid var(--line, #e6e7e7);
+              border-radius: 14px;
+              overflow: hidden;
+              background: #fff;
+              display: flex;
+              flex-direction: column;
+            "
+          >
+            <div class="media" style="aspect-ratio: 16/10; background: #f4f4f4">
+              <img
+                src="/images/quarries/silvia.jpg"
+                alt="Silvia limestone vein-cut texture"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+            <div style="padding: 14px">
+              <h2 style="margin: 0 0 6px; font-size: 20px">Silvia (Menia)</h2>
+              <p style="margin: 0 0 10px; color: var(--muted, #606466)">
+                Beige to light-brown; popular vein-cut look for walls and
+                lobbies.
+              </p>
+              <div
+                class="chips"
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 6px;
+                  margin: 10px 0 12px;
+                "
+              >
+                <span
+                  style="
+                    font-size: 12px;
+                    border: 1px solid var(--line);
+                    padding: 4px 8px;
+                    border-radius: 999px;
+                  "
+                  >Polished</span
+                >
+                <span
+                  style="
+                    font-size: 12px;
+                    border: 1px solid var(--line);
+                    padding: 4px 8px;
+                    border-radius: 999px;
+                  "
+                  >Honed</span
+                >
+                <span
+                  style="
+                    font-size: 12px;
+                    border: 1px solid var(--line);
+                    padding: 4px 8px;
+                    border-radius: 999px;
+                  "
+                  >Bush-hammered</span
+                >
+              </div>
+              <a
+                href="#quote-form"
+                class="open-quote"
+                data-product="Silvia (Menia)"
+                style="
+                  text-decoration: none;
+                  color: var(--primary, #2f5e3d);
+                  font-weight: 600;
+                "
+                >Request Quote / Specs</a
+              >
+            </div>
+          </article>
+        </div>
+
+        <!-- Assurance strip -->
+        <div
+          style="
+            margin-top: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            color: var(--muted, #606466);
+            font-size: 14px;
+          "
+        >
+          <span>• Origin & batch traceability</span>
+          <span>• Dimensional & finish QA</span>
+          <span>• Export packing to spec (crates/pallets)</span>
+          <span>• Incoterms: FOB / CIF / DDP</span>
+        </div>
+      </div>
+
+      <!-- Hidden Quote/Specs Form (accessible modal-like panel) -->
+      <div
+        id="quote-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="quote-title"
+        style="
+          position: fixed;
+          inset: 0;
+          display: none;
+          z-index: 9999;
+          background: rgba(0, 0, 0, 0.42);
+        "
+      >
+        <div
+          style="
+            max-width: 720px;
+            margin: 6vh auto;
+            background: #fff;
+            border-radius: 12px;
+            overflow: auto;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+          "
+        >
+          <header
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 14px 16px;
+              border-bottom: 1px solid var(--line, #e6e7e7);
+            "
+          >
+            <h3 id="quote-title" style="margin: 0; font-size: 20px">
+              Request Quote / Specs
+            </h3>
+            <button
+              type="button"
+              id="quote-close"
+              aria-label="Close"
+              style="
+                border: 0;
+                background: transparent;
+                font-size: 22px;
+                line-height: 1;
+                cursor: pointer;
+              "
+            >
+              ×
+            </button>
+          </header>
+
+          <form id="quoteForm" novalidate style="padding: 14px 16px">
+            <!-- Honeypot -->
+            <input
+              type="text"
+              name="website"
+              id="hp_quote"
+              tabindex="-1"
+              aria-hidden="true"
+              style="
+                position: absolute;
+                left: -9999px;
+                height: 0;
+                width: 0;
+                padding: 0;
+                border: 0;
+              "
+            />
+
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 12px;
+              "
+            >
+              <label style="grid-column: span 6">
+                <span><strong>Email *</strong></span>
+                <input
+                  type="email"
+                  id="q_email"
+                  name="email"
+                  required
+                  placeholder="you@company.com"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+                <small
+                  id="err_q_email"
+                  style="color: #c00; display: none"
+                ></small>
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Name *</strong></span>
+                <input
+                  type="text"
+                  id="q_name"
+                  name="name"
+                  required
+                  placeholder="Full name"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+                <small
+                  id="err_q_name"
+                  style="color: #c00; display: none"
+                ></small>
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Company *</strong></span>
+                <input
+                  type="text"
+                  id="q_company"
+                  name="company"
+                  required
+                  placeholder="Company or organization"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+                <small
+                  id="err_q_company"
+                  style="color: #c00; display: none"
+                ></small>
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Port of Destination *</strong></span>
+                <input
+                  type="text"
+                  id="q_port"
+                  name="port"
+                  required
+                  placeholder="e.g., NY/NJ, Halifax, Barcelona"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+                <small
+                  id="err_q_port"
+                  style="color: #c00; display: none"
+                ></small>
+              </label>
+
+              <label style="grid-column: span 12">
+                <span><strong>Product(s) *</strong></span>
+                <div
+                  style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    margin-top: 6px;
+                  "
+                >
+                  <label
+                    style="display: inline-flex; align-items: center; gap: 8px"
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Galala Marble"
+                      class="q_product"
+                    />
+                    <span>Galala Marble</span></label
+                  >
+                  <label
+                    style="display: inline-flex; align-items: center; gap: 8px"
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Sunny (Menia)"
+                      class="q_product"
+                    />
+                    <span>Sunny (Menia)</span></label
+                  >
+                  <label
+                    style="display: inline-flex; align-items: center; gap: 8px"
+                    ><input
+                      type="checkbox"
+                      name="products[]"
+                      value="Silvia (Menia)"
+                      class="q_product"
+                    />
+                    <span>Silvia (Menia)</span></label
+                  >
+                  <label
+                    style="display: inline-flex; align-items: center; gap: 8px"
+                  >
+                    <input
+                      type="checkbox"
+                      id="q_prod_other_cb"
+                      value="Other"
+                      class="q_product"
+                    />
+                    <span>Other</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="q_prod_other"
+                    placeholder="If Other, specify"
+                    style="
+                      flex: 1;
+                      min-width: 220px;
+                      padding: 8px;
+                      border: 1px solid var(--line);
+                      border-radius: 8px;
+                    "
+                  />
+                </div>
+                <small
+                  id="err_q_products"
+                  style="color: #c00; display: none"
+                ></small>
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Quantity *</strong></span>
+                <input
+                  type="text"
+                  id="q_qty"
+                  name="quantity"
+                  required
+                  placeholder="e.g., 500 m² tiles or 2 containers slabs"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                />
+                <small
+                  id="err_q_qty"
+                  style="color: #c00; display: none"
+                ></small>
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Application *</strong></span>
+                <select
+                  id="q_app"
+                  name="application"
+                  required
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                >
+                  <option value="">Select…</option>
+                  <option>Interior Flooring</option>
+                  <option>Wall Cladding</option>
+                  <option>Façade</option>
+                  <option>Stairs</option>
+                  <option>Countertops / Custom</option>
+                </select>
+                <small
+                  id="err_q_app"
+                  style="color: #c00; display: none"
+                ></small>
+              </label>
+
+              <label style="grid-column: span 6">
+                <span><strong>Incoterms (optional)</strong></span>
+                <select
+                  id="q_incoterms"
+                  name="incoterms"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                >
+                  <option value="">No preference</option>
+                  <option>FOB</option>
+                  <option>CIF</option>
+                  <option>DDP</option>
+                  <option>DAP</option>
+                </select>
+              </label>
+
+              <label style="grid-column: span 12">
+                <span><strong>Notes</strong></span>
+                <textarea
+                  id="q_notes"
+                  name="notes"
+                  rows="3"
+                  placeholder="Finishes, sizes, thickness, tolerances, packing, deadlines…"
+                  style="
+                    width: 100%;
+                    margin-top: 6px;
+                    padding: 10px;
+                    border: 1px solid var(--line);
+                    border-radius: 10px;
+                    background: #fff;
+                  "
+                ></textarea>
+              </label>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                margin-top: 12px;
+              "
+            >
+              <button
+                type="submit"
+                id="quoteSubmit"
+                class="btn btn-primary"
+                style="
+                  padding: 10px 14px;
+                  border-radius: 10px;
+                  border: 1px solid var(--line);
+                  background: var(--primary, #2f5e3d);
+                  color: #fff;
+                "
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                id="quoteCancel"
+                class="btn"
+                style="
+                  padding: 10px 14px;
+                  border-radius: 10px;
+                  border: 1px solid var(--line);
+                  background: #fff;
+                "
+              >
+                Cancel
+              </button>
+              <div
+                id="quoteStatus"
+                aria-live="polite"
+                style="margin-left: auto; font-size: 0.95rem"
+              ></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+    <!-- FOOTER -->
+    <footer role="contentinfo">
+      <div class="wrap foot">
+        <div>
+          <div
+            class="brand"
+            style="
+              margin-bottom: 8px;
+              display: inline-flex;
+              align-items: center;
+              gap: 10px;
+            "
+          >
+            <img
+              src="../assets/logo-mark-32.png"
+              alt=""
+              width="36"
+              height="36"
+            />
+            <strong class="brand__name" style="color: #e8efe9"
+              >Planet Earth Treasures</strong
+            >
+          </div>
+          <p class="small">
+            Importer &amp; Wholesale Distributor of Egyptian herbs &amp;
+            botanicals. Based near the Port of NY/NJ.
+          </p>
+          <p class="small">
+            &copy; <span id="y"></span> Planet Earth Treasures LLC. All rights
+            reserved.
+          </p>
+        </div>
+        <div>
+          <strong>Explore</strong>
+          <div class="explore-nav">
+            <a href="../products/index.html">Products</a>
+            <a href="../quality.html">Quality &amp; Compliance</a>
+            <a href="../logistics.html">Sourcing &amp; Logistics</a>
+            <a class="link-highlight" href="/marbles-stones"
+              >Marbles &amp; Stones</a
+            >
+            <a href="../resources/index.html">Resources</a>
+            <a href="../contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <strong>Contact</strong><br />
+          <span class="small">Email: hello@planetearthtreasures.com</span><br />
+          <span class="small">USA (NY/NJ)</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // year in footer
+      document.getElementById("y").textContent = new Date().getFullYear();
+      (function () {
+        // Open/close panel
+        const panel = document.getElementById("quote-panel");
+        const closeBtn = document.getElementById("quote-close");
+        const cancelBtn = document.getElementById("quoteCancel");
+        const openers = document.querySelectorAll(".open-quote");
+
+        const email = document.getElementById("q_email");
+        const nameEl = document.getElementById("q_name");
+        const company = document.getElementById("q_company");
+        const port = document.getElementById("q_port");
+        const qty = document.getElementById("q_qty");
+        const app = document.getElementById("q_app");
+        const incoterms = document.getElementById("q_incoterms");
+        const notes = document.getElementById("q_notes");
+        const prodOtherCb = document.getElementById("q_prod_other_cb");
+        const prodOther = document.getElementById("q_prod_other");
+        const hp = document.getElementById("hp_quote");
+        const status = document.getElementById("quoteStatus");
+        const submitBtn = document.getElementById("quoteSubmit");
+
+        const err = (id) => document.getElementById(id);
+        const errs = {
+          email: err("err_q_email"),
+          name: err("err_q_name"),
+          company: err("err_q_company"),
+          port: err("err_q_port"),
+          products: err("err_q_products"),
+          qty: err("err_q_qty"),
+          app: err("err_q_app"),
+        };
+
+        function showPanel() {
+          panel.style.display = "block";
+          document.body.style.overflow = "hidden";
+          email.focus();
+        }
+        function hidePanel() {
+          panel.style.display = "none";
+          document.body.style.overflow = "";
+          clearStatus();
+          clearErrors();
+          document.getElementById("quoteForm").reset();
+        }
+
+        openers.forEach((a) => {
+          a.addEventListener("click", (e) => {
+            e.preventDefault();
+            // preselect product based on clicked card
+            const p = a.getAttribute("data-product");
+            document.querySelectorAll(".q_product").forEach((cb) => {
+              cb.checked = cb.value === p;
+            });
+            prodOtherCb.checked = false;
+            prodOther.value = "";
+            showPanel();
+          });
+        });
+        closeBtn.addEventListener("click", hidePanel);
+        cancelBtn.addEventListener("click", hidePanel);
+        panel.addEventListener("click", (e) => {
+          if (e.target === panel) hidePanel();
+        });
+
+        // keep "Other" in sync
+        prodOther.addEventListener("input", () => {
+          if (prodOther.value.trim()) prodOtherCb.checked = true;
+        });
+        prodOtherCb.addEventListener("change", () => {
+          if (!prodOtherCb.checked) prodOther.value = "";
+        });
+
+        function setError(el, msg) {
+          el.textContent = msg || "";
+          el.style.display = msg ? "block" : "none";
+        }
+        function clearErrors() {
+          Object.values(errs).forEach((el) => setError(el, ""));
+        }
+        function clearStatus() {
+          status.textContent = "";
+          status.style.color = "";
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        function getChecked(name) {
+          return Array.from(
+            document.querySelectorAll(`input[name="${name}"]:checked`)
+          ).map((i) => i.value);
+        }
+
+        function validate() {
+          clearErrors();
+          clearStatus();
+          if (hp.value.trim() !== "") return { ok: false, spam: true };
+
+          let ok = true;
+
+          // email
+          const ev = email.value.trim();
+          if (!ev) {
+            setError(errs.email, "Email is required.");
+            ok = false;
+          } else if (!emailRegex.test(ev)) {
+            setError(errs.email, "Enter a valid email address.");
+            ok = false;
+          }
+
+          // name
+          if (!nameEl.value.trim()) {
+            setError(errs.name, "Name is required.");
+            ok = false;
+          }
+
+          // company
+          if (!company.value.trim()) {
+            setError(errs.company, "Company is required.");
+            ok = false;
+          }
+
+          // port
+          if (!port.value.trim()) {
+            setError(errs.port, "Port is required.");
+            ok = false;
+          }
+
+          // products
+          const products = getChecked("products[]");
+          if (prodOther.value.trim() && !prodOtherCb.checked)
+            prodOtherCb.checked = true;
+          if (prodOtherCb.checked && !prodOther.value.trim()) {
+            setError(errs.products, 'Please specify product name for "Other".');
+            ok = false;
+          }
+          if (products.length === 0 && !prodOther.value.trim()) {
+            setError(errs.products, "Select at least one product.");
+            ok = false;
+          }
+
+          // qty
+          if (!qty.value.trim()) {
+            setError(errs.qty, "Quantity is required.");
+            ok = false;
+          }
+
+          // application
+          if (!app.value) {
+            setError(errs.app, "Please select an application.");
+            ok = false;
+          }
+
+          return { ok };
+        }
+
+        async function postJSON(url, payload) {
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error("Network error");
+          return res.json(); // expecting { ok: boolean, error?: string }
+        }
+
+        document
+          .getElementById("quoteForm")
+          .addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const check = validate();
+
+            if (check.spam) {
+              hidePanel();
+              return;
+            }
+            if (!check.ok) return;
+
+            const payload = {
+              email: email.value.trim(),
+              name: nameEl.value.trim(),
+              company: company.value.trim(),
+              port: port.value.trim(),
+              products: getChecked("products[]"),
+              product_other: prodOther.value.trim() || null,
+              quantity: qty.value.trim(),
+              application: app.value,
+              incoterms: incoterms.value || null,
+              notes: notes.value.trim() || null,
+              source: "website:quarries",
+              ts: new Date().toISOString(),
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.setAttribute("aria-busy", "true");
+            status.textContent = "Submitting…";
+
+            try {
+              // CHANGE to your serverless endpoint (e.g., /api/quote-specs, Vercel/Netlify/Workers)
+              const { ok, error } = await postJSON("/api/quote-specs", payload);
+              if (ok) {
+                status.textContent =
+                  "Thanks! We’ll send you the quote/specs shortly.";
+                status.style.color = "var(--fg,#1a1a1a)";
+                // optional: auto-close after a moment
+                setTimeout(hidePanel, 1200);
+              } else {
+                status.textContent =
+                  error || "Sorry, something went wrong. Please try again.";
+                status.style.color = "#c00";
+              }
+            } catch (err) {
+              status.textContent = "Network error. Please try again.";
+              status.style.color = "#c00";
+            } finally {
+              submitBtn.disabled = false;
+              submitBtn.removeAttribute("aria-busy");
+            }
+          });
+      })();
+    </script>
+  </body>
+</html>
