@@ -295,11 +295,17 @@
           <a href="request-sample-quote.html">Request Samples/Quote form</a>.
         </p>
 
-        <form action="/contact/submit" method="post" novalidate>
+        <form
+          id="contactForm"
+          action="/contact/submit"
+          method="post"
+          novalidate
+        >
           <!-- Honeypot -->
           <input
             type="text"
             name="website"
+            id="hp_website"
             aria-hidden="true"
             tabindex="-1"
             autocomplete="off"
@@ -326,6 +332,7 @@
               <input
                 type="text"
                 name="name"
+                id="name"
                 required
                 placeholder="Jane Doe"
                 style="
@@ -337,6 +344,11 @@
                   background: #fff;
                 "
               />
+              <small
+                class="field-error"
+                id="err_name"
+                style="color: #c00; display: none"
+              ></small>
             </label>
 
             <label style="grid-column: span 6">
@@ -344,6 +356,7 @@
               <input
                 type="email"
                 name="email"
+                id="email"
                 required
                 placeholder="you@company.com"
                 style="
@@ -355,6 +368,11 @@
                   background: #fff;
                 "
               />
+              <small
+                class="field-error"
+                id="err_email"
+                style="color: #c00; display: none"
+              ></small>
             </label>
 
             <label style="grid-column: span 12">
@@ -362,6 +380,7 @@
               <input
                 type="text"
                 name="company"
+                id="company"
                 placeholder="Company or organization"
                 style="
                   width: 100%;
@@ -372,12 +391,18 @@
                   background: #fff;
                 "
               />
+              <small
+                class="field-error"
+                id="err_company"
+                style="color: #c00; display: none"
+              ></small>
             </label>
 
             <label style="grid-column: span 12">
               <span><strong>Message *</strong></span>
               <textarea
                 name="message"
+                id="message"
                 rows="4"
                 required
                 placeholder="Tell us how we can help..."
@@ -390,6 +415,11 @@
                   background: #fff;
                 "
               ></textarea>
+              <small
+                class="field-error"
+                id="err_message"
+                style="color: #c00; display: none"
+              ></small>
             </label>
           </div>
 
@@ -403,14 +433,28 @@
             "
           >
             <label style="display: flex; align-items: center; gap: 8px">
-              <input type="checkbox" name="consent" required />
+              <input type="checkbox" name="consent" id="consent" required />
               <span>I agree to be contacted regarding this inquiry *</span>
             </label>
+            <small
+              class="field-error"
+              id="err_consent"
+              style="color: #c00; display: none"
+            ></small>
           </div>
 
           <div style="margin-top: 16px">
-            <button class="btn btn-primary" type="submit">Send Message</button>
+            <button class="btn btn-primary" id="submitBtn" type="submit">
+              Send Message
+            </button>
           </div>
+
+          <!-- status bar -->
+          <div
+            id="formStatus"
+            aria-live="polite"
+            style="margin-top: 10px; font-size: 0.95rem"
+          ></div>
         </form>
       </section>
     </main>
@@ -419,12 +463,7 @@
       <div class="wrap foot">
         <div>
           <div class="brand">
-            <img
-              src="assets/logo-mark-32.png"
-              alt=""
-              width="36"
-              height="36"
-            />
+            <img src="assets/logo-mark-32.png" alt="" width="36" height="36" />
             <strong class="brand__name">Planet Earth Treasures</strong>
           </div>
           <p class="small">
@@ -457,10 +496,160 @@
       </div>
     </footer>
 
+    document.getElementById("y").textContent = new Date().getFullYear();
+
     <script>
-      document.getElementById("y").textContent = new Date().getFullYear();
+      (function () {
+        const form = document.getElementById("contactForm");
+        const btn = document.getElementById("submitBtn");
+        const status = document.getElementById("formStatus");
+
+        const fields = {
+          name: document.getElementById("name"),
+          email: document.getElementById("email"),
+          company: document.getElementById("company"),
+          message: document.getElementById("message"),
+          consent: document.getElementById("consent"),
+          hp: document.getElementById("hp_website"),
+        };
+
+        const errs = {
+          name: document.getElementById("err_name"),
+          email: document.getElementById("err_email"),
+          company: document.getElementById("err_company"),
+          message: document.getElementById("err_message"),
+          consent: document.getElementById("err_consent"),
+        };
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+        function showError(key, msg) {
+          const el = errs[key];
+          if (!el) return;
+          el.textContent = msg || "";
+          el.style.display = msg ? "block" : "none";
+        }
+
+        function clearErrors() {
+          Object.keys(errs).forEach((k) => showError(k, ""));
+          status.textContent = "";
+          status.style.color = "";
+        }
+
+        function validate() {
+          clearErrors();
+          let ok = true;
+
+          // Honeypot
+          if (fields.hp.value.trim() !== "") {
+            // silent fail as spam
+            return { ok: false, spam: true };
+          }
+
+          // Name
+          if (!fields.name.value.trim()) {
+            showError("name", "Name is required.");
+            ok = false;
+          } else if (fields.name.value.trim().length < 2) {
+            showError("name", "Please enter a valid name.");
+            ok = false;
+          }
+
+          // Email
+          const email = fields.email.value.trim();
+          if (!email) {
+            showError("email", "Email is required.");
+            ok = false;
+          } else if (!emailRegex.test(email)) {
+            showError("email", "Enter a valid email address.");
+            ok = false;
+          }
+
+          // Message
+          const msg = fields.message.value.trim();
+          if (!msg) {
+            showError("message", "Message is required.");
+            ok = false;
+          } else if (msg.length < 10) {
+            showError(
+              "message",
+              "Please provide a little more detail (10+ chars)."
+            );
+            ok = false;
+          }
+
+          // Consent
+          if (!fields.consent.checked) {
+            showError("consent", "Consent is required.");
+            ok = false;
+          }
+
+          return { ok };
+        }
+
+        async function postJSON(url, payload) {
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          // Expecting { ok: true|false, error?: string }
+          if (!res.ok) throw new Error("Network error");
+          return res.json();
+        }
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const check = validate();
+
+          if (check.spam) {
+            // Pretend success to bots; do nothing server-side
+            status.textContent = "Thank you! Your message has been received.";
+            status.style.color = "var(--fg, #1a1a1a)";
+            form.reset();
+            return;
+          }
+
+          if (!check.ok) return;
+
+          // Build payload
+          const payload = {
+            name: fields.name.value.trim(),
+            email: fields.email.value.trim(),
+            company: fields.company.value.trim() || null,
+            message: fields.message.value.trim(),
+            consent: !!fields.consent.checked,
+            source: "website:contact",
+            ts: new Date().toISOString(),
+          };
+
+          // Submit
+          btn.disabled = true;
+          btn.setAttribute("aria-busy", "true");
+          status.textContent = "Sending…";
+
+          try {
+            // Change this URL to your backend handler
+            const { ok, error } = await postJSON("/api/contact", payload);
+
+            if (ok) {
+              status.textContent = "Thank you! Your message has been received.";
+              status.style.color = "var(--fg, #1a1a1a)";
+              form.reset();
+            } else {
+              status.textContent =
+                error || "Sorry, something went wrong. Please try again.";
+              status.style.color = "#c00";
+            }
+          } catch (err) {
+            status.textContent = "Network error. Please try again.";
+            status.style.color = "#c00";
+          } finally {
+            btn.disabled = false;
+            btn.removeAttribute("aria-busy");
+          }
+        });
+      })();
     </script>
   </body>
 </html>
-
-
