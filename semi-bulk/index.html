@@ -593,7 +593,7 @@
               <li><a href="../resources/index.html">Resources</a></li>
             </ul>
           </nav>
-          <a class="cta-header" href="/contact?type=spices"
+          <a class="cta-header" href="../request-sample-quote.html"
             >Request Samples/Quote</a
           >
         </div>
@@ -622,7 +622,7 @@
           compliance, COA, and traceability — but in smaller cartons.
         </p>
         <p class="muted">
-          Launching in ~7 months. Join the waitlist to be notified first.
+          Launching in coming months. Join the waitlist to be notified first.
         </p>
       </section>
 
@@ -656,7 +656,30 @@
             Tell us your interests so we can notify you when semi-bulk is ready.
           </p>
 
-          <form action="/notify?type=semi-bulk" method="post">
+          <form
+            id="semiBulkForm"
+            action="/notify?type=semi-bulk"
+            method="post"
+            novalidate
+          >
+            <!-- Honeypot -->
+            <input
+              type="text"
+              name="website"
+              id="hp_website"
+              aria-hidden="true"
+              tabindex="-1"
+              autocomplete="off"
+              style="
+                position: absolute;
+                left: -9999px;
+                height: 0;
+                width: 0;
+                padding: 0;
+                border: 0;
+              "
+            />
+
             <label for="email"><strong>Email *</strong></label>
             <input
               id="email"
@@ -672,6 +695,7 @@
                 border-radius: 8px;
               "
             />
+            <small id="err_email" style="color: #c00; display: none"></small>
 
             <label for="name"><strong>Name</strong></label>
             <input
@@ -687,6 +711,7 @@
                 border-radius: 8px;
               "
             />
+            <small id="err_name" style="color: #c00; display: none"></small>
 
             <label for="company"><strong>Company</strong></label>
             <input
@@ -702,6 +727,7 @@
                 border-radius: 8px;
               "
             />
+            <small id="err_company" style="color: #c00; display: none"></small>
 
             <fieldset
               style="
@@ -806,6 +832,7 @@
                   <input type="checkbox" name="products[]" value="Anise" />
                   <span>Anise</span>
                 </label>
+
                 <div
                   style="
                     display: grid;
@@ -847,6 +874,10 @@
                   />
                 </div>
               </div>
+              <small
+                id="err_products"
+                style="color: #c00; display: none"
+              ></small>
             </fieldset>
 
             <fieldset
@@ -874,9 +905,10 @@
                     gap: 8px;
                     white-space: nowrap;
                   "
-                  ><input type="checkbox" name="size[]" value="11lb" />
-                  <span>10 lb</span></label
                 >
+                  <input type="checkbox" name="size[]" value="11lb" />
+                  <span>5 kg (≈11 lb) </span>
+                </label>
                 <label
                   style="
                     display: inline-flex;
@@ -884,9 +916,11 @@
                     gap: 8px;
                     white-space: nowrap;
                   "
-                  ><input type="checkbox" name="size[]" value="22lb" />
-                  <span>20 lb</span></label
                 >
+                  <input type="checkbox" name="size[]" value="22lb" />
+                  <span>10 kg (≈22 lb)</span>
+                </label>
+
                 <div
                   style="
                     display: grid;
@@ -928,6 +962,7 @@
                   />
                 </div>
               </div>
+              <small id="err_size" style="color: #c00; display: none"></small>
             </fieldset>
 
             <label for="use"><strong>Use Case</strong></label>
@@ -950,6 +985,7 @@
               <option>Spice Packer</option>
               <option>Other</option>
             </select>
+            <small id="err_use" style="color: #c00; display: none"></small>
 
             <label for="notes"><strong>Notes</strong></label>
             <textarea
@@ -965,8 +1001,18 @@
                 border-radius: 8px;
               "
             ></textarea>
+            <small id="err_notes" style="color: #c00; display: none"></small>
 
-            <button class="btn btn-primary" type="submit">Notify Me</button>
+            <button class="btn btn-primary" id="semiSubmit" type="submit">
+              Notify Me
+            </button>
+
+            <!-- status area -->
+            <div
+              id="semiStatus"
+              aria-live="polite"
+              style="margin-top: 10px; font-size: 0.95rem"
+            ></div>
           </form>
 
           <p class="muted" style="margin-top: 10px">
@@ -980,8 +1026,15 @@
     <footer role="contentinfo">
       <div class="wrap foot">
         <div>
-          <div class="brand" style="margin-bottom: 8px">
-            <!-- <img src="../assets/logo-mark.svg" alt="" width="36" height="36" /> -->
+          <div
+            class="brand"
+            style="
+              margin-bottom: 8px;
+              display: inline-flex;
+              align-items: center;
+              gap: 10px;
+            "
+          >
             <img
               src="../assets/logo-mark-32.png"
               alt=""
@@ -1011,7 +1064,7 @@
               >Marbles &amp; Stones</a
             >
             <a href="../resources/index.html">Resources</a>
-            <a href="/contact?type=spices">Contact</a>
+            <a href="../contact.html">Contact</a>
           </div>
         </div>
         <div>
@@ -1025,6 +1078,193 @@
     <script>
       // year in footer
       document.getElementById("y").textContent = new Date().getFullYear();
+      // form handling
+      (function () {
+        const form = document.getElementById("semiBulkForm");
+        const btn = document.getElementById("semiSubmit");
+        const status = document.getElementById("semiStatus");
+
+        const el = (id) => document.getElementById(id);
+        const email = el("email");
+        const name = el("name");
+        const company = el("company");
+        const useCase = el("use");
+        const notes = el("notes");
+
+        // products & size groups
+        const productsOtherCb = el("products-other");
+        const productsOtherInput = el("products-other-input");
+        const sizeOtherCb = el("size-other");
+        const sizeOtherInput = el("size-other-input");
+
+        const errors = {
+          email: el("err_email"),
+          name: el("err_name"),
+          company: el("err_company"),
+          products: el("err_products"),
+          size: el("err_size"),
+          use: el("err_use"),
+          notes: el("err_notes"),
+        };
+
+        const hp = el("hp_website");
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+        function showError(key, msg) {
+          const e = errors[key];
+          if (!e) return;
+          e.textContent = msg || "";
+          e.style.display = msg ? "block" : "none";
+        }
+        function clearAllErrors() {
+          Object.keys(errors).forEach((k) => showError(k, ""));
+          status.textContent = "";
+          status.style.color = "";
+        }
+
+        function getCheckedValues(name) {
+          return Array.from(
+            form.querySelectorAll(`input[name="${name}"]:checked`)
+          ).map((i) => i.value);
+        }
+
+        function validate() {
+          clearAllErrors();
+
+          // Honeypot
+          if (hp.value.trim() !== "") {
+            return { ok: false, spam: true };
+          }
+
+          let ok = true;
+
+          // Email (required + format)
+          const e = email.value.trim();
+          if (!e) {
+            showError("email", "Email is required.");
+            ok = false;
+          } else if (!emailRegex.test(e)) {
+            showError("email", "Enter a valid email address.");
+            ok = false;
+          }
+
+          // Products "Other" logic
+          const prodOtherText = productsOtherInput.value.trim();
+          if (prodOtherText && !productsOtherCb.checked) {
+            productsOtherCb.checked = true; // auto-sync
+          }
+          if (productsOtherCb.checked && !prodOtherText) {
+            showError(
+              "products",
+              'Please specify the product name for "Other".'
+            );
+            ok = false;
+          }
+
+          // Size "Other" logic
+          const sizeOtherText = sizeOtherInput.value.trim();
+          if (sizeOtherText && !sizeOtherCb.checked) {
+            sizeOtherCb.checked = true;
+          }
+          if (sizeOtherCb.checked && !sizeOtherText) {
+            showError(
+              "size",
+              'Please specify your preferred weight for "Other".'
+            );
+            ok = false;
+          }
+
+          // Gentle nudges (not hard errors): at least one product or a note
+          const productsSelected = getCheckedValues("products[]");
+          if (productsSelected.length === 0 && notes.value.trim().length < 5) {
+            showError(
+              "products",
+              "Tip: Select at least one product, or add a brief note so we can help faster."
+            );
+          }
+
+          // Gentle nudge: at least one size or note
+          const sizesSelected = getCheckedValues("size[]");
+          if (sizesSelected.length === 0 && notes.value.trim().length < 5) {
+            showError(
+              "size",
+              "Tip: Choose a size or tell us your preference in notes."
+            );
+          }
+
+          return { ok };
+        }
+
+        async function postJSON(url, payload) {
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error("Network error");
+          return res.json(); // expects { ok: boolean, error?: string }
+        }
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const check = validate();
+
+          // Handle spam honeypot: pretend success to bots, do nothing server-side
+          if (check.spam) {
+            status.textContent = "Thanks! We’ll be in touch.";
+            status.style.color = "var(--fg,#1a1a1a)";
+            form.reset();
+            return;
+          }
+
+          if (!check.ok) return;
+
+          // Build payload
+          const payload = {
+            email: email.value.trim(),
+            name: name.value.trim() || null,
+            company: company.value.trim() || null,
+            products: getCheckedValues("products[]"),
+            products_other: productsOtherInput.value.trim() || null,
+            sizes: getCheckedValues("size[]"),
+            size_other: sizeOtherInput.value.trim() || null,
+            use_case: useCase.value || null,
+            notes: notes.value.trim() || null,
+            source: "website:semi-bulk",
+            ts: new Date().toISOString(),
+          };
+
+          // Submit to your serverless endpoint (adjust path/URL as needed)
+          const ENDPOINT = "/api/semi-bulk";
+
+          // UX lock
+          btn.disabled = true;
+          btn.setAttribute("aria-busy", "true");
+          status.textContent = "Sending…";
+
+          try {
+            const { ok, error } = await postJSON(ENDPOINT, payload);
+            if (ok) {
+              status.textContent =
+                "Thanks! You’re on the semi-bulk notify list.";
+              status.style.color = "var(--fg,#1a1a1a)";
+              form.reset();
+            } else {
+              status.textContent =
+                error || "Sorry, something went wrong. Please try again.";
+              status.style.color = "#c00";
+            }
+          } catch (err) {
+            status.textContent = "Network error. Please try again.";
+            status.style.color = "#c00";
+          } finally {
+            btn.disabled = false;
+            btn.removeAttribute("aria-busy");
+          }
+        });
+      })();
     </script>
   </body>
 </html>
