@@ -545,6 +545,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="hibiscus"
                         value="Hibiscus (Whole Calyces, Tea-Cut / TBC, Powder)"
                         required
                       />
@@ -556,6 +557,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="moringa"
                         value="Moringa (Leaf, Whole; Powder)"
                       />
                       Moringa (Leaf, Whole; Powder)</label
@@ -566,6 +568,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="basil"
                         value="Basil (Cut &amp; Sift; Powder)"
                       />
                       Basil (Cut &amp; Sift; Powder)</label
@@ -576,6 +579,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="marjoram"
                         value="Marjoram (Cut &amp; Sift; Powder)"
                       />
                       Marjoram (Cut &amp; Sift; Powder)</label
@@ -586,6 +590,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="peppermint"
                         value="Peppermint (Tea-Cut; Powder)"
                       />
                       Peppermint (Tea-Cut; Powder)</label
@@ -596,6 +601,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="spearmint"
                         value="Spearmint (Tea-Cut)"
                       />
                       Spearmint (Tea-Cut)</label
@@ -606,6 +612,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="chamomile"
                         value="Chamomile (Whole Flowers; Bar-Cut)"
                       />
                       Chamomile (Whole Flowers; Bar-Cut)</label
@@ -616,6 +623,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="calendula"
                         value="Calendula (Whole Petals; Cut &amp; Sift)"
                       />
                       Calendula (Whole Petals; Cut &amp; Sift)</label
@@ -626,6 +634,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="anise"
                         value="Anise (Seeds, Whole; Ground)"
                       />
                       Anise (Seeds, Whole; Ground)</label
@@ -636,6 +645,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="cumin"
                         value="Cumin (Seeds, Whole; Ground)"
                       />
                       Cumin (Seeds, Whole; Ground)</label
@@ -646,6 +656,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="fennel"
                         value="Fennel (Seeds, Whole; Ground)"
                       />
                       Fennel (Seeds, Whole; Ground)</label
@@ -656,6 +667,7 @@
                       ><input
                         type="checkbox"
                         name="products[]"
+                        data-product-key="parsley"
                         value="Parsley (Leaves, Cut &amp; Sift; Powder)"
                       />
                       Parsley (Leaves, Cut &amp; Sift; Powder)</label
@@ -1076,6 +1088,66 @@
         const form = document.getElementById("sampleQuoteForm");
         if (!form) {
           return;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const normalizeProductKey = (value) => {
+          const trimmed = (value || "").toString().trim();
+          if (!trimmed) return "";
+          return trimmed
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/&/g, "and")
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-+|-+$/g, "");
+        };
+
+        const requestedProducts = new Set();
+        params.getAll("products").forEach((entry) => {
+          entry
+            .split(",")
+            .map((item) => normalizeProductKey(item))
+            .filter(Boolean)
+            .forEach((item) => requestedProducts.add(item));
+        });
+
+        if (requestedProducts.size) {
+          const productCheckboxes = Array.from(
+            form.querySelectorAll('input[name="products[]"]')
+          );
+          const productMap = new Map();
+
+          productCheckboxes.forEach((checkbox) => {
+            const candidateKeys = [
+              checkbox.dataset.productKey,
+              normalizeProductKey(checkbox.dataset.productKey),
+              normalizeProductKey(checkbox.value),
+            ].filter(Boolean);
+
+            candidateKeys.forEach((key) => {
+              if (!productMap.has(key)) {
+                productMap.set(key, checkbox);
+              }
+            });
+          });
+
+          requestedProducts.forEach((key) => {
+            const normalizedKey = normalizeProductKey(key);
+            const match =
+              productMap.get(normalizedKey) || productMap.get(key) || null;
+            if (match) {
+              match.checked = true;
+            }
+          });
+        }
+
+        const sourceParam = params.get("source");
+        if (sourceParam) {
+          const sourceInput = form.querySelector('input[name="source"]');
+          if (sourceInput) {
+            sourceInput.value = sourceParam;
+          }
         }
 
         const feedbackEl = document.getElementById("form-feedback");
