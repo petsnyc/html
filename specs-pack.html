@@ -923,7 +923,6 @@
         if (yearEl) yearEl.textContent = new Date().getFullYear();
 
         const ENDPOINT =
-          window.SPECS_FORM_ENDPOINT ||
           "https://pets-form-handler.hashmawy.workers.dev/api/specs-pack";
 
         const form = document.getElementById("specsPackForm");
@@ -1096,6 +1095,7 @@
         });
 
         const buildPayload = (products) => {
+          console.log("Building payload with products:", products);
           const reason = getVal(fields.reason);
           return {
             submittedAt: new Date().toISOString(),
