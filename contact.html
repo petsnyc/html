@@ -442,39 +442,23 @@
     </footer>
 
     <script>
-      const yearEl = document.getElementById("y");
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
-
       /* Contact form handler: validation + context + POST to Worker */
       (() => {
+        const yearEl = document.getElementById("y");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+
         // ---- Config ----
         const ENDPOINT =
-          window.FORM_ENDPOINT ||
           "https://pets-form-handler.hashmawy.workers.dev/api/contact";
 
         // ---- Elements (be tolerant to slight ID/name changes) ----
-        const form =
-          document.getElementById("contactForm") ||
-          document.querySelector('form[data-form="contact"]') ||
-          document.querySelector("form#contact");
+        const form = document.getElementById("contactForm");
 
         if (!form) return;
 
-        const submitBtn =
-          document.getElementById("submitBtn") ||
-          form.querySelector('button[type="submit"]');
+        const submitBtn = form.querySelector('button[type="submit"]');
 
-        const statusEl =
-          document.getElementById("formStatus") ||
-          document.getElementById("form-feedback") ||
-          (() => {
-            const d = document.createElement("div");
-            d.id = "formStatus";
-            d.setAttribute("role", "status");
-            d.style.marginTop = "8px";
-            form.appendChild(d);
-            return d;
-          })();
+        const statusEl = document.getElementById("form-feedback");
 
         // field refs (prefer IDs, fall back to names)
         const $ = (sel) => form.querySelector(sel);
@@ -671,6 +655,7 @@
                 false
               );
             }
+            console.log("Submitting contact form...", check.ok);
           } catch (err) {
             setStatus("Network error. Please try again.", false);
           } finally {
