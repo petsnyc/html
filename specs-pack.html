@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -902,7 +902,9 @@
             <a href="./products/index.html">Products</a>
             <a href="quality.html">Quality &amp; Compliance</a>
             <a href="logistics.html">Sourcing &amp; Logistics</a>
-            <a class="link-highlight" href="marbles/index.html">Marbles &amp; Stones</a>
+            <a class="link-highlight" href="marbles/index.html"
+              >Marbles &amp; Stones</a
+            >
             <a href="resources/index.html">Resources</a>
             <a href="contact.html">Contact</a>
           </div>
@@ -916,17 +918,17 @@
     </footer>
 
     <script>
-      // year in footer
-      document.getElementById("y").textContent = new Date().getFullYear();
+      (() => {
+        const yearEl = document.getElementById("y");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-      // Form handling
-      (function () {
-        // 1) Replace with your deployed Google Apps Script Web App URL
-        //    (Apps Script -> Deploy -> New Deployment -> Web app -> Anyone with the link)
-        const APPS_SCRIPT_URL =
-          "https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec";
+        const ENDPOINT =
+          window.SPECS_FORM_ENDPOINT ||
+          "https://pets-form-handler.hashmawy.workers.dev/api/specs-pack";
 
         const form = document.getElementById("specsPackForm");
+        if (!form) return;
+
         const submitBtn = document.getElementById("specs-submit");
         const statusEl = document.getElementById("specs-status");
         const reasonEl = document.getElementById("reason");
@@ -935,120 +937,270 @@
           '[data-required-group="products"]'
         );
         const productsError = document.getElementById("products-error");
+        const pageStart = Date.now();
 
-        // Toggle "Other" field
-        reasonEl.addEventListener("change", () => {
+        if (statusEl) {
+          statusEl.setAttribute("role", "status");
+          statusEl.setAttribute("aria-live", "polite");
+          statusEl.hidden = true;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        const validationMessages = [];
+
+        const getVal = (el) =>
+          el && typeof el.value === "string" ? el.value.trim() : "";
+        const getCheckedProducts = () =>
+          Array.from(
+            form.querySelectorAll('input[name="products[]"]:checked')
+          ).map((input) => input.value);
+        if (productsGroup) {
+          productsGroup.addEventListener("change", () => {
+            if (!productsError) return;
+            const anySelected = getCheckedProducts().length > 0;
+            productsError.style.display = anySelected ? "none" : "block";
+          });
+        }
+        const getUTM = () => {
+          const qp = new URLSearchParams(window.location.search);
+          return {
+            utm_source: qp.get("utm_source") || null,
+            utm_medium: qp.get("utm_medium") || null,
+            utm_campaign: qp.get("utm_campaign") || null,
+            utm_term: qp.get("utm_term") || null,
+            utm_content: qp.get("utm_content") || null,
+          };
+        };
+        const getDevice = () =>
+          window.innerWidth < 768 ? "mobile" : "desktop";
+
+        const fields = {
+          hp: form.querySelector('input[name="website"]'),
+          name: form.querySelector('input[name="name"]'),
+          email: form.querySelector('input[name="email"]'),
+          company: form.querySelector('input[name="company"]'),
+          reason: reasonEl,
+          other_reason: form.querySelector('input[name="other_reason"]'),
+          consent: form.querySelector('input[name="consent"]'),
+        };
+
+        const normalizeMsg = (value) => {
+          if (!value && value !== 0) return "";
+          if (typeof value === "string") return value.trim();
+          if (Array.isArray(value)) {
+            return value
+              .map((item) => normalizeMsg(item))
+              .filter(Boolean)
+              .join(" ");
+          }
+          if (typeof value === "object") {
+            if ("message" in value) return normalizeMsg(value.message);
+            return Object.values(value)
+              .map((item) => normalizeMsg(item))
+              .filter(Boolean)
+              .join(" ");
+          }
+          return String(value);
+        };
+
+        const setStatus = (msg, ok = null) => {
+          if (!statusEl) return;
+          const text = normalizeMsg(msg);
+          statusEl.textContent = text || "";
+          statusEl.hidden = !text;
+          if (ok === true) {
+            statusEl.style.color = "var(--ok, #1d7a46)";
+          } else if (ok === false) {
+            statusEl.style.color = "#b3261e";
+          } else {
+            statusEl.style.color = "";
+          }
+        };
+
+        const resetValidation = () => {
+          validationMessages.length = 0;
+          if (productsError) productsError.style.display = "none";
+          setStatus("");
+        };
+
+        const addError = (msg) => {
+          if (msg) validationMessages.push(msg);
+        };
+
+        const validate = () => {
+          resetValidation();
+
+          if (fields.hp && getVal(fields.hp)) {
+            return { ok: false, spam: true, products: [] };
+          }
+
+          let ok = true;
+
+          const name = getVal(fields.name);
+          if (!name) {
+            addError("Name is required.");
+            ok = false;
+          } else if (name.length < 2) {
+            addError("Please enter a valid name.");
+            ok = false;
+          }
+
+          const email = getVal(fields.email);
+          if (!email) {
+            addError("Email is required.");
+            ok = false;
+          } else if (!emailRegex.test(email)) {
+            addError("Enter a valid email address.");
+            ok = false;
+          }
+
+          const reason = getVal(fields.reason);
+          if (!reason) {
+            addError("Reason for request is required.");
+            ok = false;
+          }
+
+          if (reason === "Other") {
+            const otherReason = getVal(fields.other_reason);
+            if (!otherReason) {
+              addError("Please specify your reason.");
+              ok = false;
+            }
+          }
+
+          const products = getCheckedProducts();
+          if (!products.length) {
+            addError("Select at least one product of interest.");
+            if (productsError) productsError.style.display = "block";
+            ok = false;
+          } else if (productsError) {
+            productsError.style.display = "none";
+          }
+
+          if (fields.consent && !fields.consent.checked) {
+            addError("Consent is required.");
+            ok = false;
+          }
+
+          if (!ok && validationMessages.length) {
+            setStatus(validationMessages, false);
+          }
+
+          return { ok, spam: false, products };
+        };
+
+        reasonEl?.addEventListener("change", () => {
+          if (!otherBox) return;
           otherBox.style.display =
             reasonEl.value === "Other" ? "block" : "none";
         });
 
-        // Basic email format validation (in addition to type="email")
-        function isValidEmail(v) {
-          // Simple RFC 5322-ish check
-          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-        }
-
-        // Validate at least one product selected
-        function validateProductsRequired() {
-          const checked = productsGroup.querySelectorAll(
-            'input[type="checkbox"]:checked'
-          ).length;
-          const ok = checked > 0;
-          productsError.style.display = ok ? "none" : "block";
-          return ok;
-        }
-        productsGroup.addEventListener("change", validateProductsRequired);
-
-        // Serialize form to object
-        function serializeForm(frm) {
-          const fd = new FormData(frm);
-          const data = {};
-          for (const [k, v] of fd.entries()) {
-            if (k.endsWith("[]")) {
-              const key = k.slice(0, -2);
-              if (!Array.isArray(data[key])) data[key] = [];
-              data[key].push(v);
-            } else if (data[k] !== undefined) {
-              // handle duplicate names without []
-              if (!Array.isArray(data[k])) data[k] = [data[k]];
-              data[k].push(v);
-            } else {
-              data[k] = v;
-            }
-          }
-          return data;
-        }
-
-        async function postToGoogleSheets(payload) {
-          const res = await fetch(APPS_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors", // if your Apps Script is set to "Anyone" you can use no-cors; response body won't be readable
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-          // With no-cors we can't read status; optimistically show success.
-          return true;
-        }
+        const buildPayload = (products) => {
+          const reason = getVal(fields.reason);
+          return {
+            submittedAt: new Date().toISOString(),
+            source: "website:specs-pack",
+            form: "specs-pack",
+            name: getVal(fields.name),
+            email: getVal(fields.email),
+            company: getVal(fields.company),
+            reason,
+            other_reason: getVal(fields.other_reason),
+            products,
+            consent: !!(fields.consent && fields.consent.checked),
+            context: {
+              page_url: window.location.href,
+              referrer: document.referrer || null,
+              timestamp: new Date().toISOString(),
+              elapsed_ms: Date.now() - pageStart,
+              language: navigator.language || null,
+              timezone:
+                Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+              device: getDevice(),
+              viewport: { w: window.innerWidth, h: window.innerHeight },
+              screen: {
+                w: window.screen?.width || null,
+                h: window.screen?.height || null,
+              },
+              dnt:
+                navigator.doNotTrack === "1" || navigator.doNotTrack === 1
+                  ? true
+                  : false,
+              platform: navigator.platform || null,
+              user_agent: navigator.userAgent || null,
+              ...getUTM(),
+            },
+          };
+        };
 
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
-          statusEl.textContent = "";
 
-          // Honeypot check
-          if (form.website && form.website.value) {
-            statusEl.textContent = "Submission blocked.";
+          const check = validate();
+
+          if (check.spam) {
+            setStatus(
+              "Thank you! The Specs Pack will be sent to your email.",
+              true
+            );
+            form.reset();
+            if (otherBox) otherBox.style.display = "none";
             return;
           }
 
-          // Built-in required checks
-          if (!form.checkValidity()) {
-            // trigger native UI in some browsers
-            form.reportValidity && form.reportValidity();
-            // still run our group validations
-            validateProductsRequired();
-            // email custom check for older browsers
-            const email = form.querySelector("#email").value.trim();
-            if (!isValidEmail(email)) {
-              statusEl.textContent = "Please enter a valid email address.";
-            }
-            return;
+          if (!check.ok) return;
+
+          const payload = buildPayload(check.products);
+
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.setAttribute("aria-busy", "true");
+            submitBtn.textContent = "Sending...";
           }
-
-          // Group validation (Products required)
-          if (!validateProductsRequired()) {
-            return;
-          }
-
-          // Extra email validation (some browsers let invalid emails pass type=email)
-          const emailVal = form.querySelector("#email").value.trim();
-          if (!isValidEmail(emailVal)) {
-            statusEl.textContent = "Please enter a valid email address.";
-            return;
-          }
-
-          // Disable UI
-          submitBtn.disabled = true;
-          submitBtn.textContent = "Sending…";
-
-          // Build payload
-          const payload = serializeForm(form);
-          payload.form_name = "Specs Pack Request";
-          payload.timestamp = new Date().toISOString();
+          setStatus("Sending...");
 
           try {
-            await postToGoogleSheets(payload);
-            statusEl.textContent =
-              "Thanks! The Specs Pack will be sent to your email.";
-            form.reset();
-            otherBox.style.display = "none";
-            productsError.style.display = "none";
+            const res = await fetch(ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+
+            const ct = res.headers.get("content-type") || "";
+            let data = { ok: res.ok };
+            if (ct.includes("application/json")) {
+              data = await res.json().catch(() => data);
+            }
+
+            if (data.ok) {
+              setStatus(
+                "Thanks! The Specs Pack will be sent to your email.",
+                true
+              );
+              form.reset();
+              if (otherBox) otherBox.style.display = "none";
+              if (productsError) productsError.style.display = "none";
+            } else {
+              setStatus(
+                normalizeMsg(data.error) ||
+                  normalizeMsg(data.errors) ||
+                  normalizeMsg(data.message) ||
+                  "Sorry, something went wrong. Please try again.",
+                false
+              );
+            }
           } catch (err) {
-            statusEl.textContent =
-              "Sorry, something went wrong. Please try again.";
-            console.error(err);
+            console.error("Specs pack submission failed:", err);
+            setStatus(
+              "Network error. Please try again, or email hello@planetearthtreasures.com.",
+              false
+            );
           } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Send Me the PDF";
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.removeAttribute("aria-busy");
+              submitBtn.textContent = "Send Me the PDF";
+            }
           }
         });
       })();
