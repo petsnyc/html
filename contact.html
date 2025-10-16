@@ -295,17 +295,11 @@
           <a href="request-sample-quote.html">Request Samples/Quote form</a>.
         </p>
 
-        <form
-          id="contactForm"
-          action="/contact/submit"
-          method="post"
-          novalidate
-        >
-          <!-- Honeypot -->
+        <form id="contactForm" action="/api/contact" method="post" novalidate>
+          <!-- Honeypot anti-spam -->
           <input
             type="text"
             name="website"
-            id="hp_website"
             aria-hidden="true"
             tabindex="-1"
             autocomplete="off"
@@ -319,142 +313,93 @@
             "
           />
 
-          <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(12, 1fr);
-              gap: 12px;
-              margin-top: 14px;
-            "
-          >
-            <label style="grid-column: span 6">
-              <span><strong>Name *</strong></span>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                required
-                placeholder="Jane Doe"
-                style="
-                  width: 100%;
-                  margin-top: 6px;
-                  padding: 10px;
-                  border: 1px solid var(--line);
-                  border-radius: 10px;
-                  background: #fff;
-                "
-              />
-              <small
-                class="field-error"
-                id="err_name"
-                style="color: #c00; display: none"
-              ></small>
-            </label>
+          <!-- Hidden context -->
+          <input type="hidden" name="source" value="contact-page" />
 
-            <label style="grid-column: span 6">
-              <span><strong>Email *</strong></span>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                required
-                placeholder="you@company.com"
-                style="
-                  width: 100%;
-                  margin-top: 6px;
-                  padding: 10px;
-                  border: 1px solid var(--line);
-                  border-radius: 10px;
-                  background: #fff;
-                "
-              />
-              <small
-                class="field-error"
-                id="err_email"
-                style="color: #c00; display: none"
-              ></small>
-            </label>
+          <div id="form-feedback" class="form-feedback" hidden></div>
 
-            <label style="grid-column: span 12">
-              <span><strong>Company</strong></span>
-              <input
-                type="text"
-                name="company"
-                id="company"
-                placeholder="Company or organization"
-                style="
-                  width: 100%;
-                  margin-top: 6px;
-                  padding: 10px;
-                  border: 1px solid var(--line);
-                  border-radius: 10px;
-                  background: #fff;
-                "
-              />
-              <small
-                class="field-error"
-                id="err_company"
-                style="color: #c00; display: none"
-              ></small>
-            </label>
+          <label>
+            <span><strong>Name *</strong></span>
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder="Your full name"
+              style="
+                width: 100%;
+                margin-top: 6px;
+                padding: 10px;
+                border: 1px solid var(--line);
+                border-radius: 8px;
+              "
+            />
+          </label>
 
-            <label style="grid-column: span 12">
-              <span><strong>Message *</strong></span>
-              <textarea
-                name="message"
-                id="message"
-                rows="4"
-                required
-                placeholder="Tell us how we can help..."
-                style="
-                  width: 100%;
-                  margin-top: 6px;
-                  padding: 10px;
-                  border: 1px solid var(--line);
-                  border-radius: 10px;
-                  background: #fff;
-                "
-              ></textarea>
-              <small
-                class="field-error"
-                id="err_message"
-                style="color: #c00; display: none"
-              ></small>
-            </label>
-          </div>
+          <label>
+            <span><strong>Email *</strong></span>
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="you@company.com"
+              style="
+                width: 100%;
+                margin-top: 6px;
+                padding: 10px;
+                border: 1px solid var(--line);
+                border-radius: 8px;
+              "
+            />
+          </label>
 
-          <div
+          <label>
+            <span><strong>Company</strong></span>
+            <input
+              type="text"
+              name="company"
+              placeholder="Company or organization"
+              style="
+                width: 100%;
+                margin-top: 6px;
+                padding: 10px;
+                border: 1px solid var(--line);
+                border-radius: 8px;
+              "
+            />
+          </label>
+
+          <label>
+            <span><strong>Message *</strong></span>
+            <textarea
+              name="message"
+              required
+              rows="4"
+              placeholder="Tell us how we can help..."
+              style="
+                width: 100%;
+                margin-top: 6px;
+                padding: 10px;
+                border: 1px solid var(--line);
+                border-radius: 8px;
+              "
+            ></textarea>
+          </label>
+
+          <label
             style="
               display: flex;
-              flex-wrap: wrap;
               align-items: center;
-              gap: 12px;
-              margin-top: 12px;
+              gap: 8px;
+              margin-top: 8px;
             "
           >
-            <label style="display: flex; align-items: center; gap: 8px">
-              <input type="checkbox" name="consent" id="consent" required />
-              <span>I agree to be contacted regarding this inquiry *</span>
-            </label>
-            <small
-              class="field-error"
-              id="err_consent"
-              style="color: #c00; display: none"
-            ></small>
-          </div>
+            <input type="checkbox" name="consent" required />
+            <span>I agree to be contacted regarding this inquiry *</span>
+          </label>
 
-          <div style="margin-top: 16px">
-            <button class="btn btn-primary" id="submitBtn" type="submit">
-              Send Message
-            </button>
+          <div style="margin-top: 12px">
+            <button class="btn btn-primary" type="submit">Send Message</button>
           </div>
-
-          <!-- status bar -->
-          <div
-            id="formStatus"
-            aria-live="polite"
-            style="margin-top: 10px; font-size: 0.95rem"
-          ></div>
         </form>
       </section>
     </main>
@@ -497,22 +442,65 @@
     </footer>
 
     <script>
-      document.getElementById("y").textContent = new Date().getFullYear();
+      const yearEl = document.getElementById("y");
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-      (function () {
-        const form = document.getElementById("contactForm");
-        const btn = document.getElementById("submitBtn");
-        const status = document.getElementById("formStatus");
+      /* Contact form handler: validation + context + POST to Worker */
+      (() => {
+        // ---- Config ----
+        const ENDPOINT =
+          window.FORM_ENDPOINT ||
+          "https://pets-form-handler.hashmawy.workers.dev/api/contact";
 
+        // ---- Elements (be tolerant to slight ID/name changes) ----
+        const form =
+          document.getElementById("contactForm") ||
+          document.querySelector('form[data-form="contact"]') ||
+          document.querySelector("form#contact");
+
+        if (!form) return;
+
+        const submitBtn =
+          document.getElementById("submitBtn") ||
+          form.querySelector('button[type="submit"]');
+
+        const statusEl =
+          document.getElementById("formStatus") ||
+          document.getElementById("form-feedback") ||
+          (() => {
+            const d = document.createElement("div");
+            d.id = "formStatus";
+            d.setAttribute("role", "status");
+            d.style.marginTop = "8px";
+            form.appendChild(d);
+            return d;
+          })();
+
+        // field refs (prefer IDs, fall back to names)
+        const $ = (sel) => form.querySelector(sel);
         const fields = {
-          name: document.getElementById("name"),
-          email: document.getElementById("email"),
-          company: document.getElementById("company"),
-          message: document.getElementById("message"),
-          consent: document.getElementById("consent"),
-          hp: document.getElementById("hp_website"),
+          // honeypot (hidden)
+          hp:
+            document.getElementById("hp_website") || $('input[name="website"]'),
+
+          name: document.getElementById("name") || $('input[name="name"]'),
+
+          email: document.getElementById("email") || $('input[name="email"]'),
+
+          company:
+            document.getElementById("company") || $('input[name="company"]'),
+
+          message:
+            document.getElementById("message") || $('textarea[name="message"]'),
+
+          consent:
+            document.getElementById("consent") || $('input[name="consent"]'),
+
+          // optional hidden source
+          source: $('input[name="source"]'),
         };
 
+        // optional per-field error spans
         const errs = {
           name: document.getElementById("err_name"),
           email: document.getElementById("err_email"),
@@ -522,131 +510,174 @@
         };
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        const pageStart = Date.now();
 
-        function showError(key, msg) {
+        // ---- Small helpers ----
+        const getVal = (el) =>
+          el && typeof el.value === "string" ? el.value.trim() : "";
+        const setStatus = (msg, ok = null) => {
+          if (!statusEl) return;
+          statusEl.textContent = msg || "";
+          if (ok === true) {
+            statusEl.style.color = "var(--fg, #1a1a1a)";
+          } else if (ok === false) {
+            statusEl.style.color = "#c00";
+          } else {
+            statusEl.style.color = "";
+          }
+        };
+        const showErr = (key, msg) => {
           const el = errs[key];
-          if (!el) return;
-          el.textContent = msg || "";
-          el.style.display = msg ? "block" : "none";
-        }
+          if (el) {
+            el.textContent = msg || "";
+            el.style.display = msg ? "block" : "none";
+          }
+        };
+        const clearErrs = () => {
+          Object.keys(errs).forEach((k) => showErr(k, ""));
+          setStatus("");
+        };
+        const getUTM = () => {
+          const qp = new URLSearchParams(location.search);
+          return {
+            utm_source: qp.get("utm_source") || null,
+            utm_medium: qp.get("utm_medium") || null,
+            utm_campaign: qp.get("utm_campaign") || null,
+            utm_term: qp.get("utm_term") || null,
+            utm_content: qp.get("utm_content") || null,
+          };
+        };
+        const getDevice = () =>
+          window.innerWidth < 768 ? "mobile" : "desktop";
 
-        function clearErrors() {
-          Object.keys(errs).forEach((k) => showError(k, ""));
-          status.textContent = "";
-          status.style.color = "";
-        }
+        // ---- Validation ----
+        const validate = () => {
+          clearErrs();
 
-        function validate() {
-          clearErrors();
+          // honeypot: if filled, treat as success (quiet)
+          if (getVal(fields.hp)) return { ok: false, spam: true };
+
           let ok = true;
 
-          // Honeypot
-          if (fields.hp.value.trim() !== "") {
-            // silent fail as spam
-            return { ok: false, spam: true };
-          }
-
-          // Name
-          if (!fields.name.value.trim()) {
-            showError("name", "Name is required.");
+          const name = getVal(fields.name);
+          if (!name) {
+            showErr("name", "Name is required.");
             ok = false;
-          } else if (fields.name.value.trim().length < 2) {
-            showError("name", "Please enter a valid name.");
+          } else if (name.length < 2) {
+            showErr("name", "Please enter a valid name.");
             ok = false;
           }
 
-          // Email
-          const email = fields.email.value.trim();
+          const email = getVal(fields.email);
           if (!email) {
-            showError("email", "Email is required.");
+            showErr("email", "Email is required.");
             ok = false;
           } else if (!emailRegex.test(email)) {
-            showError("email", "Enter a valid email address.");
+            showErr("email", "Enter a valid email address.");
             ok = false;
           }
 
-          // Message
-          const msg = fields.message.value.trim();
-          if (!msg) {
-            showError("message", "Message is required.");
+          const message = getVal(fields.message);
+          if (!message) {
+            showErr("message", "Message is required.");
             ok = false;
-          } else if (msg.length < 10) {
-            showError(
-              "message",
-              "Please provide a little more detail (10+ chars)."
-            );
+          } else if (message.length < 10) {
+            showErr("message", "Please add more details (10+ chars).");
             ok = false;
           }
 
-          // Consent
-          if (!fields.consent.checked) {
-            showError("consent", "Consent is required.");
+          if (fields.consent && !fields.consent.checked) {
+            showErr("consent", "Consent is required.");
             ok = false;
           }
 
           return { ok };
-        }
+        };
 
-        async function postJSON(url, payload) {
-          const res = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-          // Expecting { ok: true|false, error?: string }
-          if (!res.ok) throw new Error("Network error");
-          return res.json();
-        }
-
+        // ---- Submit ----
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
+
           const check = validate();
 
+          // spam case: pretend success & reset
           if (check.spam) {
-            // Pretend success to bots; do nothing server-side
-            status.textContent = "Thank you! Your message has been received.";
-            status.style.color = "var(--fg, #1a1a1a)";
+            setStatus("Thank you! Your message has been received.", true);
             form.reset();
             return;
           }
 
           if (!check.ok) return;
 
-          // Build payload
           const payload = {
-            name: fields.name.value.trim(),
-            email: fields.email.value.trim(),
-            company: fields.company.value.trim() || null,
-            message: fields.message.value.trim(),
-            consent: !!fields.consent.checked,
-            source: "website:contact",
-            ts: new Date().toISOString(),
+            submittedAt: new Date().toISOString(),
+            source:
+              (fields.source && getVal(fields.source)) || "website:contact",
+            name: getVal(fields.name),
+            email: getVal(fields.email),
+            company: getVal(fields.company),
+            message: getVal(fields.message),
+            consent: !!(fields.consent && fields.consent.checked),
+            context: {
+              page_url: window.location.href,
+              referrer: document.referrer || null,
+              timestamp: new Date().toISOString(),
+              elapsed_ms: Date.now() - pageStart,
+              language: navigator.language || null,
+              timezone:
+                Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+              device: getDevice(),
+              viewport: { w: window.innerWidth, h: window.innerHeight },
+              screen: {
+                w: window.screen?.width || null,
+                h: window.screen?.height || null,
+              },
+              dnt:
+                navigator.doNotTrack === "1" || navigator.doNotTrack === 1
+                  ? true
+                  : false,
+              platform: navigator.platform || null,
+              user_agent: navigator.userAgent || null,
+              ...getUTM(),
+            },
           };
 
-          // Submit
-          btn.disabled = true;
-          btn.setAttribute("aria-busy", "true");
-          status.textContent = "Sending…";
+          // UI state
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.setAttribute("aria-busy", "true");
+          }
+          setStatus("Sending…");
 
           try {
-            // Change this URL to your backend handler
-            const { ok, error } = await postJSON("/api/contact", payload);
+            const res = await fetch(ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
 
-            if (ok) {
-              status.textContent = "Thank you! Your message has been received.";
-              status.style.color = "var(--fg, #1a1a1a)";
+            const ct = res.headers.get("content-type") || "";
+            let data = { ok: res.ok };
+            if (ct.includes("application/json")) {
+              data = await res.json().catch(() => data);
+            }
+
+            if (data.ok) {
+              setStatus("Thank you! Your message has been received.", true);
               form.reset();
             } else {
-              status.textContent =
-                error || "Sorry, something went wrong. Please try again.";
-              status.style.color = "#c00";
+              setStatus(
+                data.error || "Sorry, something went wrong. Please try again.",
+                false
+              );
             }
           } catch (err) {
-            status.textContent = "Network error. Please try again.";
-            status.style.color = "#c00";
+            setStatus("Network error. Please try again.", false);
           } finally {
-            btn.disabled = false;
-            btn.removeAttribute("aria-busy");
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.removeAttribute("aria-busy");
+            }
           }
         });
       })();
