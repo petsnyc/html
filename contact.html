@@ -286,7 +286,7 @@
 
     <main id="contact" class="wrap" tabindex="-1" aria-label="Contact PETS">
       <!-- CONTACT FORM (General Inquiries) -->
-      <section class="panel" style="margin-top: 18px">
+      <section class="panel" style="margin-top: 36px">
         <h1 style="margin: 0.2rem 0 0.6rem">Contact Us</h1>
         <p class="muted" style="max-width: 70ch">
           Have a question, partnership proposal, or want to connect? Use this
@@ -496,6 +496,7 @@
           message: document.getElementById("err_message"),
           consent: document.getElementById("err_consent"),
         };
+        let validationMessages = [];
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
         const pageStart = Date.now();
@@ -503,9 +504,27 @@
         // ---- Small helpers ----
         const getVal = (el) =>
           el && typeof el.value === "string" ? el.value.trim() : "";
+        const normalizeMsg = (value) => {
+          if (!value && value !== 0) return "";
+          if (typeof value === "string") return value.trim();
+          if (Array.isArray(value))
+            return value
+              .map((item) => normalizeMsg(item))
+              .filter(Boolean)
+              .join(" ");
+          if (typeof value === "object") {
+            if ("message" in value) return normalizeMsg(value.message);
+            return Object.values(value)
+              .map((item) => normalizeMsg(item))
+              .filter(Boolean)
+              .join(" ");
+          }
+          return String(value);
+        };
+
         const setStatus = (msg, ok = null) => {
           if (!statusEl) return;
-          const text = typeof msg === "string" ? msg.trim() : msg || "";
+          const text = normalizeMsg(msg);
           statusEl.textContent = text || "";
           statusEl.hidden = !text;
           if (ok === true) {
@@ -522,10 +541,12 @@
             el.textContent = msg || "";
             el.style.display = msg ? "block" : "none";
           }
+          if (msg) validationMessages.push(msg);
         };
         const clearErrs = () => {
           Object.keys(errs).forEach((k) => showErr(k, ""));
           setStatus("");
+          validationMessages = [];
         };
         const getUTM = () => {
           const qp = new URLSearchParams(location.search);
@@ -581,7 +602,11 @@
             ok = false;
           }
 
-          return { ok };
+          if (!ok && validationMessages.length) {
+            setStatus(validationMessages, false);
+          }
+
+          return { ok, messages: validationMessages.slice() };
         };
 
         // ---- Submit ----
@@ -657,7 +682,10 @@
               form.reset();
             } else {
               setStatus(
-                data.error || "Sorry, something went wrong. Please try again.",
+                normalizeMsg(data.error) ||
+                  normalizeMsg(data.errors) ||
+                  normalizeMsg(data.message) ||
+                  "Sorry, something went wrong. Please try again.",
                 false
               );
             }
