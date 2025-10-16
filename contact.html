@@ -459,6 +459,10 @@
         const submitBtn = form.querySelector('button[type="submit"]');
 
         const statusEl = document.getElementById("form-feedback");
+        if (statusEl) {
+          statusEl.setAttribute("role", "status");
+          statusEl.setAttribute("aria-live", "polite");
+        }
 
         // field refs (prefer IDs, fall back to names)
         const $ = (sel) => form.querySelector(sel);
@@ -501,7 +505,9 @@
           el && typeof el.value === "string" ? el.value.trim() : "";
         const setStatus = (msg, ok = null) => {
           if (!statusEl) return;
-          statusEl.textContent = msg || "";
+          const text = typeof msg === "string" ? msg.trim() : msg || "";
+          statusEl.textContent = text || "";
+          statusEl.hidden = !text;
           if (ok === true) {
             statusEl.style.color = "var(--fg, #1a1a1a)";
           } else if (ok === false) {
