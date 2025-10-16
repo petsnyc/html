@@ -1069,11 +1069,20 @@
 
     <script>
       (() => {
-        const yearEl = document.getElementById("y");
-        if (yearEl) {
-          yearEl.textContent = new Date().getFullYear();
-        }
+        // ---------- CONFIG ----------
+        // Point this to your Cloudflare Worker (or set window.FORM_ENDPOINT globally)
+        const WORKER_ENDPOINT =
+          window.FORM_ENDPOINT ||
+          "pets-form-handler.hashmawy.workers.dev/api/request-quote";
 
+        // ---------- UTIL: time on page ----------
+        const pageStart = Date.now();
+
+        // Year stamp (unchanged)
+        const yearEl = document.getElementById("y");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+        // Sample options toggle (unchanged)
         const sampleToggle = document.getElementById("sample-request");
         const sampleOptions = document.getElementById("sample-options");
         const updateSampleOptions = () => {
@@ -1082,15 +1091,13 @@
           sampleOptions.classList.toggle("hidden", !isActive);
         };
         updateSampleOptions();
-        if (sampleToggle) {
+        if (sampleToggle)
           sampleToggle.addEventListener("change", updateSampleOptions);
-        }
 
         const form = document.getElementById("sampleQuoteForm");
-        if (!form) {
-          return;
-        }
+        if (!form) return;
 
+        // Preselect products from ?products=
         const params = new URLSearchParams(window.location.search);
         const normalizeProductKey = (value) => {
           const trimmed = (value || "").toString().trim();
@@ -1125,11 +1132,8 @@
               normalizeProductKey(checkbox.dataset.productKey),
               normalizeProductKey(checkbox.value),
             ].filter(Boolean);
-
             candidateKeys.forEach((key) => {
-              if (!productMap.has(key)) {
-                productMap.set(key, checkbox);
-              }
+              if (!productMap.has(key)) productMap.set(key, checkbox);
             });
           });
 
@@ -1137,25 +1141,20 @@
             const normalizedKey = normalizeProductKey(key);
             const match =
               productMap.get(normalizedKey) || productMap.get(key) || null;
-            if (match) {
-              match.checked = true;
-            }
+            if (match) match.checked = true;
           });
         }
 
+        // Optional source override from ?source=
         const sourceParam = params.get("source");
         if (sourceParam) {
           const sourceInput = form.querySelector('input[name="source"]');
-          if (sourceInput) {
-            sourceInput.value = sourceParam;
-          }
+          if (sourceInput) sourceInput.value = sourceParam;
         }
 
+        // Feedback helpers
         const feedbackEl = document.getElementById("form-feedback");
         const submitBtn = form.querySelector('button[type="submit"]');
-        const GOOGLE_SCRIPT_URL =
-          window.GOOGLE_SCRIPT_URL ||
-          "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
 
         const setFeedback = (type, messages) => {
           if (!feedbackEl) return;
@@ -1174,6 +1173,7 @@
           feedbackEl.scrollIntoView({ behavior: "smooth", block: "start" });
         };
 
+        // Sanitizers / helpers
         const sanitizePhone = (value) => {
           if (!value) return "";
           const compact = value.replace(/[^0-9+]/g, "");
@@ -1195,6 +1195,21 @@
 
         const toCSV = (arr) => (arr && arr.length ? arr.join(", ") : "");
 
+        // Context helpers
+        const getUTM = () => {
+          const qp = new URLSearchParams(location.search);
+          return {
+            utm_source: qp.get("utm_source") || null,
+            utm_medium: qp.get("utm_medium") || null,
+            utm_campaign: qp.get("utm_campaign") || null,
+            utm_term: qp.get("utm_term") || null,
+            utm_content: qp.get("utm_content") || null,
+          };
+        };
+        const getDevice = () =>
+          window.innerWidth < 768 ? "mobile" : "desktop";
+
+        // Submit
         form.addEventListener("submit", async (event) => {
           event.preventDefault();
           setFeedback(null);
@@ -1202,6 +1217,7 @@
           const formData = new FormData(form);
           const errors = [];
 
+          // Honeypot
           if ((formData.get("website") || "").toString().trim()) {
             setFeedback(
               "error",
@@ -1223,21 +1239,17 @@
             ["dest_region", "Destination Region/State"],
             ["dest_city_zip", "Destination City / ZIP"],
           ];
-
           requiredFields.forEach(([name, label]) => {
-            if (!getTrimmed(name)) {
-              errors.push(`${label} is required.`);
-            }
+            if (!getTrimmed(name)) errors.push(`${label} is required.`);
           });
 
           const consentChecked = form.querySelector(
             'input[name="consent"]'
           )?.checked;
-          if (!consentChecked) {
+          if (!consentChecked)
             errors.push(
               "You must agree to be contacted regarding this request."
             );
-          }
 
           const email = getTrimmed("email");
           if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -1245,9 +1257,8 @@
           }
 
           const productsSelected = formData.getAll("products[]");
-          if (!productsSelected.length) {
+          if (!productsSelected.length)
             errors.push("Select at least one product of interest.");
-          }
 
           const wantsSample = formData.get("sample_request") === "on";
           if (wantsSample && !getTrimmed("sample_address")) {
@@ -1264,6 +1275,7 @@
             return;
           }
 
+          // Build payload (same fields you had)
           const payload = {
             submittedAt: new Date().toISOString(),
             name: getTrimmed("name"),
@@ -1293,58 +1305,67 @@
             source: getTrimmed("source") || "request-samples-quote",
           };
 
+          // Attach browser/page context
+          payload.context = {
+            page_url: window.location.href,
+            referrer: document.referrer || null,
+            timestamp: new Date().toISOString(),
+            elapsed_ms: Date.now() - pageStart,
+            language: navigator.language || null,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+            device: getDevice(),
+            viewport: { w: window.innerWidth, h: window.innerHeight },
+            screen: {
+              w: window.screen?.width || null,
+              h: window.screen?.height || null,
+            },
+            dnt:
+              navigator.doNotTrack === "1" || navigator.doNotTrack === 1
+                ? true
+                : false,
+            platform: navigator.platform || null,
+            user_agent: navigator.userAgent || null, // remove if you prefer not to store UA
+            ...getUTM(),
+          };
+
+          // Submit to Worker
           if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.textContent = "Sending...";
           }
 
           try {
-            const response = await fetch(GOOGLE_SCRIPT_URL, {
+            const response = await fetch(WORKER_ENDPOINT, {
               method: "POST",
               mode: "cors",
-              headers: {
-                "Content-Type": "application/json",
-              },
+              headers: { "Content-Type": "application/json" },
               body: JSON.stringify(payload),
             });
 
-            if (!response.ok) {
-              throw new Error(`Request failed with status ${response.status}`);
-            }
-
-            let resultMessage = "Request sent successfully.";
+            // Expect { ok: boolean, error?: string }
             const contentType = response.headers.get("content-type") || "";
+            let result = { ok: response.ok };
             if (contentType.includes("application/json")) {
-              const data = await response.json();
-              if (data && data.message) {
-                resultMessage = data.message;
-              }
-            } else {
-              const text = await response.text();
-              if (text && text.length < 400) {
-                resultMessage = text;
-              }
+              result = await response.json().catch(() => result);
             }
 
-            setFeedback(
-              "success",
-              resultMessage || "Request sent successfully."
-            );
-            form.reset();
-            updateSampleOptions();
-          } catch (error) {
-            console.error("Form submission failed:", error);
-            if (GOOGLE_SCRIPT_URL.includes("YOUR_SCRIPT_ID")) {
-              setFeedback(
-                "error",
-                "Submission endpoint is not configured. Replace GOOGLE_SCRIPT_URL with your published Google Apps Script URL."
-              );
+            if (result.ok) {
+              setFeedback("success", "Request sent successfully.");
+              form.reset();
+              updateSampleOptions();
             } else {
               setFeedback(
                 "error",
-                "We were unable to send your request. Please try again, or email hello@planetearthtreasures.com."
+                result.error ||
+                  "We were unable to send your request. Please try again."
               );
             }
+          } catch (err) {
+            console.error("Form submission failed:", err);
+            setFeedback(
+              "error",
+              "Network error. Please try again, or email hello@planetearthtreasures.com."
+            );
           } finally {
             if (submitBtn) {
               submitBtn.disabled = false;
