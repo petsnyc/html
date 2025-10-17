@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -1075,14 +1075,27 @@
       </div>
     </footer>
 
-    <script>
-      // year in footer
-      document.getElementById("y").textContent = new Date().getFullYear();
-      // form handling
-      (function () {
+        <script>
+      (() => {
+        const yearEl = document.getElementById("y");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+        const ENDPOINT =
+          window.SEMI_BULK_ENDPOINT ||
+          "https://pets-form-handler.hashmawy.workers.dev/api/semi-bulk";
+
         const form = document.getElementById("semiBulkForm");
-        const btn = document.getElementById("semiSubmit");
-        const status = document.getElementById("semiStatus");
+        if (!form) return;
+
+        const submitBtn = document.getElementById("semiSubmit");
+        const statusEl = document.getElementById("semiStatus");
+        const pageStart = Date.now();
+
+        if (statusEl) {
+          statusEl.setAttribute("role", "status");
+          statusEl.setAttribute("aria-live", "polite");
+          statusEl.hidden = true;
+        }
 
         const el = (id) => document.getElementById(id);
         const email = el("email");
@@ -1090,12 +1103,11 @@
         const company = el("company");
         const useCase = el("use");
         const notes = el("notes");
-
-        // products & size groups
         const productsOtherCb = el("products-other");
         const productsOtherInput = el("products-other-input");
         const sizeOtherCb = el("size-other");
         const sizeOtherInput = el("size-other-input");
+        const honeypot = el("hp_website");
 
         const errors = {
           email: el("err_email"),
@@ -1107,54 +1119,110 @@
           notes: el("err_notes"),
         };
 
-        const hp = el("hp_website");
-
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        const validationMessages = [];
 
-        function showError(key, msg) {
-          const e = errors[key];
-          if (!e) return;
-          e.textContent = msg || "";
-          e.style.display = msg ? "block" : "none";
-        }
-        function clearAllErrors() {
-          Object.keys(errors).forEach((k) => showError(k, ""));
-          status.textContent = "";
-          status.style.color = "";
-        }
+        const getVal = (element) =>
+          element && typeof element.value === "string"
+            ? element.value.trim()
+            : "";
 
-        function getCheckedValues(name) {
-          return Array.from(
+        const getCheckedValues = (name) =>
+          Array.from(
             form.querySelectorAll(`input[name="${name}"]:checked`)
-          ).map((i) => i.value);
-        }
+          ).map((input) => input.value);
 
-        function validate() {
-          clearAllErrors();
+        const getUTM = () => {
+          const qp = new URLSearchParams(window.location.search);
+          return {
+            utm_source: qp.get("utm_source") || null,
+            utm_medium: qp.get("utm_medium") || null,
+            utm_campaign: qp.get("utm_campaign") || null,
+            utm_term: qp.get("utm_term") || null,
+            utm_content: qp.get("utm_content") || null,
+          };
+        };
 
-          // Honeypot
-          if (hp.value.trim() !== "") {
+        const getDevice = () =>
+          window.innerWidth < 768 ? "mobile" : "desktop";
+
+        const normalizeMsg = (value) => {
+          if (!value && value !== 0) return "";
+          if (typeof value === "string") return value.trim();
+          if (Array.isArray(value)) {
+            return value
+              .map((item) => normalizeMsg(item))
+              .filter(Boolean)
+              .join(" ");
+          }
+          if (typeof value === "object") {
+            if ("message" in value) return normalizeMsg(value.message);
+            return Object.values(value)
+              .map((item) => normalizeMsg(item))
+              .filter(Boolean)
+              .join(" ");
+          }
+          return String(value);
+        };
+
+        const setStatus = (msg, ok = null) => {
+          if (!statusEl) return;
+          const text = normalizeMsg(msg);
+          statusEl.textContent = text || "";
+          statusEl.hidden = !text;
+          if (ok === true) {
+            statusEl.style.color = "var(--ok, #1d7a46)";
+          } else if (ok === false) {
+            statusEl.style.color = "#b3261e";
+          } else {
+            statusEl.style.color = "";
+          }
+        };
+
+        const hideError = (key) => {
+          const target = errors[key];
+          if (!target) return;
+          target.textContent = "";
+          target.style.display = "none";
+        };
+
+        const showError = (key, msg) => {
+          const target = errors[key];
+          if (!target) return;
+          target.textContent = msg || "";
+          target.style.display = msg ? "block" : "none";
+          if (msg) validationMessages.push(msg);
+        };
+
+        const clearFieldErrors = () => {
+          validationMessages.length = 0;
+          Object.keys(errors).forEach(hideError);
+        };
+
+        const validate = () => {
+          clearFieldErrors();
+          setStatus("");
+
+          if (honeypot && getVal(honeypot)) {
             return { ok: false, spam: true };
           }
 
           let ok = true;
 
-          // Email (required + format)
-          const e = email.value.trim();
-          if (!e) {
+          const emailVal = getVal(email);
+          if (!emailVal) {
             showError("email", "Email is required.");
             ok = false;
-          } else if (!emailRegex.test(e)) {
+          } else if (!emailRegex.test(emailVal)) {
             showError("email", "Enter a valid email address.");
             ok = false;
           }
 
-          // Products "Other" logic
-          const prodOtherText = productsOtherInput.value.trim();
-          if (prodOtherText && !productsOtherCb.checked) {
-            productsOtherCb.checked = true; // auto-sync
+          const prodOtherText = getVal(productsOtherInput);
+          if (prodOtherText && productsOtherCb && !productsOtherCb.checked) {
+            productsOtherCb.checked = true;
           }
-          if (productsOtherCb.checked && !prodOtherText) {
+          if (productsOtherCb && productsOtherCb.checked && !prodOtherText) {
             showError(
               "products",
               'Please specify the product name for "Other".'
@@ -1162,12 +1230,11 @@
             ok = false;
           }
 
-          // Size "Other" logic
-          const sizeOtherText = sizeOtherInput.value.trim();
-          if (sizeOtherText && !sizeOtherCb.checked) {
+          const sizeOtherText = getVal(sizeOtherInput);
+          if (sizeOtherText && sizeOtherCb && !sizeOtherCb.checked) {
             sizeOtherCb.checked = true;
           }
-          if (sizeOtherCb.checked && !sizeOtherText) {
+          if (sizeOtherCb && sizeOtherCb.checked && !sizeOtherText) {
             showError(
               "size",
               'Please specify your preferred weight for "Other".'
@@ -1175,96 +1242,139 @@
             ok = false;
           }
 
-          // Gentle nudges (not hard errors): at least one product or a note
           const productsSelected = getCheckedValues("products[]");
-          if (productsSelected.length === 0 && notes.value.trim().length < 5) {
+          const notesVal = getVal(notes);
+          if (productsSelected.length === 0 && notesVal.length < 5) {
             showError(
               "products",
               "Tip: Select at least one product, or add a brief note so we can help faster."
             );
           }
 
-          // Gentle nudge: at least one size or note
           const sizesSelected = getCheckedValues("size[]");
-          if (sizesSelected.length === 0 && notes.value.trim().length < 5) {
+          if (sizesSelected.length === 0 && notesVal.length < 5) {
             showError(
               "size",
               "Tip: Choose a size or tell us your preference in notes."
             );
           }
 
-          return { ok };
-        }
+          if (!ok && validationMessages.length) {
+            setStatus(validationMessages, false);
+          }
 
-        async function postJSON(url, payload) {
-          const res = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-          if (!res.ok) throw new Error("Network error");
-          return res.json(); // expects { ok: boolean, error?: string }
-        }
+          return { ok, spam: false };
+        };
 
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
+        const buildPayload = () => {
+          const timestamp = new Date().toISOString();
+          const products = getCheckedValues("products[]");
+          const sizes = getCheckedValues("size[]");
+          const notesVal = getVal(notes);
+
+          return {
+            submittedAt: timestamp,
+            ts: timestamp,
+            source: "website:semi-bulk",
+            form: "semi-bulk",
+            email: getVal(email),
+            name: getVal(name) || null,
+            company: getVal(company) || null,
+            products,
+            products_other: getVal(productsOtherInput) || null,
+            sizes,
+            size_other: getVal(sizeOtherInput) || null,
+            use_case: getVal(useCase) || null,
+            notes: notesVal || null,
+            context: {
+              page_url: window.location.href,
+              referrer: document.referrer || null,
+              timestamp,
+              elapsed_ms: Date.now() - pageStart,
+              language: navigator.language || null,
+              timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+              device: getDevice(),
+              viewport: { w: window.innerWidth, h: window.innerHeight },
+              screen: {
+                w: window.screen?.width || null,
+                h: window.screen?.height || null,
+              },
+              dnt:
+                navigator.doNotTrack === "1" || navigator.doNotTrack === 1
+                  ? true
+                  : false,
+              platform: navigator.platform || null,
+              user_agent: navigator.userAgent || null,
+              ...getUTM(),
+            },
+          };
+        };
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
 
           const check = validate();
 
-          // Handle spam honeypot: pretend success to bots, do nothing server-side
           if (check.spam) {
-            status.textContent = "Thanks! We’ll be in touch.";
-            status.style.color = "var(--fg,#1a1a1a)";
+            setStatus("Thanks! We'll be in touch.", true);
             form.reset();
+            clearFieldErrors();
             return;
           }
 
           if (!check.ok) return;
 
-          // Build payload
-          const payload = {
-            email: email.value.trim(),
-            name: name.value.trim() || null,
-            company: company.value.trim() || null,
-            products: getCheckedValues("products[]"),
-            products_other: productsOtherInput.value.trim() || null,
-            sizes: getCheckedValues("size[]"),
-            size_other: sizeOtherInput.value.trim() || null,
-            use_case: useCase.value || null,
-            notes: notes.value.trim() || null,
-            source: "website:semi-bulk",
-            ts: new Date().toISOString(),
-          };
+          const payload = buildPayload();
 
-          // Submit to your serverless endpoint (adjust path/URL as needed)
-          const ENDPOINT = "/api/semi-bulk";
-
-          // UX lock
-          btn.disabled = true;
-          btn.setAttribute("aria-busy", "true");
-          status.textContent = "Sending…";
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.setAttribute("aria-busy", "true");
+            submitBtn.textContent = "Sending...";
+          }
+          setStatus("Sending...");
 
           try {
-            const { ok, error } = await postJSON(ENDPOINT, payload);
-            if (ok) {
-              status.textContent =
-                "Thanks! You’re on the semi-bulk notify list.";
-              status.style.color = "var(--fg,#1a1a1a)";
+            const res = await fetch(ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+
+            const contentType = res.headers.get("content-type") || "";
+            let data = { ok: res.ok };
+            if (contentType.includes("application/json")) {
+              data = await res.json().catch(() => data);
+            }
+
+            if (data.ok) {
+              setStatus("Thanks! You're on the semi-bulk notify list.", true);
               form.reset();
+              clearFieldErrors();
             } else {
-              status.textContent =
-                error || "Sorry, something went wrong. Please try again.";
-              status.style.color = "#c00";
+              setStatus(
+                normalizeMsg(data.error) ||
+                  normalizeMsg(data.errors) ||
+                  normalizeMsg(data.message) ||
+                  "Sorry, something went wrong. Please try again.",
+                false
+              );
             }
           } catch (err) {
-            status.textContent = "Network error. Please try again.";
-            status.style.color = "#c00";
+            console.error("Semi-bulk form submission failed:", err);
+            setStatus(
+              "Network error. Please try again, or email hello@planetearthtreasures.com.",
+              false
+            );
           } finally {
-            btn.disabled = false;
-            btn.removeAttribute("aria-busy");
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.removeAttribute("aria-busy");
+              submitBtn.textContent = "Notify Me";
+            }
           }
         });
       })();
     </script>
   </body>
 </html>
+
