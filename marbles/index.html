@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -987,31 +987,45 @@
     </footer>
 
     <script>
-      // year in footer
-      document.getElementById("y").textContent = new Date().getFullYear();
-      (function () {
-        // Open/close panel
-        const panel = document.getElementById("quote-panel");
-        const closeBtn = document.getElementById("quote-close");
-        const cancelBtn = document.getElementById("quoteCancel");
-        const openers = document.querySelectorAll(".open-quote");
+      (() => {
+        const yearEl = document.getElementById("y");
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-        const email = document.getElementById("q_email");
-        const nameEl = document.getElementById("q_name");
-        const company = document.getElementById("q_company");
-        const port = document.getElementById("q_port");
-        const qty = document.getElementById("q_qty");
-        const app = document.getElementById("q_app");
-        const incoterms = document.getElementById("q_incoterms");
-        const notes = document.getElementById("q_notes");
-        const prodOtherCb = document.getElementById("q_prod_other_cb");
-        const prodOther = document.getElementById("q_prod_other");
-        const hp = document.getElementById("hp_quote");
-        const status = document.getElementById("quoteStatus");
+        const ENDPOINT =
+          "https://pets-form-handler.hashmawy.workers.dev/api/marbles-quote";
+
+        const panel = document.getElementById("quotePanel");
+        if (!panel) return;
+
+        const form = document.getElementById("quoteForm");
+        if (!form) return;
+
         const submitBtn = document.getElementById("quoteSubmit");
+        const statusEl = document.getElementById("quoteStatus");
+        const closeButtons = panel.querySelectorAll("[data-close]");
+        const openers = document.querySelectorAll("[data-open-quote]");
+        const pageStart = Date.now();
+
+        if (statusEl) {
+          statusEl.setAttribute("role", "status");
+          statusEl.setAttribute("aria-live", "polite");
+          statusEl.hidden = true;
+        }
 
         const err = (id) => document.getElementById(id);
-        const errs = {
+        const email = document.getElementById("q_email");
+        const nameInput = document.getElementById("q_name");
+        const company = document.getElementById("q_company");
+        const port = document.getElementById("q_port");
+        const quantity = document.getElementById("q_quantity");
+        const application = document.getElementById("q_application");
+        const incoterms = document.getElementById("q_incoterms");
+        const notes = document.getElementById("q_notes");
+        const honeypot = document.getElementById("hp_quote");
+        const productsOtherInput = document.getElementById("q_products_other");
+        const productsOtherCb = document.getElementById("products_other_cb");
+
+        const errors = {
           email: err("err_q_email"),
           name: err("err_q_name"),
           company: err("err_q_company"),
@@ -1021,191 +1035,292 @@
           app: err("err_q_app"),
         };
 
-        function showPanel() {
-          panel.style.display = "block";
-          document.body.style.overflow = "hidden";
-          email.focus();
-        }
-        function hidePanel() {
-          panel.style.display = "none";
-          document.body.style.overflow = "";
-          clearStatus();
-          clearErrors();
-          document.getElementById("quoteForm").reset();
-        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        const validationMessages = [];
 
-        openers.forEach((a) => {
-          a.addEventListener("click", (e) => {
-            e.preventDefault();
-            // preselect product based on clicked card
-            const p = a.getAttribute("data-product");
-            document.querySelectorAll(".q_product").forEach((cb) => {
-              cb.checked = cb.value === p;
-            });
-            prodOtherCb.checked = false;
-            prodOther.value = "";
+        const getVal = (el) =>
+          el && typeof el.value === "string" ? el.value.trim() : "";
+
+        const getChecked = (name) =>
+          Array.from(
+            form.querySelectorAll(`input[name="${name}"]:checked`)
+          ).map((input) => input.value);
+
+        const getUTM = () => {
+          const qp = new URLSearchParams(window.location.search);
+          return {
+            utm_source: qp.get("utm_source") || null,
+            utm_medium: qp.get("utm_medium") || null,
+            utm_campaign: qp.get("utm_campaign") || null,
+            utm_term: qp.get("utm_term") || null,
+            utm_content: qp.get("utm_content") || null,
+          };
+        };
+
+        const getDevice = () =>
+          window.innerWidth < 768 ? "mobile" : "desktop";
+
+        const normalizeMsg = (value) => {
+          if (!value && value !== 0) return "";
+          if (typeof value === "string") return value.trim();
+          if (Array.isArray(value)) {
+            return value
+              .map((item) => normalizeMsg(item))
+              .filter(Boolean)
+              .join(" ");
+          }
+          if (typeof value === "object") {
+            if ("message" in value) return normalizeMsg(value.message);
+            return Object.values(value)
+              .map((item) => normalizeMsg(item))
+              .filter(Boolean)
+              .join(" ");
+          }
+          return String(value);
+        };
+
+        const setStatus = (msg, ok = null) => {
+          if (!statusEl) return;
+          const text = normalizeMsg(msg);
+          statusEl.textContent = text || "";
+          statusEl.hidden = !text;
+          if (ok === true) {
+            statusEl.style.color = "var(--ok, #1d7a46)";
+          } else if (ok === false) {
+            statusEl.style.color = "#b3261e";
+          } else {
+            statusEl.style.color = "";
+          }
+        };
+
+        const clearErrors = () => {
+          validationMessages.length = 0;
+          Object.values(errors).forEach((el) => {
+            if (!el) return;
+            el.textContent = "";
+            el.style.display = "none";
+          });
+        };
+
+        const showError = (key, message) => {
+          const el = errors[key];
+          if (!el) return;
+          el.textContent = message || "";
+          el.style.display = message ? "block" : "none";
+          if (message) validationMessages.push(message);
+        };
+
+        const showPanel = () => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.removeAttribute("aria-busy");
+            submitBtn.textContent = "Request Quote";
+          }
+          panel.style.display = "block";
+          requestAnimationFrame(() => panel.classList.add("is-visible"));
+          form.reset();
+          clearErrors();
+          setStatus("");
+        };
+
+        const hidePanel = () => {
+          panel.classList.remove("is-visible");
+          setTimeout(() => {
+            panel.style.display = "none";
+          }, 200);
+        };
+
+        openers.forEach((opener) => {
+          opener.addEventListener("click", (event) => {
+            event.preventDefault();
             showPanel();
           });
         });
-        closeBtn.addEventListener("click", hidePanel);
-        cancelBtn.addEventListener("click", hidePanel);
-        panel.addEventListener("click", (e) => {
-          if (e.target === panel) hidePanel();
+
+        closeButtons.forEach((btn) => {
+          btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            hidePanel();
+          });
         });
 
-        // keep "Other" in sync
-        prodOther.addEventListener("input", () => {
-          if (prodOther.value.trim()) prodOtherCb.checked = true;
-        });
-        prodOtherCb.addEventListener("change", () => {
-          if (!prodOtherCb.checked) prodOther.value = "";
+        panel.addEventListener("click", (event) => {
+          if (event.target === panel) hidePanel();
         });
 
-        function setError(el, msg) {
-          el.textContent = msg || "";
-          el.style.display = msg ? "block" : "none";
-        }
-        function clearErrors() {
-          Object.values(errs).forEach((el) => setError(el, ""));
-        }
-        function clearStatus() {
-          status.textContent = "";
-          status.style.color = "";
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-        function getChecked(name) {
-          return Array.from(
-            document.querySelectorAll(`input[name="${name}"]:checked`)
-          ).map((i) => i.value);
-        }
-
-        function validate() {
+        const validate = () => {
           clearErrors();
-          clearStatus();
-          if (hp.value.trim() !== "") return { ok: false, spam: true };
+          setStatus("");
+
+          if (honeypot && getVal(honeypot)) {
+            return { ok: false, spam: true };
+          }
 
           let ok = true;
 
-          // email
-          const ev = email.value.trim();
-          if (!ev) {
-            setError(errs.email, "Email is required.");
+          const emailVal = getVal(email);
+          if (!emailVal) {
+            showError("email", "Email is required.");
             ok = false;
-          } else if (!emailRegex.test(ev)) {
-            setError(errs.email, "Enter a valid email address.");
-            ok = false;
-          }
-
-          // name
-          if (!nameEl.value.trim()) {
-            setError(errs.name, "Name is required.");
+          } else if (!emailRegex.test(emailVal)) {
+            showError("email", "Enter a valid email address.");
             ok = false;
           }
 
-          // company
-          if (!company.value.trim()) {
-            setError(errs.company, "Company is required.");
+          if (!getVal(nameInput)) {
+            showError("name", "Name is required.");
             ok = false;
           }
 
-          // port
-          if (!port.value.trim()) {
-            setError(errs.port, "Port is required.");
+          if (!getVal(company)) {
+            showError("company", "Company is required.");
             ok = false;
           }
 
-          // products
+          if (!getVal(port)) {
+            showError("port", "Port is required.");
+            ok = false;
+          }
+
           const products = getChecked("products[]");
-          if (prodOther.value.trim() && !prodOtherCb.checked)
-            prodOtherCb.checked = true;
-          if (prodOtherCb.checked && !prodOther.value.trim()) {
-            setError(errs.products, 'Please specify product name for "Other".');
+          const otherProduct = getVal(productsOtherInput);
+          if (otherProduct && productsOtherCb && !productsOtherCb.checked) {
+            productsOtherCb.checked = true;
+          }
+          if (productsOtherCb && productsOtherCb.checked && !otherProduct) {
+            showError("products", 'Please specify product name for "Other".');
             ok = false;
           }
-          if (products.length === 0 && !prodOther.value.trim()) {
-            setError(errs.products, "Select at least one product.");
+          if (products.length === 0 && !otherProduct) {
+            showError("products", "Select at least one product.");
             ok = false;
-          }
-
-          // qty
-          if (!qty.value.trim()) {
-            setError(errs.qty, "Quantity is required.");
-            ok = false;
+          } else if (productsOtherCb && otherProduct) {
+            productsOtherCb.checked = true;
           }
 
-          // application
-          if (!app.value) {
-            setError(errs.app, "Please select an application.");
+          if (!getVal(quantity)) {
+            showError("qty", "Quantity is required.");
             ok = false;
           }
 
-          return { ok };
-        }
+          if (!getVal(application)) {
+            showError("app", "Please select an application.");
+            ok = false;
+          }
 
-        async function postJSON(url, payload) {
-          const res = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-          if (!res.ok) throw new Error("Network error");
-          return res.json(); // expecting { ok: boolean, error?: string }
-        }
+          if (!ok && validationMessages.length) {
+            setStatus(validationMessages, false);
+          }
 
-        document
-          .getElementById("quoteForm")
-          .addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const check = validate();
+          return { ok, spam: false, products, otherProduct };
+        };
 
-            if (check.spam) {
-              hidePanel();
-              return;
-            }
-            if (!check.ok) return;
+        const buildPayload = (products, otherProduct) => {
+          const timestamp = new Date().toISOString();
+          return {
+            submittedAt: timestamp,
+            ts: timestamp,
+            source: "website:quarries",
+            form: "marbles-quote",
+            email: getVal(email),
+            name: getVal(nameInput),
+            company: getVal(company),
+            port: getVal(port),
+            products,
+            product_other: otherProduct || null,
+            quantity: getVal(quantity),
+            application: getVal(application),
+            incoterms: getVal(incoterms) || null,
+            notes: getVal(notes) || null,
+            context: {
+              page_url: window.location.href,
+              referrer: document.referrer || null,
+              timestamp,
+              elapsed_ms: Date.now() - pageStart,
+              language: navigator.language || null,
+              timezone:
+                Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+              device: getDevice(),
+              viewport: { w: window.innerWidth, h: window.innerHeight },
+              screen: {
+                w: window.screen?.width || null,
+                h: window.screen?.height || null,
+              },
+              dnt:
+                navigator.doNotTrack === "1" || navigator.doNotTrack === 1
+                  ? true
+                  : false,
+              platform: navigator.platform || null,
+              user_agent: navigator.userAgent || null,
+              ...getUTM(),
+            },
+          };
+        };
 
-            const payload = {
-              email: email.value.trim(),
-              name: nameEl.value.trim(),
-              company: company.value.trim(),
-              port: port.value.trim(),
-              products: getChecked("products[]"),
-              product_other: prodOther.value.trim() || null,
-              quantity: qty.value.trim(),
-              application: app.value,
-              incoterms: incoterms.value || null,
-              notes: notes.value.trim() || null,
-              source: "website:quarries",
-              ts: new Date().toISOString(),
-            };
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
 
+          const check = validate();
+
+          if (check.spam) {
+            setStatus("Thanks! We'll be in touch.", true);
+            hidePanel();
+            return;
+          }
+
+          if (!check.ok) return;
+
+          const payload = buildPayload(check.products, check.otherProduct);
+
+          if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.setAttribute("aria-busy", "true");
-            status.textContent = "Submitting…";
+            submitBtn.textContent = "Submitting...";
+          }
+          setStatus("Submitting...");
 
-            try {
-              // CHANGE to your serverless endpoint (e.g., /api/quote-specs, Vercel/Netlify/Workers)
-              const { ok, error } = await postJSON("/api/quote-specs", payload);
-              if (ok) {
-                status.textContent =
-                  "Thanks! We’ll send you the quote/specs shortly.";
-                status.style.color = "var(--fg,#1a1a1a)";
-                // optional: auto-close after a moment
-                setTimeout(hidePanel, 1200);
-              } else {
-                status.textContent =
-                  error || "Sorry, something went wrong. Please try again.";
-                status.style.color = "#c00";
-              }
-            } catch (err) {
-              status.textContent = "Network error. Please try again.";
-              status.style.color = "#c00";
-            } finally {
+          try {
+            const res = await fetch(ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
+
+            const contentType = res.headers.get("content-type") || "";
+            let data = { ok: res.ok };
+            if (contentType.includes("application/json")) {
+              data = await res.json().catch(() => data);
+            }
+
+            if (data.ok) {
+              setStatus(
+                "Thanks! We'll send you the quote/specs shortly.",
+                true
+              );
+              setTimeout(hidePanel, 800);
+            } else {
+              setStatus(
+                normalizeMsg(data.error) ||
+                  normalizeMsg(data.errors) ||
+                  normalizeMsg(data.message) ||
+                  "Sorry, something went wrong. Please try again.",
+                false
+              );
+            }
+          } catch (err) {
+            console.error("Marbles quote submission failed:", err);
+            setStatus(
+              "Network error. Please try again, or email hello@planetearthtreasures.com.",
+              false
+            );
+          } finally {
+            if (submitBtn) {
               submitBtn.disabled = false;
               submitBtn.removeAttribute("aria-busy");
+              submitBtn.textContent = "Request Quote";
             }
-          });
+          }
+        });
       })();
     </script>
   </body>
