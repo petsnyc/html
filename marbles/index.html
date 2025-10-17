@@ -561,7 +561,7 @@
 
       <!-- Hidden Quote/Specs Form (accessible modal-like panel) -->
       <div
-        id="quote-panel"
+        id="quotePanel"
         role="dialog"
         aria-modal="true"
         aria-labelledby="quote-title"
@@ -1003,7 +1003,7 @@
         const submitBtn = document.getElementById("quoteSubmit");
         const statusEl = document.getElementById("quoteStatus");
         const closeButtons = panel.querySelectorAll("[data-close]");
-        const openers = document.querySelectorAll("[data-open-quote]");
+        const openers = document.querySelectorAll(".open-quote");
         const pageStart = Date.now();
 
         if (statusEl) {
