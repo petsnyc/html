@@ -992,7 +992,7 @@
         if (yearEl) yearEl.textContent = new Date().getFullYear();
 
         const ENDPOINT =
-          "https://pets-form-handler.hashmawy.workers.dev/api/marbles-quote";
+          "https://pets-form-handler.hashmawy.workers.dev/api/marbles";
 
         const panel = document.getElementById("quotePanel");
         if (!panel) return;
@@ -1017,13 +1017,13 @@
         const nameInput = document.getElementById("q_name");
         const company = document.getElementById("q_company");
         const port = document.getElementById("q_port");
-        const quantity = document.getElementById("q_quantity");
-        const application = document.getElementById("q_application");
+        const quantity = document.getElementById("q_qty");
+        const application = document.getElementById("q_app");
         const incoterms = document.getElementById("q_incoterms");
         const notes = document.getElementById("q_notes");
         const honeypot = document.getElementById("hp_quote");
-        const productsOtherInput = document.getElementById("q_products_other");
-        const productsOtherCb = document.getElementById("products_other_cb");
+        const productsOtherInput = document.getElementById("q_prod_other");
+        const productsOtherCb = document.getElementById("q_prod_other_cb");
 
         const errors = {
           email: err("err_q_email"),
