@@ -658,7 +658,7 @@
 
           <form
             id="semiBulkForm"
-            action="/notify?type=semi-bulk"
+            action="/api/semi-bulk"
             method="post"
             novalidate
           >
@@ -1075,13 +1075,12 @@
       </div>
     </footer>
 
-        <script>
+    <script>
       (() => {
         const yearEl = document.getElementById("y");
         if (yearEl) yearEl.textContent = new Date().getFullYear();
 
         const ENDPOINT =
-          window.SEMI_BULK_ENDPOINT ||
           "https://pets-form-handler.hashmawy.workers.dev/api/semi-bulk";
 
         const form = document.getElementById("semiBulkForm");
@@ -1292,7 +1291,8 @@
               timestamp,
               elapsed_ms: Date.now() - pageStart,
               language: navigator.language || null,
-              timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+              timezone:
+                Intl.DateTimeFormat().resolvedOptions().timeZone || null,
               device: getDevice(),
               viewport: { w: window.innerWidth, h: window.innerHeight },
               screen: {
@@ -1377,4 +1377,3 @@
     </script>
   </body>
 </html>
-
