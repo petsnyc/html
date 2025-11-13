@@ -812,5 +812,86 @@
     <script>
       document.getElementById("y").textContent = new Date().getFullYear()
     </script>
+    <script>
+      async function loadProductDetail() {
+        const slug = location.pathname.split("/").pop().replace(".html", "");
+        const apiUrl = `https://pets-products-api.hashmawy.workers.dev/api/products/${encodeURIComponent(
+          slug
+        )}`;
+        try {
+          const res = await fetch(apiUrl);
+          if (res.status === 404) throw new Error("Not found");
+          if (!res.ok) throw new Error("Failed to load");
+          const { item } = await res.json();
+
+          // SEO
+          if (item.w_seo_title) document.title = item.w_seo_title;
+          const metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc)
+            metaDesc.setAttribute("content", item.w_seo_description || "");
+
+          // Hero
+          const eyebrow = document.querySelector(".eyebrow");
+          if (eyebrow) eyebrow.textContent = item.category_label || "";
+          const h1 = document.querySelector(".hero h1");
+          if (h1) h1.textContent = item.name || "";
+          const lead = document.querySelector(".hero p.lead");
+          if (lead) lead.textContent = item.w_hero_lead || "";
+          const features = document.querySelector(".feature-list");
+          if (features)
+            features.innerHTML = (item.w_hero_features || [])
+              .map((f) => `<li>${f}</li>`)
+              .join("");
+
+          const heroImg = document.querySelector(".hero__art img");
+          if (heroImg) {
+            if (item.w_hero_image_url) heroImg.src = item.w_hero_image_url;
+            if (item.w_hero_image_alt) heroImg.alt = item.w_hero_image_alt;
+          }
+          const figcap = document.querySelector(".hero__art figcaption");
+          if (figcap) figcap.textContent = item.w_hero_image_caption || "";
+
+          // Three product cards (lists in order): Quality, Applications, Formats & Logistics
+          const listSections = document.querySelectorAll(".product-card ul");
+          const arrays = [
+            item.w_quality_snapshot_points || [],
+            item.w_applications || [],
+            item.w_formats_logistics || []
+          ];
+          listSections.forEach((ul, i) => {
+            const source = arrays[i] || [];
+            ul.innerHTML = source.map((x) => `<li>${x}</li>`).join("");
+          });
+
+          // Bottom CTA band
+          const cta = document.querySelector(".cta-band");
+          if (cta) {
+            const h2 = cta.querySelector("h2");
+            if (h2) h2.textContent = item.w_cta_bottom_heading || "";
+            const body = cta.querySelector(".muted");
+            if (body) body.textContent = item.w_cta_bottom_body || "";
+            const btns = cta.querySelectorAll(
+              "a.btn-primary, a.cta-button, a.button-primary"
+            );
+            const href =
+              "/request-sample-quote.html?products=" +
+              encodeURIComponent(item.w_request_quote_product_value || slug) +
+              "&source=" +
+              encodeURIComponent(
+                item.w_request_quote_source_key || "product-" + slug + "-page"
+              );
+            btns.forEach((btn) => {
+              btn.textContent = item.w_cta_bottom_button_label || "Request Quote";
+              btn.setAttribute("href", href);
+            });
+          }
+        } catch (err) {
+          console.error(err);
+          const main = document.querySelector("main");
+          if (main) main.innerHTML = '<p class="muted">Product not found.</p>';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", loadProductDetail);
+    </script>
   </body>
 </html>

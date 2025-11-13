@@ -611,7 +611,7 @@
           </p>
         </div>
 
-        <div class="grid">
+        <div class="grid product-grid">
           <!-- Hibiscus -->
           <article class="card col-4">
             <figure class="card__media">
@@ -925,6 +925,56 @@
     <script>
       // year in footer
       document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+    <script>
+      async function loadProducts() {
+        const container = document.querySelector(".product-grid");
+        if (!container) return;
+        try {
+          const res = await fetch(
+            "https://pets-products-api.hashmawy.workers.dev/api/products?status=active&publish_status=published&limit=50"
+          );
+          if (!res.ok) throw new Error("Failed to load");
+          const data = await res.json();
+          const items = data.items || [];
+          if (!items.length) {
+            container.innerHTML = '<p class="muted">No products available.</p>';
+            return;
+          }
+          container.innerHTML = items
+            .map(
+              (p) => `
+          <article class="card col-4">
+            <figure class="card__media">
+              ${
+                p.w_card_image_url
+                  ? `<img src="${p.w_card_image_url}" alt="${p.w_card_image_alt || p.name}" />`
+                  : `<div class="ph">Image coming soon</div>`
+              }
+            </figure>
+            <div class="card__body">
+              <h3>${p.name || ""}</h3>
+              <p class="meta">${p.w_card_highlights_text || ""}</p>
+              <p class="meta">${p.w_packaging_note || ""}</p>
+              <div class="card__links">
+                <a class="link-btn" href="/products/${p.slug}.html">View Details</a>
+                <a class="link-btn" href="/request-sample-quote.html?products=${encodeURIComponent(
+                  p.w_request_quote_product_value || p.slug || ""
+                )}&source=${encodeURIComponent(
+                  p.w_request_quote_source_key || (p.slug ? `products-${p.slug}-card` : "products-card")
+                )}">${p.w_cta_primary_label || "Request Quote"}</a>
+              </div>
+            </div>
+          </article>
+        `
+            )
+            .join("");
+        } catch (err) {
+          console.error(err);
+          container.innerHTML = '<p class="muted">Error loading products.</p>';
+        }
+      }
+      document.addEventListener("DOMContentLoaded", loadProducts);
     </script>
   </body>
 </html>
