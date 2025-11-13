@@ -695,7 +695,7 @@
 
           return `
       <article class="card col-4">
-        <a class="card__image" href="/products/${p.slug}.html" aria-label="${
+        <a class="card__image" href="/products/product.html?slug=${p.slug}" aria-label="${
             p.name
           }">
           ${img}
@@ -707,7 +707,7 @@
               : ""
           }
           <h3 class="card__title">
-            <a href="/products/${p.slug}.html">${p.name}</a>
+            <a href="/products/product.html?slug=${p.slug}">${p.name}</a>
           </h3>
           ${
             p.w_card_highlights_text
@@ -720,9 +720,7 @@
               : ""
           }
           <div class="card__actions">
-            <a class="btn btn-ghost" href="/products/${
-              p.slug
-            }.html">View Details</a>
+            <a class="btn btn-ghost" href="/products/product.html?slug=${p.slug}">View Details</a>
             <a class="btn btn-primary" href="${quoteHref}">${
             p.w_cta_primary_label || "Request Quote"
           }</a>
