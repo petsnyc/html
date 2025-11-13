@@ -652,135 +652,8 @@
 
     <!-- FEATURED PRODUCTS -->
     <section id="featured">
-      <div class="wrap">
-        <div class="section-title">
-          <h2>High-Demand Staples</h2>
-          <div class="muted">
-            Hibiscus &bull; Moringa &bull; Peppermint &bull; Chamomile &bull;
-            Basil
-          </div>
-        </div>
-
-        <div class="grid">
-          <!-- Hibiscus -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Hibiscus.jpg" alt="Hibiscus calyces" />
-            </figure>
-            <div class="card__body">
-              <span class="badge">Priority Supply</span>
-              <h3>Hibiscus (Whole &amp; TBC)</h3>
-              <p class="meta">
-                Deep color, bold tartness. Tea-cut &amp; whole calyces.
-              </p>
-              <p class="meta">MOQ: 25&ndash;100 kg &bull; COA on request</p>
-              <div class="card__links">
-                <a class="link-btn" href="/products/product.html?slug=hibiscus"
-                  >View Specs &rsaquo;</a
-                >
-                <a
-                  class="link-btn"
-                  href="request-sample-quote.html&amp;product=hibiscus"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Moringa -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Moringa.jpg" alt="Moringa leaves" />
-            </figure>
-            <div class="card__body">
-              <span class="badge">Steady Supply</span>
-              <h3>Moringa (Leaf &amp; Powder)</h3>
-              <p class="meta">
-                Vibrant leaf, clean aroma. Consistent sieve profile.
-              </p>
-              <p class="meta">MOQ: 25&ndash;100 kg &bull; COA on request</p>
-              <div class="card__links">
-                <a class="link-btn" href="/products/product.html?slug=moringa"
-                  >View Specs &rsaquo;</a
-                >
-                <a
-                  class="link-btn"
-                  href="request-sample-quote.html&amp;product=moringa"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Peppermint -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Peppermint.jpg" alt="Peppermint leaves" />
-            </figure>
-            <div class="card__body">
-              <span class="badge">Tea-Cut</span>
-              <h3>Peppermint</h3>
-              <p class="meta">Fresh menthol profile. Low foreign matter.</p>
-              <p class="meta">MOQ: 25&ndash;100 kg &bull; COA on request</p>
-              <div class="card__links">
-                <a class="link-btn" href="/products/product.html?slug=peppermint"
-                  >View Specs &rsaquo;</a
-                >
-                <a
-                  class="link-btn"
-                  href="request-sample-quote.html&amp;product=peppermint"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Chamomile -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Chamomile.jpg" alt="Chamomile flowers" />
-            </figure>
-            <div class="card__body">
-              <span class="badge">Bar-Cut</span>
-              <h3>Chamomile</h3>
-              <p class="meta">Clean floral notes, stable bar-cut.</p>
-              <p class="meta">MOQ: 25&ndash;100 kg &bull; COA on request</p>
-              <div class="card__links">
-                <a class="link-btn" href="/products/product.html?slug=chamomile"
-                  >View Specs &rsaquo;</a
-                >
-                <a
-                  class="link-btn"
-                  href="request-sample-quote.html&amp;product=chamomile"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-
-          <!-- Basil -->
-          <article class="card col-4">
-            <figure class="card__media">
-              <img src="assets/Basil.jpg" alt="Basil leaves" />
-            </figure>
-            <div class="card__body">
-              <span class="badge">C&amp;S</span>
-              <h3>Basil</h3>
-              <p class="meta">Bright aroma, consistent cut &amp; sift.</p>
-              <p class="meta">MOQ: 25&ndash;100 kg &bull; COA on request</p>
-              <div class="card__links">
-                <a class="link-btn" href="/products/product.html?slug=basil"
-                  >View Specs &rsaquo;</a
-                >
-                <a
-                  class="link-btn"
-                  href="request-sample-quote.html&amp;product=basil"
-                  >Request Quote</a
-                >
-              </div>
-            </div>
-          </article>
-        </div>
+      <div class="grid" id="featured-grid">
+        <p class="muted">Loading featured products…</p>
       </div>
     </section>
 
@@ -1002,9 +875,7 @@
             <strong>Download:</strong> Specs Pack (PDF) &mdash; Hibiscus,
             Moringa, Peppermint, Chamomile, Basil
             <div style="margin-top: 10px">
-              <a class="btn btn-ghost" href="./specs-pack.html"
-                >Get PDF</a
-              >
+              <a class="btn btn-ghost" href="./specs-pack.html">Get PDF</a>
             </div>
           </div>
         </div>
@@ -1044,7 +915,9 @@
             <a href="./products/index.html">Products</a>
             <a href="quality.html">Quality &amp; Compliance</a>
             <a href="logistics.html">Sourcing &amp; Logistics</a>
-            <a class="link-highlight" href="marbles/index.html">Marbles &amp; Stones</a>
+            <a class="link-highlight" href="marbles/index.html"
+              >Marbles &amp; Stones</a
+            >
             <a href="resources/index.html">Resources</a>
             <a href="contact.html">Contact</a>
           </div>
@@ -1060,6 +933,96 @@
     <script>
       // year in footer
       document.getElementById("y").textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+      (function () {
+        const API_BASE = "https://pets-products-api.hashmawy.workers.dev";
+
+        function buildQuoteHref(p) {
+          const prod = encodeURIComponent(
+            p.w_request_quote_product_value || p.slug || ""
+          );
+          const src = encodeURIComponent(
+            p.w_request_quote_source_key || "home-featured-" + (p.slug || "")
+          );
+          return (
+            "/request-sample-quote.html?products=" + prod + "&source=" + src
+          );
+        }
+
+        function renderFeaturedCard(p) {
+          const imgSrc =
+            p.w_card_image_url ||
+            "/products/assets/" + (p.name || "").replace(/\s+/g, "") + ".jpg";
+          const imgAlt = p.w_card_image_alt || p.name || "";
+          const title = p.w_home_title || p.name || "";
+          const intro = p.w_home_intro_text || p.w_card_highlights_text || "";
+          const moq = p.w_home_moq_text || "";
+          const badge = p.w_home_badge_label || "";
+
+          return `
+        <article class="card col-4">
+          <figure class="card__media">
+            <img src="${imgSrc}" alt="${imgAlt}">
+          </figure>
+          <div class="card__body">
+            ${badge ? `<span class="badge">${badge}</span>` : ""}
+            <h3>${title}</h3>
+            ${intro ? `<p class="meta">${intro}</p>` : ""}
+            ${moq ? `<p class="meta">${moq}</p>` : ""}
+            <div class="card__links">
+              <a class="link-btn" href="/products/product.html?slug=${encodeURIComponent(
+                p.slug
+              )}">
+                View Specs &rsaquo;
+              </a>
+              <a class="link-btn" href="${buildQuoteHref(p)}">
+                Request Quote
+              </a>
+            </div>
+          </div>
+        </article>
+      `;
+        }
+
+        async function loadFeaturedProducts() {
+          const container = document.getElementById("featured-grid");
+          if (!container) return;
+
+          try {
+            const url =
+              API_BASE +
+              "/api/products?home_featured=1&status=active&publish_status=published&limit=12";
+            const res = await fetch(url, { mode: "cors" });
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            const data = await res.json();
+            const items = (data && data.items) || [];
+
+            if (!items.length) {
+              container.innerHTML =
+                '<p class="muted">No featured products available.</p>';
+              return;
+            }
+
+            // sort by w_home_featured_order ascending, then name
+            items.sort((a, b) => {
+              const ao = a.w_home_featured_order ?? 0;
+              const bo = b.w_home_featured_order ?? 0;
+              if (ao !== bo) return ao - bo;
+              return (a.name || "").localeCompare(b.name || "");
+            });
+
+            container.innerHTML = items.map(renderFeaturedCard).join("");
+          } catch (err) {
+            console.error("Failed to load featured products:", err);
+            container.innerHTML =
+              '<p class="muted">Error loading featured products. Please try again later.</p>';
+          }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadFeaturedProducts);
+      })();
     </script>
   </body>
 </html>
