@@ -88,125 +88,6 @@
         padding: 0 clamp(4px, 1.5vw, 16px);
       }
 
-      /* Header */
-      header.site {
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background: transparent;
-        border-bottom: none;
-        backdrop-filter: none;
-      }
-      .site__grid {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto;
-        gap: clamp(10px, 3vw, 24px);
-        align-items: flex-start;
-        gap: clamp(10px, 3vw, 24px);
-        align-items: flex-start;
-        padding: 2px;
-      }
-      .site__logo {
-        display: inline-flex;
-        align-items: flex-start;
-        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
-        padding: 6px 14px;
-        border-radius: var(--radius);
-        border: 1px solid var(--line);
-        box-shadow: var(--shadow);
-      }
-      .site__logo img {
-        width: clamp(80px, 10vw, 120px);
-        height: auto;
-      }
-      .brand__name {
-        font-family: Marcellus, serif;
-        font-size: 20px;
-      }
-      .site__nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        background: color-mix(in oklab, var(--paper), var(--bg) 25%);
-        padding: 10px 16px;
-        border-radius: var(--radius);
-        border: 1px solid var(--line);
-        box-shadow: var(--shadow);
-      }
-      .site__spacer {
-        display: none;
-      }
-      nav {
-        flex: 1 1 auto;
-        display: flex;
-        justify-content: flex-start;
-      }
-      nav ul {
-        display: flex;
-        gap: 18px;
-        align-items: flex-start;
-        justify-content: flex-start;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      nav a {
-        font-weight: 600;
-        color: var(--ink);
-        opacity: 0.92;
-      }
-      .cta-header {
-        display: inline-flex;
-        align-items: flex-start;
-        gap: 10px;
-        background: var(--accent);
-        color: #fff;
-        border-radius: 999px;
-        padding: 10px 16px;
-        border: 1px solid color-mix(in oklab, #fff, var(--accent) 70%);
-        box-shadow: var(--shadow);
-        text-decoration: none;
-      }
-      @media (max-width: 768px) {
-        .site__grid {
-          grid-template-columns: auto 1fr;
-          grid-template-rows: auto;
-          gap: 8px;
-          padding: 6px clamp(6px, 4vw, 12px);
-          align-items: center;
-        }
-        .site__logo {
-          grid-column: 1;
-          justify-content: center;
-          align-items: center;
-          align-self: center;
-        }
-        .site__logo img {
-          width: clamp(80px, 24vw, 140px);
-        }
-        .site__nav {
-          grid-column: 2;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 8px;
-          align-self: center;
-        }
-        nav {
-          width: 100%;
-          justify-content: flex-start;
-        }
-        nav ul {
-          flex-direction: column;
-          gap: 6px;
-          align-items: flex-start;
-        }
-        .cta-header {
-          display: none;
-        }
-      }
-
       /* Hero */
       .hero {
         position: relative;
@@ -362,50 +243,6 @@
         flex-direction: column;
         min-height: 100%;
       }
-      .card__media {
-        aspect-ratio: 4/3;
-        background: #f0eee9;
-        border-bottom: 1px solid var(--line);
-        display: grid;
-        place-items: center;
-        color: #888;
-        font-size: 14px;
-      }
-      .card__media img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: calc(var(--radius) - 4px);
-      }
-      .card__body {
-        padding: 16px;
-      }
-      .badge {
-        display: inline-block;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.3px;
-        background: #e8f4ee;
-        color: var(--ok);
-        border: 1px solid color-mix(in oklab, var(--ok), #fff 70%);
-        padding: 4px 8px;
-        border-radius: 999px;
-        margin-bottom: 10px;
-      }
-      .meta {
-        color: var(--ink-muted);
-        font-size: 14px;
-        margin-top: 4px;
-      }
-      .card__links {
-        display: flex;
-        gap: 12px;
-        margin-top: 14px;
-      }
-      .link-btn {
-        font-weight: 700;
-      }
-
       /* Why Work */
       .steps {
         display: grid;
@@ -570,36 +407,11 @@
 
   <body>
     <!-- HEADER -->
-    <header class="site" role="banner">
-      <div class="site__grid wrap">
-        <a
-          class="site__logo"
-          href="../index.html"
-          aria-label="Planet Earth Treasures - Home"
-        >
-          <img
-            src="../assets/logo-wordmark.png"
-            alt="Planet Earth Treasures"
-            width="220"
-            height="60"
-          />
-        </a>
-        <div class="site__nav">
-          <nav aria-label="Primary">
-            <ul>
-              <li><a href="../products/index.html">Products</a></li>
-              <li><a href="../quality.html">Quality &amp; Compliance</a></li>
-              <li><a href="../logistics.html">Sourcing &amp; Logistics</a></li>
-              <li><a href="../resources/index.html">Resources</a></li>
-            </ul>
-          </nav>
-          <a class="cta-header" href="../request-sample-quote.html"
-            >Request Samples/Quote</a
-          >
-        </div>
-        <div class="site__spacer" aria-hidden="true"></div>
-      </div>
-    </header>
+    <pets-header
+      logo-src="/assets/logo-wordmark.png"
+      home-href="/"
+      active-page="products"
+    ></pets-header>
     <main id="products" class="wrap" tabindex="-1" aria-label="Products">
       <section style="margin-top: 18px">
         <div class="section-title">
@@ -611,151 +423,24 @@
           </p>
         </div>
 
-        <div class="grid product-grid">
-          <noscript
-            ><p class="muted">Enable JavaScript to view products.</p></noscript
-          >
-        </div>
+        <pets-product-grid limit="50">
+          <p slot="empty" class="muted">No products available.</p>
+          <p slot="error" class="muted">
+            Error loading products. Please try again later.
+          </p>
+        </pets-product-grid>
+        <noscript>
+          <p class="muted">Enable JavaScript to view products.</p>
+        </noscript>
       </section>
     </main>
 
-    <footer role="contentinfo">
-      <div class="wrap foot">
-        <div>
-          <div
-            class="brand"
-            style="
-              margin-bottom: 8px;
-              display: inline-flex;
-              align-items: center;
-              gap: 10px;
-            "
-          >
-            <img
-              src="../assets/logo-mark-32.png"
-              alt=""
-              width="36"
-              height="36"
-            />
-            <strong class="brand__name" style="color: #e8efe9"
-              >Planet Earth Treasures</strong
-            >
-          </div>
-          <p class="small">
-            Importer &amp; Wholesale Distributor of Egyptian herbs &amp;
-            botanicals. Based near the Port of NY/NJ.
-          </p>
-          <p class="small">
-            &copy; <span id="y"></span> Planet Earth Treasures LLC. All rights
-            reserved.
-          </p>
-        </div>
-        <div>
-          <strong>Explore</strong>
-          <div class="explore-nav">
-            <a href="../products/index.html">Products</a>
-            <a href="../quality.html">Quality &amp; Compliance</a>
-            <a href="../logistics.html">Sourcing &amp; Logistics</a>
-            <a class="link-highlight" href="../marbles/index.html"
-              >Marbles &amp; Stones</a
-            >
-            <a href="../resources/index.html">Resources</a>
-            <a href="../contact.html">Contact</a>
-          </div>
-        </div>
-        <div>
-          <strong>Contact</strong><br />
-          <span class="small">Email: hello@planetearthtreasures.com</span><br />
-          <span class="small">USA (NY/NJ)</span>
-        </div>
-      </div>
-    </footer>
+    <pets-footer
+      logo-src="/assets/logo-mark-32.png"
+      brand-name="Planet Earth Treasures"
+      copyright-name="Planet Earth Treasures LLC"
+    ></pets-footer>
 
-    <script>
-      // year in footer
-      document.getElementById("y").textContent = new Date().getFullYear();
-    </script>
-
-    <script>
-      (function () {
-        const API = "https://pets-products-api.hashmawy.workers.dev";
-
-        function cardTemplate(p) {
-          const img = p.w_card_image_url
-            ? `<img src="${p.w_card_image_url}" alt="${
-                p.w_card_image_alt || p.name
-              }" loading="lazy">`
-            : `<div class="ph" aria-hidden="true">Image coming soon</div>`;
-
-          const quoteHref = `/request-sample-quote.html?products=${encodeURIComponent(
-            p.w_request_quote_product_value || p.slug
-          )}&source=${encodeURIComponent(
-            p.w_request_quote_source_key || "products-" + p.slug + "-card"
-          )}`;
-
-          return `
-      <article class="card col-4">
-        <a class="card__image" href="/products/product.html?slug=${p.slug}" aria-label="${
-            p.name
-          }">
-          ${img}
-        </a>
-        <div class="card__body">
-          ${
-            p.category_label
-              ? `<span class="badge">${p.category_label}</span>`
-              : ""
-          }
-          <h3 class="card__title">
-            <a href="/products/product.html?slug=${p.slug}">${p.name}</a>
-          </h3>
-          ${
-            p.w_card_highlights_text
-              ? `<p class="meta">${p.w_card_highlights_text}</p>`
-              : ""
-          }
-          ${
-            p.w_packaging_note
-              ? `<p class="meta">${p.w_packaging_note}</p>`
-              : ""
-          }
-          <div class="card__actions">
-            <a class="btn btn-ghost" href="/products/product.html?slug=${p.slug}">View Details</a>
-            <a class="btn btn-primary" href="${quoteHref}">${
-            p.w_cta_primary_label || "Request Quote"
-          }</a>
-          </div>
-        </div>
-      </article>
-    `;
-        }
-
-        async function loadProducts() {
-          const grid = document.querySelector(".product-grid");
-          if (!grid) return;
-
-          try {
-            const url = `${API}/api/products?status=active&publish_status=published&limit=50`;
-            const res = await fetch(url, { mode: "cors" });
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const data = await res.json();
-
-            const items = (data && data.items) || [];
-            if (!items.length) {
-              grid.innerHTML = '<p class="muted">No products available.</p>';
-              return;
-            }
-
-            grid.innerHTML = items.map(cardTemplate).join("");
-          } catch (err) {
-            console.error("Failed to load products:", err);
-            grid.innerHTML =
-              '<p class="muted">Error loading products. Please try again later.</p>';
-          }
-        }
-
-        document.addEventListener("DOMContentLoaded", loadProducts);
-      })();
-    </script>
+    <script type="module" src="/components/index.js"></script>
   </body>
 </html>

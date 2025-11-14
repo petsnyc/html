@@ -27,335 +27,37 @@
       }
       .wrap { width: min(1100px, 92%); margin: 0 auto; }
 
-      header.site {
-        background: #fff;
-        border-bottom: 1px solid var(--line);
-      }
-      .site__grid {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        align-items: center;
-        gap: 16px;
-        padding: 14px 0;
-      }
-      .site__logo img { display: block; height: auto; }
-      .site__nav nav ul {
-        display: flex; gap: 16px; list-style: none; margin: 0; padding: 0;
-      }
-      .site__nav a { text-decoration: none; color: var(--ink); font-weight: 600; }
-      .cta-header {
-        display: inline-flex; padding: 10px 14px; border: 1px solid var(--ink);
-        border-radius: 10px; font-weight: 700; text-decoration: none; color: var(--ink);
-      }
-      .site__spacer { height: 1px; }
-
       /* Product page */
       main section { padding: clamp(28px, 5vw, 52px) 0; }
-      .hero__grid {
-        display: grid;
-        gap: clamp(18px, 4vw, 28px);
-        grid-template-columns: minmax(0, 1fr) 420px;
-      }
-      @media (max-width: 880px) {
-        .hero__grid { grid-template-columns: 1fr; }
-      }
-      .eyebrow { color: var(--ink-muted); margin: 0 0 6px; font-weight: 600; }
-      .hero h1 { margin: 0 0 10px; font-size: clamp(28px, 5vw, 40px); }
-      .hero p.lead { margin: 0 0 12px; color: var(--ink-muted); }
-      .feature-list { margin: 0 0 14px; padding-left: 18px; color: var(--ink-muted); }
-      .feature-list li::before { content: "-"; color: var(--accent); font-weight: 600; margin-right: 6px; }
-
-      .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
       .btn { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
              padding: 12px 18px; border-radius: 10px; border: 1px solid var(--ink);
              text-decoration: none; font-weight: 700; }
       .btn-primary { background: var(--accent); color: #fff; border-color: color-mix(in oklab, var(--accent), #000 15%); }
       .btn-ghost { background: transparent; color: var(--ink); }
 
-      .hero__art {
-        background: #fdfbf6; border: 1px solid var(--line); border-radius: var(--radius);
-        box-shadow: var(--shadow); padding: 18px; display: grid; gap: 12px;
-      }
-      .hero__art img { width: 100%; height: auto; border-radius: 12px; display: block;
-                       box-shadow: 0 12px 24px rgba(31, 42, 36, 0.12); }
-      .hero__art figcaption { margin-top: 10px; font-size: 13px; color: var(--ink-muted); }
-
-      /* Three info cards */
-      .product-grid { display: grid; gap: clamp(18px, 5vw, 28px); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-      .product-card {
-        background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
-        box-shadow: var(--shadow); padding: clamp(18px, 4vw, 28px);
-      }
-      .product-card h2 { margin: 0 0 14px; }
-      .product-card ul { margin: 0; padding-left: 18px; color: var(--ink-muted); }
-
-      /* CTA band */
-      .cta-band {
-        background: color-mix(in oklab, var(--accent), #000 6%);
-        color: #f5f7f5;
-        border-top: 1px solid color-mix(in oklab, var(--accent), #000 25%);
-        border-bottom: 1px solid color-mix(in oklab, var(--accent), #000 25%);
-        padding: clamp(28px, 5vw, 48px) 0;
-      }
-      .cta-band h2 { margin: 0 0 8px; color: #fff; }
-      .cta-band .muted { color: color-mix(in oklab, #fff, #000 20%); }
-      .cta-band__inner {
-        display: grid; gap: clamp(16px, 4vw, 32px); align-items: center;
-        grid-template-columns: minmax(0, 1fr) auto;
-      }
-      .cta-band__actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
-      .cta-band__actions .btn-primary { background: #fff; color: var(--accent);
-        border-color: color-mix(in oklab, #fff, var(--accent) 35%); }
-      .cta-band__actions .btn-ghost { color: #fff; border-color: color-mix(in oklab, #fff, rgba(255,255,255,0) 30%); }
-      .cta-band__actions .btn-ghost:hover { background: color-mix(in oklab, #fff, rgba(255,255,255,0) 80%); color: var(--accent); }
-      @media (max-width: 720px) {
-        .cta-band__inner { grid-template-columns: 1fr; }
-        .cta-band__actions { justify-content: flex-start; }
-      }
-
-      /* Footer */
-      footer { border-top: 1px solid var(--line); background: #1f2a24; color: #e8efe9; }
-      .foot { display: grid; gap: 20px; grid-template-columns: 1fr 1fr 1fr; padding: 24px 0; }
-      .foot a { color: #e8efe9; text-decoration: none; }
-      .small { font-size: 14px; color: #cfd8d2; }
-      .brand { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-      .brand__name { color: #e8efe9; }
     </style>
   </head>
   <body>
-    <header class="site" role="banner">
-      <div class="site__grid wrap">
-        <a class="site__logo" href="./index.html" aria-label="Planet Earth Treasures - Home">
-          <img src="./assets/logo-wordmark.png" alt="Planet Earth Treasures" width="220" height="60" />
-        </a>
-        <div class="site__nav">
-          <nav aria-label="Primary">
-            <ul>
-              <li><a href="./products/index.html">Products</a></li>
-              <li><a href="./quality.html">Quality &amp; Compliance</a></li>
-              <li><a href="./logistics.html">Sourcing &amp; Logistics</a></li>
-              <li><a href="./resources/index.html">Resources</a></li>
-            </ul>
-          </nav>
-          <a class="cta-header" href="./request-sample-quote.html">Request Samples/Quote</a>
-        </div>
-        <div class="site__spacer" aria-hidden="true"></div>
-      </div>
-    </header>
+    <pets-header
+      logo-src="/assets/logo-wordmark.png"
+      home-href="/"
+      active-page="products"
+    ></pets-header>
 
     <main id="product" tabindex="-1">
-      <!-- HERO -->
-      <section class="hero hero--product">
-        <div class="wrap hero__grid">
-          <div class="hero">
-            <a class="back-link" href="index.html">&larr; Back to Products</a>
-            <p class="eyebrow"></p>
-            <h1></h1>
-            <p class="lead"></p>
-            <ul class="feature-list"></ul>
-            <div class="actions">
-              <a class="btn btn-primary" href="#">Request Samples/Quote</a>
-              <a class="btn btn-ghost" href="#">Contact Team</a>
-            </div>
-            <div class="trust" aria-hidden="true">
-              <span>FSVP/HACCP aligned</span>
-              <span>COA per lot</span>
-              <span>NY/NJ warehousing</span>
-            </div>
-          </div>
-          <figure class="hero__art">
-            <img src="" alt="" />
-            <figcaption class="muted"></figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <!-- THREE INFO CARDS -->
-      <section class="product-sections">
-        <div class="wrap product-grid">
-          <article class="product-card">
-            <h2>Quality Snapshot</h2>
-            <ul class="bullet"></ul>
-          </article>
-          <article class="product-card">
-            <h2>Applications</h2>
-            <ul class="bullet"></ul>
-          </article>
-          <article class="product-card">
-            <h2>Formats &amp; Logistics</h2>
-            <ul class="bullet"></ul>
-          </article>
-        </div>
-      </section>
-
-      <!-- CTA BAND -->
-      <section class="cta-band">
-        <div class="wrap cta-band__inner">
-          <div>
-            <h2></h2>
-            <p class="muted"></p>
-          </div>
-          <div class="cta-band__actions">
-            <a class="btn btn-primary" href="#">Request Quote</a>
-            <a class="btn btn-ghost" href="./specs-pack.html">Download Specs Pack</a>
-          </div>
-        </div>
-      </section>
+      <pets-product-detail
+        auto-slug
+        manage-seo
+        back-href="/products/index.html"
+      ></pets-product-detail>
     </main>
 
-    <footer role="contentinfo">
-      <div class="wrap foot">
-        <div>
-          <div class="brand">
-            <img src="./assets/logo-mark-32.png" alt="" width="36" height="36" />
-            <strong class="brand__name">Planet Earth Treasures</strong>
-          </div>
-          <p class="small">Importer &amp; Wholesale Distributor of Egyptian herbs &amp; botanicals. Based near the Port of NY/NJ.</p>
-          <p class="small">&copy; <span id="y"></span> Planet Earth Treasures LLC. All rights reserved.</p>
-        </div>
-        <div>
-          <strong>Explore</strong>
-          <div class="explore-nav">
-            <a href="./products/index.html">Products</a>
-            <a href="./quality.html">Quality &amp; Compliance</a>
-            <a href="./logistics.html">Sourcing &amp; Logistics</a>
-            <a class="link-highlight" href="./marbles/index.html">Marbles &amp; Stones</a>
-            <a href="./resources/index.html">Resources</a>
-            <a href="./contact.html">Contact</a>
-          </div>
-        </div>
-        <div>
-          <strong>Contact</strong><br />
-          <span class="small">Email: hello@planetearthtreasures.com</span><br />
-          <span class="small">USA (NY/NJ)</span>
-        </div>
-      </div>
-    </footer>
+    <pets-footer
+      logo-src="/assets/logo-mark-32.png"
+      brand-name="Planet Earth Treasures"
+      copyright-name="Planet Earth Treasures LLC"
+    ></pets-footer>
 
-    <!-- Footer year -->
-    <script>
-      document.getElementById("y").textContent = new Date().getFullYear();
-    </script>
-
-    <!-- Dynamic product loader; replaces any older loadProductDetail implementation -->
-    <script>
-      (function () {
-        const API_BASE = 'https://pets-products-api.hashmawy.workers.dev';
-
-        function getSlug() {
-          const url = new URL(window.location.href);
-          const qp = url.searchParams.get('slug');
-          if (qp) return qp.toLowerCase();
-          // Fallback: infer from filename if present
-          const last = url.pathname.split('/').pop() || '';
-          if (last.endsWith('.html') && last !== 'product.html') {
-            return last.replace('.html', '').toLowerCase();
-          }
-          return null;
-        }
-
-        function buildQuoteHref(slug, item) {
-          const prod = encodeURIComponent(item?.w_request_quote_product_value || slug || '');
-          const src = encodeURIComponent(item?.w_request_quote_source_key || ('product-' + (slug || 'unknown') + '-page'));
-          return `/request-sample-quote.html?products=${prod}&source=${src}`;
-        }
-
-        function buildContactHref(slug, item) {
-          const prod = encodeURIComponent(item?.w_contact_product_value || slug || '');
-          const src = encodeURIComponent(item?.w_request_quote_source_key || ('product-' + (slug || 'unknown') + '-page'));
-          return `/contact.html?product=${prod}&source=${src}`;
-        }
-
-        async function loadProductDetail() {
-          const slug = getSlug();
-          if (!slug) {
-            document.title = 'Product - Planet Earth Treasures';
-            const main = document.querySelector('main');
-            if (main) main.innerHTML = '<p class="muted wrap">No product selected. Append <code>?slug=hibiscus</code> to the URL.</p>';
-            return;
-          }
-
-          const apiUrl = `${API_BASE}/api/products/${encodeURIComponent(slug)}`;
-
-          try {
-            const res = await fetch(apiUrl, { mode: 'cors' });
-            if (res.status === 404) throw new Error('Not found');
-            if (!res.ok) throw new Error('Failed to load');
-            const { item } = await res.json();
-
-            // SEO
-            if (item.w_seo_title) document.title = item.w_seo_title;
-            const metaDesc = document.querySelector('meta[name="description"]');
-            if (metaDesc) metaDesc.setAttribute('content', item.w_seo_description || '');
-
-            // Hero
-            const eyebrow = document.querySelector('.eyebrow');
-            if (eyebrow) eyebrow.textContent = item.category_label || '';
-            const h1 = document.querySelector('.hero h1');
-            if (h1) h1.textContent = item.name || '';
-            const lead = document.querySelector('.hero p.lead');
-            if (lead) lead.textContent = item.w_hero_lead || '';
-
-            const features = document.querySelector('.feature-list');
-            if (features) {
-              const arr = item.w_hero_features || [];
-              features.innerHTML = arr.map(f => `<li>${f}</li>`).join('');
-            }
-
-            const heroImg = document.querySelector('.hero__art img');
-            if (heroImg) {
-              if (item.w_hero_image_url) heroImg.src = item.w_hero_image_url;
-              if (item.w_hero_image_alt) heroImg.alt = item.w_hero_image_alt;
-            }
-            const figcap = document.querySelector('.hero__art figcaption');
-            if (figcap) figcap.textContent = item.w_hero_image_caption || '';
-
-            // Lists: Quality, Applications, Formats & Logistics
-            const listSections = document.querySelectorAll('.product-card ul');
-            const arrays = [
-              item.w_quality_snapshot_points || [],
-              item.w_applications || [],
-              item.w_formats_logistics || []
-            ];
-            listSections.forEach((ul, i) => {
-              const source = arrays[i] || [];
-              ul.innerHTML = source.map(x => `<li>${x}</li>`).join('');
-            });
-
-            // Buttons in Hero
-            const heroBtns = document.querySelectorAll('.actions a');
-            heroBtns.forEach((a, idx) => {
-              if (idx === 0) {
-                a.textContent = item.w_cta_primary_label || 'Request Samples/Quote';
-                a.setAttribute('href', buildQuoteHref(slug, item));
-              } else if (idx === 1) {
-                a.textContent = 'Contact Team';
-                a.setAttribute('href', buildContactHref(slug, item));
-              }
-            });
-
-            // CTA band
-            const cta = document.querySelector('.cta-band');
-            if (cta) {
-              const h2 = cta.querySelector('h2');
-              if (h2) h2.textContent = item.w_cta_bottom_heading || (`Ready to source ${item.name || ''}?`).trim();
-              const body = cta.querySelector('.muted');
-              if (body) body.textContent = item.w_cta_bottom_body || 'Partner with Planet Earth Treasures for compliant, reliable sourcing.';
-              const primary = cta.querySelector('.btn-primary');
-              if (primary) {
-                primary.textContent = item.w_cta_bottom_button_label || 'Request Quote';
-                primary.setAttribute('href', buildQuoteHref(slug, item));
-              }
-            }
-          } catch (err) {
-            console.error(err);
-            const main = document.querySelector('main');
-            if (main) main.innerHTML = '<p class="muted wrap">Product not found.</p>';
-          }
-        }
-
-        document.addEventListener('DOMContentLoaded', loadProductDetail);
-      })();
-    </script>
+    <script type="module" src="/components/index.js"></script>
   </body>
 </html>
