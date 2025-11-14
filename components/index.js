@@ -1,0 +1,9 @@
+import './pets-header.js';
+import './pets-footer.js';
+import './pets-product-card.js';
+import './pets-product-grid.js';
+import './pets-product-detail.js';
+import './pets-panel.js';
+import './pets-cta-panel.js';
+import './pets-resource-card.js';
+import './pets-trust-strip.js';
