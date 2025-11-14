@@ -253,36 +253,12 @@
   </head>
 
   <body>
-    <header class="site" role="banner">
-      <div class="site__grid wrap">
-        <a
-          class="site__logo"
-          href="/"
-          aria-label="Planet Earth Treasures - Home"
-        >
-          <img
-            src="assets/logo-wordmark.png"
-            alt="Planet Earth Treasures"
-            width="220"
-            height="60"
-          />
-        </a>
-        <div class="site__nav">
-          <nav aria-label="Primary">
-            <ul>
-              <li><a href="./products/index.html">Products</a></li>
-              <li><a href="quality.html">Quality &amp; Compliance</a></li>
-              <li><a href="logistics.html">Sourcing &amp; Logistics</a></li>
-              <li><a href="resources/index.html">Resources</a></li>
-            </ul>
-          </nav>
-          <a class="cta-header" href="request-sample-quote.html"
-            >Request Samples/Quote</a
-          >
-        </div>
-        <div class="site__spacer" aria-hidden="true"></div>
-      </div>
-    </header>
+    <pets-header
+      logo-src="/assets/logo-wordmark.png"
+      home-href="/"
+      active-page="contact"
+      variant="frosted"
+    ></pets-header>
 
     <main id="contact" class="wrap" tabindex="-1" aria-label="Contact PETS">
       <!-- CONTACT FORM (General Inquiries) -->
@@ -404,49 +380,17 @@
       </section>
     </main>
 
-    <footer role="contentinfo">
-      <div class="wrap foot">
-        <div>
-          <div class="brand">
-            <img src="assets/logo-mark-32.png" alt="" width="36" height="36" />
-            <strong class="brand__name">Planet Earth Treasures</strong>
-          </div>
-          <p class="small">
-            Importer &amp; Wholesale Distributor of Egyptian herbs &amp;
-            botanicals. Based near the Port of NY/NJ.
-          </p>
-          <p class="small">
-            &copy; <span id="y"></span> Planet Earth Treasures LLC. All rights
-            reserved.
-          </p>
-        </div>
-        <div>
-          <strong>Explore</strong>
-          <div class="explore-nav">
-            <a href="./products/index.html">Products</a>
-            <a href="quality.html">Quality &amp; Compliance</a>
-            <a href="logistics.html">Sourcing &amp; Logistics</a>
-            <a class="link-highlight" href="marbles/index.html"
-              >Marbles &amp; Stones</a
-            >
-            <a href="resources/index.html">Resources</a>
-            <a href="contact.html">Contact</a>
-          </div>
-        </div>
-        <div>
-          <strong>Contact</strong><br />
-          <span class="small">Email: hello@planetearthtreasures.com</span><br />
-          <span class="small">USA (NY/NJ)</span>
-        </div>
-      </div>
-    </footer>
+    <pets-footer
+      logo-src="/assets/logo-mark-32.png"
+      brand-name="Planet Earth Treasures"
+      copyright-name="Planet Earth Treasures LLC"
+    ></pets-footer>
+
+    <script type="module" src="/components/index.js"></script>
 
     <script>
       /* Contact form handler: validation + context + POST to Worker */
       (() => {
-        const yearEl = document.getElementById("y");
-        if (yearEl) yearEl.textContent = new Date().getFullYear();
-
         // ---- Config ----
         const ENDPOINT =
           "https://pets-form-handler.hashmawy.workers.dev/api/contact";
